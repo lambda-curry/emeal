@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "start:fe": "yarn workspace emeal-frontend run react-scripts start",
+    "build:fe": "yarn workspace emeal-frontend run react-scripts build",
+    "test:fe": "yarn workspace emeal-frontend run react-scripts test"
+  }
+}
