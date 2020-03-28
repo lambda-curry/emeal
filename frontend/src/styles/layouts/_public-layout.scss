@@ -1,0 +1,46 @@
+.public-layout {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  grid-template-rows: 160px auto;
+
+  grid-template-areas:
+    'header'
+    'page';
+
+  .logo-type {
+    grid-area: header;
+  }
+
+  .page {
+    grid-area: page;
+    align-self: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  button[type='submit'] {
+    align-self: center;
+  }
+
+  .form {
+    &-field {
+      width: 320px - 32px;
+    }
+
+    &-content {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 14px;
+
+      a {
+        font-weight: bold;
+        color: black;
+      }
+    }
+  }
+}

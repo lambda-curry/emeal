@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-thin.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-thin.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-thin.svg#gilroythin') format('svg');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-ultralight.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-ultralight.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-ultralight.svg#gilroyultralight')
+      format('svg');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-light.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-light.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-light.svg#gilroylight') format('svg');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-regular.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-regular.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-regular.svg#gilroyregular') format('svg');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-medium.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-medium.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-medium.svg#gilroymedium') format('svg');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-medium.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-medium.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-medium.svg#gilroymedium') format('svg');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-bold.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-bold.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-bold.svg#gilroybold') format('svg');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-extrabold.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-extrabold.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-extrabold.svg#gilroyextrabold') format('svg');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('%PUBLIC_URL%/fonts/gilroy-heavy.woff2') format('woff2'),
+    url('%PUBLIC_URL%/fonts/gilroy-heavy.woff') format('woff'),
+    url('%PUBLIC_URL%/fonts/gilroy-heavy.svg#gilroyheavy') format('svg');
+  font-weight: 900;
+}

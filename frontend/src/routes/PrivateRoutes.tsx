@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import { DashboardPage } from '../pages/DashboardPage';
-import { PrivateRoute } from '../auth/PrivateRoute';
+import { PrivateRoute } from './PrivateRoute';
 
 export const PrivateRoutes = () => (
   <Switch>

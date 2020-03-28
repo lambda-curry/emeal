@@ -1,7 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "frontend"
+    "frontend",
+    "backend"
   ],
   "scripts": {
     "start:fe": "yarn workspace emeal-frontend run react-scripts start",

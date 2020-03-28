@@ -1,6 +1,8 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { FormField } from '../FormFIeld';
+import { Link } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -13,8 +15,7 @@ const LoginSchema = Yup.object().shape({
 
 export const LoginForm = () => {
   return (
-    <>
-      <h1>Login Form</h1>
+    <div className='login-form'>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={LoginSchema}
@@ -27,20 +28,21 @@ export const LoginForm = () => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <div>
-              <Field type='email' name='email' />
-              <ErrorMessage name='email' component='div' />
-            </div>
-            <div>
-              <Field type='password' name='password' />
-              <ErrorMessage name='password' component='div' />
-            </div>
-            <button type='submit' disabled={isSubmitting}>
-              Submit
+            <FormField type='email' name='email' />
+            <FormField type='password' name='password' />
+            <button
+              className='login-form-submit'
+              type='submit'
+              disabled={isSubmitting}
+            >
+              Log In
             </button>
+            <div className='form-content'>
+              Don't have an account? <Link to='/signup'>Create one now.</Link>
+            </div>
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };

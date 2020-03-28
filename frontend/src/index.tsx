@@ -4,12 +4,15 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RouteLayouts } from './layout/RouteLayouts';
+import { AllProviders } from './state/AllProviders';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <RouteLayouts />
-    </Router>
+    <AllProviders>
+      <Router>
+        <RouteLayouts />
+      </Router>
+    </AllProviders>
   </React.StrictMode>,
   document.getElementById('root')
 );

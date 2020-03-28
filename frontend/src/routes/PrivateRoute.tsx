@@ -1,5 +1,6 @@
 import React, { ElementType } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { useAuth } from '../state/AuthProvider';
 
 export const PrivateRoute = ({
   component: RouteComponent,
@@ -7,11 +8,15 @@ export const PrivateRoute = ({
 }: {
   component: ElementType;
   [x: string]: any;
-}) =>
-  false ? (
+}) => {
+  const { state: authState } = useAuth();
+  const authenticated = authState?.isAuthenticated;
+
+  if (!authenticated) return <Redirect to='/login' />;
+
+  return (
     <Route
       render={routeProps => <RouteComponent {...routeProps} {...props} />}
     />
-  ) : (
-    <Redirect to='/login' />
   );
+};
