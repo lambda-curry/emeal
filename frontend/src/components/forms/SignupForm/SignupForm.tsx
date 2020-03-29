@@ -5,15 +5,19 @@ import { FormField } from '../FormFIeld';
 import { Link } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
-  name: Yup.string().required('Required'),
+  name: Yup.string().required('Please enter your name.'),
   email: Yup.string()
-    .email('Please enter a valid email address')
-    .required('Required'),
+    .email('Please enter a valid email address.')
+    .required('Please enter your email address.'),
   password: Yup.string()
-    .min(7, 'Please enter a longer password')
-    .required('Required'),
-  restaurant_name: Yup.string().required('Required'),
-  restaurant_website: Yup.string().required('Required')
+    .min(7, 'Please enter a longer password.')
+    .required('Please enter a password.'),
+  restaurant_name: Yup.string().required(
+    'Please enter the name of your restaurant.'
+  ),
+  restaurant_website: Yup.string()
+    .url()
+    .required(`Please enter your restaurant's website url.`)
 });
 
 export const SignupForm = () => {

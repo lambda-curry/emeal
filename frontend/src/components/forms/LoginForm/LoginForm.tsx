@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Please enter a valid email address')
-    .required('Required'),
+    .email('Please enter a valid email address.')
+    .required('Please enter your email address.'),
   password: Yup.string()
     .min(7, 'Please enter a longer password')
-    .required('Required')
+    .required('Please enter your password.')
 });
 
 export const LoginForm = () => {
