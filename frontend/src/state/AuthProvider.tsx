@@ -17,13 +17,13 @@ interface AuthActions {
   setAuthentication: (isAuthenticated: boolean) => void;
 }
 
-const AuthStateContext: Context<AuthState | null> = React.createContext<AuthState | null>(
-  null
+const AuthStateContext: Context<AuthState> = React.createContext<AuthState>(
+  {} as AuthState
 );
 
-const AuthActionsContext: Context<AuthActions | null> = React.createContext<AuthActions | null>(
-  null
-);
+const AuthActionsContext: Context<AuthActions> = React.createContext<
+  AuthActions
+>({} as AuthActions);
 
 const authReducers: AuthReducers = {
   'set-authentication': (state: AuthState, isAuthenticated: boolean) => {

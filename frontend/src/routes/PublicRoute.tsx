@@ -10,9 +10,7 @@ export const PublicRoute = ({
   [x: string]: any;
 }) => {
   const { state: authState } = useAuth();
-  const authenticated = authState?.isAuthenticated;
-
-  if (authenticated) return <Redirect to='/' />;
+  if (authState.isAuthenticated) return <Redirect to='/' />;
 
   return (
     <Route

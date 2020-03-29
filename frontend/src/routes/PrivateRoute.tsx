@@ -10,8 +10,9 @@ export const PrivateRoute = ({
   [x: string]: any;
 }) => {
   const { state: authState } = useAuth();
-  const authenticated = authState?.isAuthenticated;
+  const authenticated = authState.isAuthenticated;
 
+  console.log('>>>', authenticated);
   if (!authenticated) return <Redirect to='/login' />;
 
   return (
