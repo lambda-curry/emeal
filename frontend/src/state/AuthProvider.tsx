@@ -14,7 +14,7 @@ interface AuthReducers {
 }
 
 interface AuthActions {
-  setAuthentication: (isAuthenticated: boolean) => void;
+  authenticate: () => void;
 }
 
 const AuthStateContext: Context<AuthState> = React.createContext<AuthState>(
@@ -45,8 +45,9 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   });
 
   const actions = {
-    setAuthentication: (isAuthenticated: boolean) =>
-      dispatch({ name: 'set-authentication', payload: isAuthenticated })
+    authenticate: () => dispatch({ name: 'set-authentication', payload: true }),
+    deauthenticate: () =>
+      dispatch({ name: 'set-authentication', payload: false })
   };
 
   return (

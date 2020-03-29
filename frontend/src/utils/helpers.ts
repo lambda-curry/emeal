@@ -5,3 +5,10 @@ export const titleCase = (str: string) => {
   }
   return strArr.join(' ');
 };
+
+// Returns a tuple with [responseData, catchError] from a promise.
+// The catchError will return as null if there is no caught error.
+// If there is a caught error, the responseData will be sent as an empty object.
+// Adapted from https://dev.to/sobiodarlington/better-error-handling-with-async-await-2e5m
+export const handlePromise = (promise: Promise<any>) =>
+  promise.then(data => [data, null]).catch(err => [{}, err]);

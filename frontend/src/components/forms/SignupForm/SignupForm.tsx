@@ -1,10 +1,21 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { FormField } from '../FormFIeld';
+import { FieldWrapper } from '../FieldWrapper';
 import { Link } from 'react-router-dom';
+import { handlePromise } from '../../../utils/helpers';
+import { post } from '../../../utils/api';
+import { useAuth } from '../../../state/AuthProvider';
 
-const LoginSchema = Yup.object().shape({
+interface SignupFormValues {
+  name: string;
+  email: string;
+  password: string;
+  projectName: string;
+  website: string;
+}
+
+const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Please enter your name.'),
   email: Yup.string()
     .email('Please enter a valid email address.')
@@ -16,11 +27,28 @@ const LoginSchema = Yup.object().shape({
     'Please enter the name of your restaurant.'
   ),
   restaurant_website: Yup.string()
-    .url()
+    .url('Please enter a valid website url.')
     .required(`Please enter your restaurant's website url.`)
 });
 
 export const SignupForm = () => {
+  const { actions: authAuctions } = useAuth();
+
+  const signup = async (
+    values: SignupFormValues,
+    { setSubmitting, setTouched, setStatus }: FormikHelpers<SignupFormValues>
+  ) => {
+    const [response, error] = await handlePromise(post('signup', values));
+    setSubmitting(false);
+
+    if (error) {
+      setTouched({});
+      return setStatus({ serverErrors: error.errors });
+    }
+
+    if (response) authAuctions.authenticate();
+  };
+
   return (
     <div className='login-form'>
       <Formik
@@ -28,28 +56,40 @@ export const SignupForm = () => {
           name: '',
           email: '',
           password: '',
-          restaurant_name: '',
-          restaurant_website: ''
+          projectName: '',
+          website: ''
         }}
-        validationSchema={LoginSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        validationSchema={SignupSchema}
+        onSubmit={signup}
       >
-        {({ isSubmitting }) => (
+        {(formikProps: FormikProps<SignupFormValues>) => (
           <Form>
-            <FormField type='name' name='name' />
-            <FormField type='email' name='email' />
-            <FormField type='password' name='password' />
-            <FormField type='text' name='restaurant_name' />
-            <FormField type='text' name='restaurant_website' />
+            <FieldWrapper {...formikProps} type='name' name='name' />
+            <FieldWrapper {...formikProps} type='email' name='email' />
+            <FieldWrapper {...formikProps} type='password' name='password' />
+            <FieldWrapper
+              {...formikProps}
+              type='text'
+              name='projectName'
+              label='Restaurant Name'
+            />
+            <FieldWrapper
+              {...formikProps}
+              type='text'
+              name='website'
+              label='Restaurant Website'
+            />
+            {formikProps.status &&
+              formikProps.status.serverErrors &&
+              formikProps.status.serverErrors.map((error: string) => (
+                <div key={error} className='form-error'>
+                  {error}
+                </div>
+              ))}
             <button
               className='login-form-submit'
               type='submit'
-              disabled={isSubmitting}
+              disabled={formikProps.isSubmitting}
             >
               Sign Up
             </button>

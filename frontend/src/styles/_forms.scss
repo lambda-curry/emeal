@@ -17,12 +17,16 @@
       }
     }
 
-    .form-error {
+    .form-input-error {
       margin: 8px 0 -8px 8px;
       color: var(--warning-red);
-      bottom: 12px;
-      font-size: 14px;
     }
+  }
+
+  &-error {
+    text-align: center;
+    color: var(--warning-red);
+    margin: -8px 0 16px;
   }
 }
 

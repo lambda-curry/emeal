@@ -1,8 +1,17 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import { FormField } from '../FormFIeld';
+
 import { Link } from 'react-router-dom';
+import { post } from '../../../utils/api';
+import { handlePromise } from '../../../utils/helpers';
+import { FieldWrapper } from '../FieldWrapper';
+import { useAuth } from '../../../state/AuthProvider';
+
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -14,26 +23,45 @@ const LoginSchema = Yup.object().shape({
 });
 
 export const LoginForm = () => {
+  const { actions: authAuctions } = useAuth();
+
+  const login = async (
+    values: LoginFormValues,
+    { setSubmitting, setStatus, setTouched }: FormikHelpers<LoginFormValues>
+  ) => {
+    const [response, error] = await handlePromise(post('login', values));
+    setSubmitting(false);
+
+    if (error) {
+      setTouched({});
+      return setStatus({ serverErrors: error.errors });
+    }
+
+    if (response) authAuctions.authenticate();
+  };
+
   return (
-    <div className='login-form'>
+    <div className='form login-form'>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={LoginSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        onSubmit={login}
       >
-        {({ isSubmitting }) => (
+        {(formikProps: FormikProps<LoginFormValues>) => (
           <Form>
-            <FormField type='email' name='email' />
-            <FormField type='password' name='password' />
+            <FieldWrapper {...formikProps} type='email' name='email' />
+            <FieldWrapper {...formikProps} type='password' name='password' />
+            {formikProps.status &&
+              formikProps.status.serverErrors &&
+              formikProps.status.serverErrors.map((error: string) => (
+                <div key={error} className='form-error'>
+                  {error}
+                </div>
+              ))}
             <button
               className='login-form-submit'
               type='submit'
-              disabled={isSubmitting}
+              disabled={formikProps.isSubmitting}
             >
               Log In
             </button>
