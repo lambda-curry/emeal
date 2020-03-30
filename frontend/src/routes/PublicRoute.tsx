@@ -12,8 +12,8 @@ export const PublicRoute = ({
   const {
     selectors: { isAuthenticated }
   } = useSession();
-  if (isAuthenticated) return <Redirect to='/' />;
 
+  if (isAuthenticated) return <Redirect to='/' />;
   return (
     <Route
       render={routeProps => <RouteComponent {...routeProps} {...props} />}

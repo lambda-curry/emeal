@@ -3,7 +3,6 @@ import { FormikHelpers, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
 import { post } from '../../utils/api';
-import { handlePromise } from '../../utils/helpers';
 import { FieldWrapper } from './FieldWrapper';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
@@ -23,9 +22,7 @@ export const ForgotPasswordForm = () => {
     values: ForgotPasswordValues,
     { setSubmitting, setStatus }: FormikHelpers<ForgotPasswordValues>
   ) => {
-    const [response, error] = await handlePromise(
-      post('forgotPassword', values)
-    );
+    const [response, error] = await post('forgotPassword', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
 

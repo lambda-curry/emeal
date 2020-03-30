@@ -3,7 +3,6 @@ import { FormikHelpers, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
 import { post } from '../../utils/api';
-import { handlePromise } from '../../utils/helpers';
 import { FieldWrapper } from './FieldWrapper';
 import { useSession } from '../../state/SessionProvider';
 import { ServerErrors } from './ServerErrors';
@@ -30,7 +29,7 @@ export const LoginForm = () => {
     values: LoginFormValues,
     { setSubmitting, setStatus }: FormikHelpers<LoginFormValues>
   ) => {
-    const [response, error] = await handlePromise(post('login', values));
+    const [response, error] = await post('login', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
     if (response) sessionActions.saveUser(response.user);

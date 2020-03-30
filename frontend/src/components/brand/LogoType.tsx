@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from '../Icon';
+import './logo-type.scss';
 
 export const LogoType = () => (
   <div className='logo-type'>
