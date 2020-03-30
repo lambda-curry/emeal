@@ -1,14 +1,13 @@
 {
   "private": true,
   "workspaces": [
-    "backend",
+    "api",
     "frontend"
   ],
   "scripts": {
     "start": "concurrently \"yarn start:fe\" \"yarn start:be\"",
     "start:fe": "yarn workspace emeal-frontend run react-scripts start",
     "build:fe": "yarn workspace emeal-frontend run react-scripts build",
-    "test:fe": "yarn workspace emeal-frontend run react-scripts test",
     "start:be": "yarn workspace emeal-backend run dev",
     "build:be": "yarn workspace emeal-backend run build"
   }

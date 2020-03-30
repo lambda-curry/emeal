@@ -2,21 +2,24 @@
   width: 100%;
   display: grid;
   justify-items: center;
-  align-content: center;
+  align-items: center;
   grid-template-rows: 160px auto;
 
   grid-template-areas:
     'header'
     'page';
 
-  .logo-type {
+  &-logo {
+    display: block;
     grid-area: header;
+    color: black;
+    text-decoration: none;
+    height: 0;
   }
 
   .page {
     padding: 0 16px;
     grid-area: page;
-    align-self: center;
   }
 
   form {

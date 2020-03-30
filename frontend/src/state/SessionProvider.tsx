@@ -5,16 +5,10 @@ import React, {
   Context,
   Dispatch
 } from 'react';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-}
+import { UserDto } from '../../../shared';
 
 interface SessionState {
-  user: User | null;
+  user: UserDto | null;
 }
 
 interface SessionReducers {
@@ -30,7 +24,7 @@ const SessionActionsContext: Context<SessionActions> = React.createContext<
 >({} as SessionActions);
 
 const sessionReducers: SessionReducers = {
-  'set-user': (state: SessionState, user: User) => {
+  'set-user': (state: SessionState, user: UserDto) => {
     return { ...state, user };
   }
 };
@@ -44,7 +38,7 @@ class SessionActions {
     }>
   ) {}
 
-  saveUser(payload: User) {
+  saveUser(payload: UserDto) {
     this.dispatch({ name: 'set-user', payload });
   }
 
