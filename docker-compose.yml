@@ -1,0 +1,10 @@
+version: '2'
+services:
+  mongo_db:
+    image: mongo
+    stdin_open: true
+    container_name: buckets_db
+    mem_limit: 300m
+    tty: true
+    ports:
+      - '27017:27017'
