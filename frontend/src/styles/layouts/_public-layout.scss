@@ -14,6 +14,7 @@
   }
 
   .page {
+    padding: 0 16px;
     grid-area: page;
     align-self: center;
   }
@@ -29,7 +30,7 @@
 
   .form {
     &-field {
-      width: 320px - 32px;
+      width: 100%;
     }
 
     &-content {
@@ -41,6 +42,20 @@
         font-weight: bold;
         color: black;
       }
+    }
+  }
+}
+
+.signup,
+.login,
+.forgot-password {
+  width: 340px;
+  p {
+    margin: 0 0 16px;
+    text-align: center;
+    a {
+      color: black;
+      font-weight: bold;
     }
   }
 }

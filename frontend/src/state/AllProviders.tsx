@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { AuthProvider } from './AuthProvider';
+import { SessionProvider } from './SessionProvider';
 
 export const AllProviders: FunctionComponent = ({ children }) => (
-  <AuthProvider>{children}</AuthProvider>
+  <SessionProvider>{children}</SessionProvider>
 );
