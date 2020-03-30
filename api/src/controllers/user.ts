@@ -5,7 +5,6 @@ import { User, UserDocument } from '../models/User';
 import { Request, Response, Router } from 'express';
 import jwt from 'jwt-simple';
 import * as yup from 'yup'; // for everything
-import logger from '@app/util/logger';
 import { JWT_AUTH_SECRET, notAuthenticatedResponse } from '../middleware/jwt';
 import moment from 'moment';
 import { sendForgotPasswordEmail } from '../services/mail';
@@ -70,7 +69,15 @@ const buildLoginResponse = async (user: UserDocument, res: Response) => {
   const projects = await Project.find({ ownerId: user.id });
   return res
     .status(200)
-    .cookie('jwt', createdJwt, { maxAge: 1000 * 60 * 60 * 24 * 7 })
+    .cookie('jwt', createdJwt, {
+      expires: moment()
+        .add(7, 'days')
+        .toDate(),
+      domain: 'emeal.me',
+      sameSite: 'strict',
+      secure: true,
+      httpOnly: true
+    })
     .json({
       jwt: createdJwt,
       user: user.toDto(),
