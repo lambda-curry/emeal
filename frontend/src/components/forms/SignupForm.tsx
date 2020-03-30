@@ -2,7 +2,6 @@ import React from 'react';
 import { FormikProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { FieldWrapper } from './FieldWrapper';
-import { handlePromise } from '../../utils/helpers';
 import { post } from '../../utils/api';
 import { useSession } from '../../state/SessionProvider';
 import { ServerErrors } from './ServerErrors';
@@ -40,7 +39,7 @@ export const SignupForm = () => {
     { setSubmitting, setStatus }: FormikHelpers<SignupFormValues>
   ) => {
     console.log('>>>> am I doing anything?');
-    const [response, error] = await handlePromise(post('signup', values));
+    const [response, error] = await post('signup', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
     if (response) sessionActions.saveUser(response.user);
