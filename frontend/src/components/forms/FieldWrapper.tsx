@@ -13,7 +13,7 @@ export const FieldWrapper = (
   } & FormikProps<any>
 ) => {
   const { type, name, icon } = props;
-  const label = props.label || titleCase(name.replace('_', ' '));
+  const label = props.label || titleCase(name);
   return (
     <div className={classnames('form-field', icon ? 'hasIcon' : '')}>
       {/* <label htmlFor={name}>{label}</label> */}

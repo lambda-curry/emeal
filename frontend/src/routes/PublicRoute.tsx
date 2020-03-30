@@ -1,6 +1,6 @@
 import React, { ElementType } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useAuth } from '../state/AuthProvider';
+import { useSession } from '../state/SessionProvider';
 
 export const PublicRoute = ({
   component: RouteComponent,
@@ -9,8 +9,10 @@ export const PublicRoute = ({
   component: ElementType;
   [x: string]: any;
 }) => {
-  const { state: authState } = useAuth();
-  if (authState.isAuthenticated) return <Redirect to='/' />;
+  const {
+    selectors: { isAuthenticated }
+  } = useSession();
+  if (isAuthenticated) return <Redirect to='/' />;
 
   return (
     <Route
