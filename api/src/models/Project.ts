@@ -4,7 +4,7 @@ import { ProjectDto } from '@shared';
 export type ProjectDocument = mongoose.Document & {
   name: string;
   website: string;
-  ownerId: string;
+  ownerId: mongoose.Types.ObjectId;
   coupon?: {
     title: string;
     image: string;

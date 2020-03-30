@@ -1,8 +1,8 @@
 {
   "private": true,
   "workspaces": [
-    "backend",
-    "frontend"
+    "frontend",
+    "api"
   ],
   "scripts": {
     "start": "concurrently \"yarn start:fe\" \"yarn start:be\"",
