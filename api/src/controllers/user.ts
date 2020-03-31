@@ -9,6 +9,7 @@ import { JWT_AUTH_SECRET, notAuthenticatedResponse } from '../middleware/jwt';
 import moment from 'moment';
 import { sendForgotPasswordEmail } from '../services/mail';
 import { Project } from '../models/Project';
+import { PRODUCTION } from '../util/secrets';
 
 const loginSchema = yup.object().shape({
   email: yup.string().required(),
@@ -73,10 +74,9 @@ const buildLoginResponse = async (user: UserDocument, res: Response) => {
       expires: moment()
         .add(7, 'days')
         .toDate(),
-      domain: '.emeal.me',
-      sameSite: 'none',
-      secure: false,
-      httpOnly: true
+      sameSite: 'lax',
+      secure: PRODUCTION,
+      httpOnly: PRODUCTION
     })
     .json({
       jwt: createdJwt,

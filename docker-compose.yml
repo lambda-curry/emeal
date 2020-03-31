@@ -3,7 +3,7 @@ services:
   mongo_db:
     image: mongo
     stdin_open: true
-    container_name: buckets_db
+    container_name: mongo_db
     mem_limit: 300m
     tty: true
     ports:
