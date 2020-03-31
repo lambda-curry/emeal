@@ -41,13 +41,11 @@ export const ForgotPasswordForm = () => {
         <>
           <FieldWrapper {...formikProps} type='email' name='email' />
           <ServerErrors status={formikProps.status} />
-          <button
-            className='login-form-submit'
-            type='submit'
-            disabled={formikProps.isSubmitting}
-          >
-            Reset Password
-          </button>
+          <div className='form-actions'>
+            <button type='submit' disabled={formikProps.isSubmitting}>
+              Reset Password
+            </button>
+          </div>
         </>
       )}
     </FormWrapper>

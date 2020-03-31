@@ -1,4 +1,5 @@
 import { handlePromise } from './helpers';
+const api = process.env.REACT_APP_API;
 
 const respond = async (response: Response, error: Error) => {
   if (error) return Promise.reject(error);
@@ -12,7 +13,7 @@ const handleResponse = (response: Response, error: Error) =>
 
 export const post = async (location: string, values: any) => {
   const [response, error] = await handlePromise(
-    fetch(`https://app.emeal.me/api/${location}`, {
+    fetch(`${api}${location}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -27,12 +28,27 @@ export const post = async (location: string, values: any) => {
 
 export const get = async (location: string) => {
   const [response, error] = await handlePromise(
-    fetch(`https://app.emeal.me/api/${location}`, {
+    fetch(`${api}${location}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
+    })
+  );
+
+  return handleResponse(response, error);
+};
+
+export const patch = async (location: string, values: any) => {
+  const [response, error] = await handlePromise(
+    fetch(`${api}${location}`, {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
     })
   );
 

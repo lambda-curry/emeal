@@ -47,13 +47,11 @@ export const LoginForm = () => {
           <FieldWrapper {...formikProps} type='email' name='email' />
           <FieldWrapper {...formikProps} type='password' name='password' />
           <ServerErrors status={formikProps.status} />
-          <button
-            className='login-form-submit'
-            type='submit'
-            disabled={formikProps.isSubmitting}
-          >
-            Log In
-          </button>
+          <div className='form-actions'>
+            <button type='submit' disabled={formikProps.isSubmitting}>
+              Log In
+            </button>
+          </div>
         </>
       )}
     </FormWrapper>
