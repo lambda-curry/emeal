@@ -75,7 +75,7 @@ const buildLoginResponse = async (user: UserDocument, res: Response) => {
         .toDate(),
       domain: '.emeal.me',
       sameSite: 'none',
-      secure: true,
+      secure: false,
       httpOnly: true
     })
     .json({
