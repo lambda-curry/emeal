@@ -1,5 +1,9 @@
 import { handlePromise } from './helpers';
 const api = process.env.REACT_APP_API;
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json'
+};
 
 const respond = async (response: Response, error: Error) => {
   if (error) return Promise.reject(error);
@@ -15,10 +19,8 @@ export const post = async (location: string, values: any) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
+      headers,
+      credentials: 'include',
       body: JSON.stringify(values)
     })
   );
@@ -30,10 +32,8 @@ export const get = async (location: string) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
+      headers,
+      credentials: 'include'
     })
   );
 
@@ -44,10 +44,8 @@ export const patch = async (location: string, values: any) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'PATCH',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
+      headers,
+      credentials: 'include',
       body: JSON.stringify(values)
     })
   );
