@@ -74,6 +74,7 @@ const buildLoginResponse = async (user: UserDocument, res: Response) => {
       expires: moment()
         .add(7, 'days')
         .toDate(),
+      domain: '.email.me',
       sameSite: 'lax',
       secure: PRODUCTION,
       httpOnly: PRODUCTION
