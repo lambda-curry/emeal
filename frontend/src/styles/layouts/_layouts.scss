@@ -1,1 +1,8 @@
 @import './public-layout';
+@import './private-layout';
+
+.route-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+}

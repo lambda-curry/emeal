@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { PrivateLayout } from './PrivateLayout';
-import { PublicLayout } from './PublicLayout';
+import { PrivateLayout } from '../layout/PrivateLayout';
+import { PublicLayout } from '../layout/PublicLayout';
 
 export const RouteLayouts = () => (
   <Switch>
@@ -9,5 +9,6 @@ export const RouteLayouts = () => (
     <Route exact path='/login' component={PublicLayout} />
     <Route exact path='/signup' component={PublicLayout} />
     <Route exact path='/reset-password' component={PublicLayout} />
+    <Route exact path='/profile' component={PrivateLayout} />
   </Switch>
 );

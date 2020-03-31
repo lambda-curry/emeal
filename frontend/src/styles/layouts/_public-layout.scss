@@ -20,15 +20,8 @@
   .page {
     padding: 0 16px;
     grid-area: page;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  button[type='submit'] {
-    align-self: center;
+    justify-self: center;
+    margin: 0 auto;
   }
 
   .form {

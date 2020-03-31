@@ -5,17 +5,14 @@ import { useLocation, Switch } from 'react-router-dom';
 export const FadeRouteSwitchAnimation: FunctionComponent = ({ children }) => {
   const location = useLocation();
   return (
-    <TransitionGroup>
+    <TransitionGroup className='route-wrapper'>
       <CSSTransition
-        key={location.key}
+        key={location.pathname}
         timeout={300}
         classNames='fade'
-        mountOnEnter={true}
         unmountOnExit={true}
       >
-        <div className='route-wrapper'>
-          <Switch location={location}>{children}</Switch>
-        </div>
+        <Switch location={location}>{children}</Switch>
       </CSSTransition>
     </TransitionGroup>
   );

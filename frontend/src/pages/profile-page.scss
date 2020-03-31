@@ -1,0 +1,10 @@
+.profile {
+  padding-top: 64px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &-content {
+    width: 340px;
+  }
+}

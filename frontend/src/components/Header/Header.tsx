@@ -10,9 +10,9 @@ export const Header = () => {
         <LogoType />
         <div className='header-spacer'></div>
         <div className='header-menu'>
-          <Link to='/dashboard'>Dashboard</Link>
-          <Link to='/dashboard'>Design</Link>
-          <Link to='/dashboard'>Embed</Link>
+          <Link to='/'>Dashboard</Link>
+          <Link to='/'>Design</Link>
+          <Link to='/'>Embed</Link>
         </div>
         <div className='header-spacer'></div>
         <Link to='/profile'>Profile</Link>

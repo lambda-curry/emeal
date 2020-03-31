@@ -38,7 +38,6 @@ export const SignupForm = () => {
     values: SignupFormValues,
     { setSubmitting, setStatus }: FormikHelpers<SignupFormValues>
   ) => {
-    console.log('>>>> am I doing anything?');
     const [response, error] = await post('signup', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
@@ -78,13 +77,11 @@ export const SignupForm = () => {
             label='Restaurant Website'
           />
           <ServerErrors status={formikProps.status} />
-          <button
-            className='login-form-submit'
-            type='submit'
-            disabled={formikProps.isSubmitting}
-          >
-            Sign Up
-          </button>
+          <div className='form-actions'>
+            <button type='submit' disabled={formikProps.isSubmitting}>
+              Sign Up
+            </button>
+          </div>
         </>
       )}
     </FormWrapper>
