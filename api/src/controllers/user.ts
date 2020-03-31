@@ -73,8 +73,8 @@ const buildLoginResponse = async (user: UserDocument, res: Response) => {
       expires: moment()
         .add(7, 'days')
         .toDate(),
-      domain: 'emeal.me',
-      sameSite: 'strict',
+      domain: '.emeal.me',
+      sameSite: 'none',
       secure: true,
       httpOnly: true
     })
