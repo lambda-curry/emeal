@@ -6,8 +6,6 @@ import React, {
   Dispatch
 } from 'react';
 import { UserDto } from '../../../shared';
-import { useAsyncEffect } from '../utils/helpers';
-import { get } from '../utils/api';
 
 interface SessionState {
   user: UserDto | null;
@@ -69,14 +67,6 @@ export const SessionProvider: FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(sessionActionsReducer, {
     user: null
   });
-  const { actions: sessionActions } = useSession();
-
-  const fetchUser = async () => {
-    const [response, error] = await get('user');
-    if (!error) sessionActions.saveUser(response.user);
-  };
-
-  useAsyncEffect(fetchUser, undefined, []);
 
   return (
     <SessionStateContext.Provider value={state}>
