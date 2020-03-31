@@ -19,6 +19,8 @@ export const MONGO_CONNECTION_OPTIONS: any = {
   sslValidate: false
 };
 
+export const PRODUCTION = process.env['NODE_ENV'] === 'production';
+
 if (!MONGODB_URI) {
   logger.error(
     'No mongo connection string. Set MONGODB_URI environment variable.'
