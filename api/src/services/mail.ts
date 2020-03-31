@@ -1,5 +1,6 @@
 import { UserDocument } from '../models/User';
 import sendgrid from '@sendgrid/mail';
+import { CouponDocument } from '../models/Coupon';
 
 const SYSTEM_EMAIL_FROM =
   process.env['SYSTEM_EMAIL_FROM'] || 'support@emeal.me';
@@ -10,7 +11,7 @@ export const sendForgotPasswordEmail = async (
   token: string,
   user: UserDocument
 ) => {
-  const msg = {
+  const message = {
     templateId: 'd-3af04204d9974d66b6b09420a4b69e4f',
     from: SYSTEM_EMAIL_FROM,
     to: user.email,
@@ -18,7 +19,23 @@ export const sendForgotPasswordEmail = async (
       resetPasswordUrl: `https://app.emeal.me/forgotPassword/${token}`
     }
   };
-  await sendgrid.send(msg);
+  await sendgrid.send(message);
+};
+
+export const sendCouponEmail = async (coupon: CouponDocument) => {
+  const message = {
+    templateId: 'd-ee9d35566b2f461dace56636ed0785c8',
+    from: SYSTEM_EMAIL_FROM,
+    to: coupon.email,
+    dynamicTemplateData: {
+      projectName: coupon.projectName,
+      imageUrl: coupon.image,
+      title: coupon.title,
+      redeemUrl: `https://app.emeal.me/redeem/${coupon.token}`,
+      description: coupon.description
+    }
+  };
+  await sendgrid.send(message);
 };
 
 export const sendTestMail = async () => {

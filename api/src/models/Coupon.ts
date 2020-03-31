@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
 import { CouponDto } from '@shared';
+import { ProjectDocument } from './Project';
+import moment from 'moment';
+import * as uuid from 'uuid';
 
 export type CouponDocument = mongoose.Document & {
+  token: string;
   email: string;
   projectId: string;
   projectName: string;
@@ -23,7 +27,8 @@ const couponSchema = new mongoose.Schema(
     image: String,
     description: String,
     expirationDate: Date,
-    redeemedDate: Date
+    redeemedDate: Date,
+    token: String
   },
   { timestamps: true }
 );
@@ -42,3 +47,21 @@ couponSchema.methods.toDto = function() {
 };
 
 export const Coupon = mongoose.model<CouponDocument>('Coupon', couponSchema);
+
+export function createCouponFromProject(
+  email: string,
+  project: ProjectDocument
+) {
+  return new Coupon({
+    email,
+    token: uuid.v4(),
+    projectId: project.id,
+    projectName: project.name,
+    title: project.coupon?.title,
+    image: project.coupon?.image,
+    description: project.coupon?.description,
+    expirationDate: moment()
+      .add(project.coupon?.expirationDays || 30, 'days')
+      .toDate()
+  });
+}

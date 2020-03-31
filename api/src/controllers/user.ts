@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
-import { User, UserDocument } from '../models/User';
+import { UserDocument } from '../models/User';
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import * as yup from 'yup'; // for everything

@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import * as yup from 'yup'; // for everything
+import * as yup from 'yup';
 import { Project } from '../models/Project';
 import { jwtMiddleware } from '../middleware/jwt';
 import asyncHandler from 'express-async-handler';
@@ -42,9 +42,11 @@ async function updateProject(req: Request, res: Response) {
       .status(404)
       .json({ errors: [`Could not find project with id: ${body.id}`] });
 
+  const imageUrl = project.coupon?.image;
   Object.assign(project, body);
+  project.coupon.image = imageUrl;
   await project.save();
-  return res.status(200).json({ project });
+  return res.status(200).json({ project: project.toDto() });
 }
 
 async function updateProjectImage(req: Request, res: Response) {
@@ -55,11 +57,11 @@ async function updateProjectImage(req: Request, res: Response) {
     ownerId: req.user.id
   });
   if (!project)
-    res
+    return res
       .status(400)
       .json({ errors: ['Could not find project with provided id'] });
   if (!file)
-    res.status(400).json({
+    return res.status(400).json({
       errors: ['No file uploaded in multipart/form for field "image"']
     });
 
@@ -69,7 +71,7 @@ async function updateProjectImage(req: Request, res: Response) {
   };
   const extension = fileExtensions[file.mimetype];
   if (!extension)
-    res
+    return res
       .status(400)
       .json({ errors: ['You can only upload jpg and png images'] });
 
