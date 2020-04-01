@@ -16,11 +16,11 @@
         width: auto;
       }
     }
+  }
 
-    .form-input-error {
-      margin: 8px 0 -8px 8px;
-      color: var(--warning-red);
-    }
+  .form-input-error {
+    margin: 8px 0 -8px 8px;
+    color: var(--warning-red);
   }
 
   &-error {
@@ -31,12 +31,17 @@
 
   &-actions {
     text-align: center;
+    button {
+      margin-right: 16px;
+      margin-left: 16px;
+    }
   }
 }
 
 form {
   button[type='submit'] {
-    margin: 16px 0 32px;
+    margin-top: 16px;
+    margin-bottom: 32px;
     @extend .button-primary;
   }
 }
@@ -45,9 +50,11 @@ label {
   display: block;
   text-transform: capitalize;
   margin-bottom: 4px;
+  font-weight: bold;
 }
 
-input {
+input,
+textarea {
   box-sizing: border-box;
   line-height: 24px;
   font-size: 18px;

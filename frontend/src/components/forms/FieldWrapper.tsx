@@ -10,10 +10,11 @@ export const FieldWrapper = (
     name: string;
     label?: string;
     icon?: string;
+    as?: string;
   } & FormikProps<any>
 ) => {
-  const { type, name, icon } = props;
-  const label = props.label || titleCase(name);
+  const { type, name, icon, as } = props;
+  const label = props.label ?? titleCase(name);
   return (
     <div className={classnames('form-field', icon ? 'hasIcon' : '')}>
       {/* <label htmlFor={name}>{label}</label> */}
@@ -22,6 +23,7 @@ export const FieldWrapper = (
         type={type}
         name={name}
         placeholder={label}
+        as={as}
         onChange={(value: any) => {
           props.setStatus({ ...props.status, serverErrors: [] });
           props.handleChange(value);

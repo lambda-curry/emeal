@@ -1,0 +1,15 @@
+.design {
+  box-sizing: border-box;
+  padding: 64px 32px 16px;
+  width: 100%;
+
+  &-file {
+    padding-bottom: 24px;
+  }
+
+  .page-container {
+    width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}

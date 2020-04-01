@@ -1,22 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './header.scss';
 import { LogoType } from '../brand/LogoType';
+import { ProfileBug } from './ProfileBug';
+import { HeaderMenuItem } from './HeaderMenuItem';
 
 export const Header = () => {
   return (
     <div className='header'>
+      <LogoType />
       <div className='header-row'>
-        <LogoType />
-        <div className='header-spacer'></div>
         <div className='header-menu'>
-          <Link to='/'>Dashboard</Link>
-          <Link to='/'>Design</Link>
-          <Link to='/'>Embed</Link>
+          <HeaderMenuItem className='header-menu-item' to='/'>
+            Dashboard
+          </HeaderMenuItem>
+          <HeaderMenuItem className='header-menu-item' to='/design'>
+            Design
+          </HeaderMenuItem>
+          <HeaderMenuItem className='header-menu-item' to='/embed'>
+            Embed
+          </HeaderMenuItem>
         </div>
-        <div className='header-spacer'></div>
-        <Link to='/profile'>Profile</Link>
       </div>
+      <HeaderMenuItem className='header-menu-profile' to='/profile'>
+        <ProfileBug />
+      </HeaderMenuItem>
     </div>
   );
 };

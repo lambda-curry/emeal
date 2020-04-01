@@ -25,15 +25,13 @@ const OnLoad: FunctionComponent = ({ children }) => {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AllProviders>
-      <OnLoad>
-        <Router>
-          <RouteLayouts />
-        </Router>
-      </OnLoad>
-    </AllProviders>
-  </React.StrictMode>,
+  <AllProviders>
+    <OnLoad>
+      <Router>
+        <RouteLayouts />
+      </Router>
+    </OnLoad>
+  </AllProviders>,
   document.getElementById('root')
 );
 

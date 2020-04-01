@@ -1,0 +1,29 @@
+.dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 8px;
+  border-color: #eeeeee;
+  border-style: dashed;
+  background-color: #fafafa;
+  color: darkgray;
+  outline: none;
+  transition: border 0.24s ease-in-out;
+  cursor: pointer;
+  min-height: 60px;
+  max-width: 100%;
+  line-height: 1.2em;
+
+  &:hover,
+  &:focus {
+    border-color: #2196f3;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+  }
+}

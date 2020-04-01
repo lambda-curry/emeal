@@ -39,19 +39,33 @@ export const ProfileForm = () => {
     <FormWrapper
       className='signup-form'
       initialValues={{
-        name: user?.name,
-        email: user?.email
+        name: user.name,
+        email: user.email
       }}
       validationSchema={SignupSchema}
       onSubmit={update}
     >
       {(formikProps: FormikProps<ProfileFormValues>) => (
         <>
+          <a
+            href='https://en.gravatar.com/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              className='profile-img'
+              src={user.avatar}
+              alt='gravatar profile'
+            />
+          </a>
           <FieldWrapper {...formikProps} type='name' name='name' />
           <FieldWrapper {...formikProps} type='email' name='email' />
           <ServerErrors status={formikProps.status} />
           <div className='form-actions'>
-            <button type='submit' disabled={formikProps.isSubmitting}>
+            <button
+              type='submit'
+              disabled={formikProps.isSubmitting || !formikProps.dirty}
+            >
               Save
             </button>
           </div>

@@ -7,4 +7,19 @@
   &-content {
     width: 340px;
   }
+
+  &-img {
+    display: block;
+    border-radius: 8px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 32px;
+    border: 4px solid var(--border-color);
+    box-shadow: none;
+    transition: box-shadow 300ms ease-in-out;
+
+    &:hover {
+      box-shadow: 1px 1px 4px black;
+    }
+  }
 }

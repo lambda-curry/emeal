@@ -8,7 +8,7 @@ import React, {
 import { UserDto } from '../../../shared';
 
 interface SessionState {
-  user: UserDto | null;
+  user: UserDto | Partial<UserDto>;
 }
 
 interface SessionReducers {
@@ -17,7 +17,7 @@ interface SessionReducers {
 
 const SessionStateContext: Context<SessionState> = React.createContext<
   SessionState
->({} as SessionState);
+>({ user: {} } as SessionState);
 
 const SessionActionsContext: Context<SessionActions> = React.createContext<
   SessionActions
@@ -51,7 +51,7 @@ class SessionSelectors {
   constructor(private state: SessionState) {}
 
   get isAuthenticated() {
-    return !!this.state.user;
+    return !!this.state.user.name;
   }
 }
 
@@ -65,7 +65,7 @@ const sessionActionsReducer = (
 
 export const SessionProvider: FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducer(sessionActionsReducer, {
-    user: null
+    user: {}
   });
 
   return (

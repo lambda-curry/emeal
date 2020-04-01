@@ -5,7 +5,7 @@ import './profile-page.scss';
 export const ProfilePage = () => (
   <main className='page profile'>
     <div className='profile-content'>
-      <h2>Profile Page</h2>
+      <h2>Update Profile</h2>
       <ProfileForm />
     </div>
   </main>

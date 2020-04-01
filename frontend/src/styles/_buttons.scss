@@ -11,15 +11,23 @@ button {
   letter-spacing: 0.02em;
   border-radius: 40px;
   min-width: 150px;
+  cursor: pointer;
 
   &[disabled] {
     opacity: 0.4;
     pointer-events: none;
+    cursor: default;
   }
 }
 
 .button {
   &-primary {
     background-color: var(--primary-red);
+
+    &-outline {
+      color: var(--primary-red);
+      background-color: transparent;
+      border: 2px solid var(--primary-red);
+    }
   }
 }

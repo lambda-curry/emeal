@@ -10,5 +10,6 @@ export const RouteLayouts = () => (
     <Route exact path='/signup' component={PublicLayout} />
     <Route exact path='/reset-password' component={PublicLayout} />
     <Route exact path='/profile' component={PrivateLayout} />
+    <Route exact path='/design' component={PrivateLayout} />
   </Switch>
 );
