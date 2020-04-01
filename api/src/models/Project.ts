@@ -35,7 +35,8 @@ projectSchema.methods.toDto = function() {
     id: this.id,
     name: this.name,
     website: this.website,
-    createdAt: this.createdAt
+    createdAt: this.createdAt,
+    coupon: this.coupon
   };
 };
 
