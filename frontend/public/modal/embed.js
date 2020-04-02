@@ -1,8 +1,6 @@
-const emealDomain = 'https://app.emeal.me';
-const getFullPath = path =>
-  window.emealModalSettings && window.emealModalSettings.isLocal
-    ? path
-    : emealDomain + path;
+// Note: you cannot set global variables for preview when the script gets readded.
+// Once a variable is set, it doesn't like to be readded,
+// but for some reason functions don't complain about it.
 
 addModalTargetElement();
 loadStyles();
@@ -103,6 +101,12 @@ function loadModal() {
   Modal.setAppElement('#emeal-embed');
   const domContainer = document.getElementById('emeal-embed');
   ReactDOM.render(e(ModalContainer), domContainer);
+}
+
+function getFullPath(path) {
+  return window.emealModalSettings && window.emealModalSettings.isLocal
+    ? path
+    : 'https://app.emeal.me' + path;
 }
 
 function loadStyles() {
