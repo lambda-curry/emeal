@@ -44,8 +44,6 @@ export const SignupForm = () => {
     if (response) sessionActions.saveUser(response.user);
   };
 
-  console.log(signup);
-
   return (
     <FormWrapper
       className='signup-form'
