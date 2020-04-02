@@ -6,14 +6,25 @@ import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
 import { FileUpload } from '../FileUpload';
 
+declare global {
+  interface Window {
+    emealModalSettings: {
+      isLocal: boolean;
+      title: string;
+      info: string;
+      imgSrc: string;
+    };
+  }
+}
+
 interface DesignFormValues {
-  file: File[];
+  files: File[];
   title: string;
   info: string;
 }
 
 const DesignSchema = Yup.object().shape({
-  file: Yup.array().required('Please select a file.'),
+  files: Yup.array().required('Please select a file.'),
   title: Yup.string().required('Please enter the deal title.'),
   info: Yup.string().required('Please enter details for the deal.')
 });
@@ -31,14 +42,23 @@ export const DesignForm = () => {
     // if (response) sessionActions.saveUser(response.user);
   };
 
-  const preview = (formikProps: FormikProps<DesignFormValues>) => {
+  const preview = async (formikProps: FormikProps<DesignFormValues>) => {
     console.log(formikProps.values);
+    const { title, info, files } = formikProps.values;
+
+    window.emealModalSettings = {
+      isLocal: process.env.REACT_APP_ENV === 'local' ? true : false,
+      title,
+      info,
+      imgSrc: files[0] ? URL.createObjectURL(files[0]) : ''
+    };
+    await loadModalScripts();
   };
 
   return (
     <FormWrapper
       className='design-form'
-      initialValues={{ file: [], title: '', info: '' }}
+      initialValues={{ files: [], title: '', info: '' }}
       validationSchema={DesignSchema}
       onSubmit={saveDesign}
     >
@@ -49,12 +69,12 @@ export const DesignForm = () => {
             <FileUpload
               fileLimit={1}
               handleDrop={files =>
-                formikProps.setFieldValue('file', files, true)
+                formikProps.setFieldValue('files', files, true)
               }
             />
             <ErrorMessage
               className='form-input-error'
-              name='file'
+              name='files'
               component='div'
             />
           </div>
@@ -73,11 +93,7 @@ export const DesignForm = () => {
             <button
               className='button-primary-outline'
               type='button'
-              disabled={
-                formikProps.isSubmitting ||
-                !formikProps.dirty ||
-                !formikProps.isValid
-              }
+              disabled={!formikProps.values.title}
               onClick={() => preview(formikProps)}
             >
               Preview
@@ -98,3 +114,11 @@ export const DesignForm = () => {
     </FormWrapper>
   );
 };
+
+function loadModalScripts() {
+  const modaljs = window.document.createElement('script');
+  modaljs.type = 'text/javascript';
+  modaljs.src = `${process.env.PUBLIC_URL}/modal/embed.js`;
+  document.body.appendChild(modaljs);
+  return new Promise(resolve => (modaljs.onload = resolve));
+}

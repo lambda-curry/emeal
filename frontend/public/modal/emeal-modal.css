@@ -18,6 +18,7 @@
   opacity: 0 !important;
   transition: opacity 500ms ease-in-out !important;
   z-index: 99999999 !important;
+  overflow-y: auto;
 }
 
 .cleanslate .emeal-modal-overlay.ReactModal__Overlay--after-open {
@@ -29,6 +30,7 @@
 }
 
 .cleanslate .emeal-modal {
+  box-sizing: border-box !important;
   position: absolute !important;
   top: 20vh !important;
   left: 5vw !important;
@@ -37,12 +39,19 @@
   border: 1px solid #ccc !important;
   background: #fff !important;
   overflow: auto !important;
-  -webkit-overflow-scrolling: touch !important;
   border-radius: 20px !important;
   outline: none !important;
   padding: 20px !important;
+  margin-bottom: 64px !important;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+  max-width: 600px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 660px) {
+  .cleanslate .emeal-modal {
+    width: 600px !important;
+    left: 50% !important;
+    right: unset !important;
+    margin-left: -300px !important;
+  }
 }

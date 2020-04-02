@@ -13,6 +13,7 @@ export const FileUpload = ({
   droppingText?: string;
   handleDrop: (files: File[]) => void;
 }) => {
+  // TODO: figure out how to actually handle file limits
   const plural = fileLimit !== 1 ? 's' : '';
   droppingText = droppingText || `Drop your file${plural} here...`;
   dropText =
