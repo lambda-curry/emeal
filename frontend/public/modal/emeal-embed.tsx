@@ -117,9 +117,7 @@ function loadStyles() {
   modalStyles.setAttribute('type', 'text/css');
   modalStyles.setAttribute('href', getFullPath('/modal/dist/emeal-modal.css'));
   document.getElementsByTagName('head')[0].appendChild(modalStyles);
-  new Promise(resolve => (modalStyles.onload = resolve));
-
-  return Promise.all([modalStyles]);
+  return new Promise(resolve => (modalStyles.onload = resolve));
 }
 
 function loadDependencies() {
