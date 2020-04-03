@@ -24,9 +24,9 @@ interface DesignFormValues {
 }
 
 const DesignSchema = Yup.object().shape({
-  files: Yup.array().required('Please select a file.'),
-  title: Yup.string().required('Please enter the deal title.'),
-  info: Yup.string().required('Please enter details for the deal.')
+  files: Yup.array().required('Please select an image.'),
+  title: Yup.string().required('Please enter the coupon title.'),
+  info: Yup.string().required('Please enter details for the coupon.')
 });
 
 export const DesignForm = () => {
@@ -58,7 +58,12 @@ export const DesignForm = () => {
   return (
     <FormWrapper
       className='design-form'
-      initialValues={{ files: [], title: '', info: '' }}
+      initialValues={{
+        files: [],
+        title: 'Want a free taco?',
+        info:
+          'Join our taco club and receive a free taco next time you come in!'
+      }}
       validationSchema={DesignSchema}
       onSubmit={saveDesign}
     >

@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example Page for Embedding</title>
-    <link rel="stylesheet" href="cleanslate.css" />
-    <link rel="stylesheet" href="fonts.css" />
   </head>
   <body>
     <!-- Embed this sucker -->
     <script type="text/javascript">
-      window.emealModalSettings = { title: 'this works' };
+      window.emealModalSettings = { isLocal: true, title: 'this works' };
     </script>
-    <script src="./embed.js"></script>
+    <script src="./dist/emeal-embed.js"></script>
     <!-- end embedding sucker -->
 
     This is a test website.

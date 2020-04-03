@@ -22,7 +22,7 @@
 /* HTML 4.01 */
 .cleanslate, .cleanslate h1, .cleanslate h2, .cleanslate h3, .cleanslate h4, .cleanslate h5, .cleanslate h6, .cleanslate p, .cleanslate td, .cleanslate dl, .cleanslate tr, .cleanslate dt, .cleanslate ol, .cleanslate form, .cleanslate select, .cleanslate option, .cleanslate pre, .cleanslate div, .cleanslate table,  .cleanslate th, .cleanslate tbody, .cleanslate tfoot, .cleanslate caption, .cleanslate thead, .cleanslate ul, .cleanslate li, .cleanslate address, .cleanslate blockquote, .cleanslate dd, .cleanslate fieldset, .cleanslate li, .cleanslate iframe, .cleanslate strong, .cleanslate legend, .cleanslate em, .cleanslate summary, .cleanslate cite, .cleanslate span, .cleanslate input, .cleanslate sup, .cleanslate label, .cleanslate dfn, .cleanslate object, .cleanslate big, .cleanslate q, .cleanslate samp, .cleanslate acronym, .cleanslate small, .cleanslate img, .cleanslate strike, .cleanslate code, .cleanslate sub, .cleanslate ins, .cleanslate textarea, .cleanslate button, .cleanslate var, .cleanslate a, .cleanslate abbr, .cleanslate applet, .cleanslate del, .cleanslate kbd, .cleanslate tt, .cleanslate b, .cleanslate i, .cleanslate hr,
 
-/* HTML5 - Sept 2013 taken from MDN https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list */
+/* HTML5 - Sept 2013 taken from MDN developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list */
 .cleanslate article, .cleanslate aside, .cleanslate figure, .cleanslate figcaption, .cleanslate footer, .cleanslate header, .cleanslate menu, .cleanslate nav, .cleanslate section, .cleanslate time, .cleanslate mark, .cleanslate audio, .cleanslate video, .cleanslate abbr, .cleanslate address, .cleanslate area, .cleanslate blockquote, .cleanslate canvas, .cleanslate caption, .cleanslate cite, .cleanslate code, .cleanslate colgroup, .cleanslate col, .cleanslate datalist, .cleanslate fieldset, .cleanslate main, .cleanslate map, .cleanslate meta, .cleanslate optgroup, .cleanslate output, .cleanslate progress, .cleanslate svg {
   background-attachment: scroll !important;
   background-color: transparent !important;
@@ -603,4 +603,73 @@
 
 .cleanslate pre {
   white-space: pre !important;
+}
+
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-thin.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-thin.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-thin.svg#gilroythin') format('svg');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-ultralight.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-ultralight.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-ultralight.svg#gilroyultralight')
+      format('svg');
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-light.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-light.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-light.svg#gilroylight') format('svg');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-regular.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-regular.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-regular.svg#gilroyregular')
+      format('svg');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-medium.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-medium.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-medium.svg#gilroymedium')
+      format('svg');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-medium.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-medium.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-medium.svg#gilroymedium')
+      format('svg');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-bold.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-bold.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-bold.svg#gilroybold') format('svg');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-extrabold.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-extrabold.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-extrabold.svg#gilroyextrabold')
+      format('svg');
+  font-weight: 800;
+}
+@font-face {
+  font-family: 'gilroy';
+  src: url('http://app.emeal.me/fonts/gilroy-heavy.woff2') format('woff2'),
+    url('http://app.emeal.me/fonts/gilroy-heavy.woff') format('woff'),
+    url('http://app.emeal.me/fonts/gilroy-heavy.svg#gilroyheavy') format('svg');
+  font-weight: 900;
 }
