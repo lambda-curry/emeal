@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /** @license React v16.13.1
  * react.production.min.js
  *
