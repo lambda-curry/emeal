@@ -6,11 +6,13 @@ import asyncHandler from 'express-async-handler';
 import multer, { memoryStorage } from 'multer';
 import * as uuid from 'uuid';
 import * as s3 from '../services/s3';
+import { Coupon } from '../models/Coupon';
 
 const upload = multer({ storage: memoryStorage() });
 
 export default jwtMiddleware(Router())
   .get('', asyncHandler(getProjects))
+  .get('/:id/emails/csv', asyncHandler(downloadEmailCsv))
   .post('/:id/image', upload.single('image'), asyncHandler(updateProjectImage))
   .patch('', asyncHandler(updateProject));
 
@@ -32,6 +34,25 @@ async function getProjects(req: Request, res: Response) {
       projects: projects.map(p => p.toDto())
     });
   }
+}
+
+export async function downloadEmailCsv(req: Request, res: Response) {
+  const projectId = req.params.id;
+  const project = await Project.findOne({
+    _id: projectId,
+    ownerId: req.user.id
+  });
+  if (!project)
+    return res
+      .status(400)
+      .json({ errors: [`Could not find project with id ${projectId}`] });
+
+  const emails = await Coupon.find({ projectId: projectId }).distinct('email');
+  res.setHeader('Content-type', 'application/csv');
+  res.setHeader('Content-disposition', 'attachment; filename=emeal-emails.csv');
+  res.write('Email\n');
+  emails.forEach(e => res.write(`${e}\n`));
+  res.end();
 }
 
 async function updateProject(req: Request, res: Response) {

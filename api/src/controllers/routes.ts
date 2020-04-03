@@ -3,6 +3,7 @@ import userRouter from './user';
 import projectRouter from './project';
 import authRouter from './auth';
 import couponRouter from './coupon';
+import analyticsRouter from './analytics';
 
 export const apiRouter = Router();
 
@@ -11,4 +12,5 @@ apiRouter
   .use(couponRouter)
   .use(authRouter)
   .use('/user', userRouter)
-  .use('/project', projectRouter);
+  .use('/project', projectRouter)
+  .use('/analytics', analyticsRouter);
