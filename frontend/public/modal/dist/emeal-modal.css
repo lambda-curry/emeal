@@ -1,3 +1,4 @@
+@import url(./vendor.css);
 /* Adding !important to everything is annoying, but cleanslate allows us to make sure we can deliver styles consistently */
 .ReactModal__Body--open {
   overflow: hidden !important; }
@@ -43,8 +44,6 @@
       opacity: 0 !important; }
   .cleanslate .emeal-modal-title {
     font-size: 2em !important; }
-  .cleanslate .emeal-modal-info {
-    font-size: 1.5em !important; }
   .cleanslate .emeal-modal-content {
     text-align: center !important; }
     .cleanslate .emeal-modal-content img {
@@ -52,4 +51,5 @@
       max-height: 200px !important; }
     .cleanslate .emeal-modal-content p {
       margin-top: 0 !important;
-      line-height: 1.3em !important; }
+      line-height: 1.3em !important;
+      font-size: 1.5em !important; }

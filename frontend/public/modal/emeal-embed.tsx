@@ -23,21 +23,17 @@ function loadModal() {
   const presetSettings = window.emealModalSettings;
   const emealCouponId = window.emealCouponId;
 
-  const vendorStyles = document.querySelector(
-    `link[href="${getFullPath('/dist/vendor.css')}"]`
-  );
   const modalStyles = document.querySelector(
-    `link[href="${getFullPath('/dist/emeal-modal.css')}"]`
+    `link[href="${getFullPath('/modal/dist/emeal-modal.css')}"]`
   );
   const modalEmbedScript = document.querySelector(
-    `script[src="${getFullPath('/dist/emeal-embed.js')}"]`
+    `script[src="${getFullPath('/modal/dist/emeal-embed.js')}"]`
   );
 
   // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
   const removeAllAddedScriptsAndStyles = () => {
     // TODO: make sure we clean up everything once the modal is closed
     setTimeout(() => {
-      vendorStyles?.remove();
       modalStyles?.remove();
       modalEmbedScript?.remove();
     }, modalCloseTimeout);
@@ -105,8 +101,8 @@ function loadModal() {
 
 function getFullPath(path: string) {
   return window.emealModalSettings && window.emealModalSettings.isLocal
-    ? '.' + path
-    : 'https://app.emeal.me/modal' + path;
+    ? path
+    : 'https://app.emeal.me' + path;
 }
 
 function addModalTargetElement() {
@@ -116,27 +112,20 @@ function addModalTargetElement() {
 }
 
 function loadStyles() {
-  const vendorStyles = document.createElement('link');
-  vendorStyles.setAttribute('rel', 'stylesheet');
-  vendorStyles.setAttribute('type', 'text/css');
-  vendorStyles.setAttribute('href', getFullPath('/dist/vendor.css'));
-  document.getElementsByTagName('head')[0].appendChild(vendorStyles);
-  new Promise(resolve => (vendorStyles.onload = resolve));
-
   const modalStyles = document.createElement('link');
   modalStyles.setAttribute('rel', 'stylesheet');
   modalStyles.setAttribute('type', 'text/css');
-  modalStyles.setAttribute('href', getFullPath('/dist/emeal-modal.css'));
+  modalStyles.setAttribute('href', getFullPath('/modal/dist/emeal-modal.css'));
   document.getElementsByTagName('head')[0].appendChild(modalStyles);
   new Promise(resolve => (modalStyles.onload = resolve));
 
-  return Promise.all([vendorStyles, modalStyles]);
+  return Promise.all([modalStyles]);
 }
 
 function loadDependencies() {
   const vendorjs = window.document.createElement('script');
   vendorjs.type = 'text/javascript';
-  vendorjs.src = getFullPath('/dist/vendor.js');
+  vendorjs.src = getFullPath('/modal/dist/vendor.js');
   document.body.appendChild(vendorjs);
   const vendorjsPromise = new Promise(resolve => (vendorjs.onload = resolve));
   return loadStyles().then(() => vendorjsPromise);

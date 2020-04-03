@@ -1,3 +1,5 @@
+@import './vendor.css';
+
 /* Adding !important to everything is annoying, but cleanslate allows us to make sure we can deliver styles consistently */
 
 .ReactModal__Body--open {
@@ -58,10 +60,6 @@
       font-size: 2em !important;
     }
 
-    &-info {
-      font-size: 1.5em !important;
-    }
-
     &-content {
       text-align: center !important;
 
@@ -73,6 +71,7 @@
       p {
         margin-top: 0 !important;
         line-height: 1.3em !important;
+        font-size: 1.5em !important;
       }
     }
   }

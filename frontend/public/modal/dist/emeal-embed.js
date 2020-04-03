@@ -48,14 +48,12 @@ function loadModal() {
     var modalCloseTimeout = 520;
     var presetSettings = window.emealModalSettings;
     var emealCouponId = window.emealCouponId;
-    var vendorStyles = document.querySelector("link[href=\"" + getFullPath('/dist/vendor.css') + "\"]");
-    var modalStyles = document.querySelector("link[href=\"" + getFullPath('/dist/emeal-modal.css') + "\"]");
-    var modalEmbedScript = document.querySelector("script[src=\"" + getFullPath('/dist/emeal-embed.js') + "\"]");
+    var modalStyles = document.querySelector("link[href=\"" + getFullPath('/modal/dist/emeal-modal.css') + "\"]");
+    var modalEmbedScript = document.querySelector("script[src=\"" + getFullPath('/modal/dist/emeal-embed.js') + "\"]");
     // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
     var removeAllAddedScriptsAndStyles = function () {
         // TODO: make sure we clean up everything once the modal is closed
         setTimeout(function () {
-            vendorStyles === null || vendorStyles === void 0 ? void 0 : vendorStyles.remove();
             modalStyles === null || modalStyles === void 0 ? void 0 : modalStyles.remove();
             modalEmbedScript === null || modalEmbedScript === void 0 ? void 0 : modalEmbedScript.remove();
         }, modalCloseTimeout);
@@ -113,8 +111,8 @@ function loadModal() {
 }
 function getFullPath(path) {
     return window.emealModalSettings && window.emealModalSettings.isLocal
-        ? '.' + path
-        : 'https://app.emeal.me/modal' + path;
+        ? path
+        : 'https://app.emeal.me' + path;
 }
 function addModalTargetElement() {
     var modalTarget = document.createElement('div');
@@ -122,24 +120,18 @@ function addModalTargetElement() {
     document.body.appendChild(modalTarget);
 }
 function loadStyles() {
-    var vendorStyles = document.createElement('link');
-    vendorStyles.setAttribute('rel', 'stylesheet');
-    vendorStyles.setAttribute('type', 'text/css');
-    vendorStyles.setAttribute('href', getFullPath('/dist/vendor.css'));
-    document.getElementsByTagName('head')[0].appendChild(vendorStyles);
-    new Promise(function (resolve) { return (vendorStyles.onload = resolve); });
     var modalStyles = document.createElement('link');
     modalStyles.setAttribute('rel', 'stylesheet');
     modalStyles.setAttribute('type', 'text/css');
-    modalStyles.setAttribute('href', getFullPath('/dist/emeal-modal.css'));
+    modalStyles.setAttribute('href', getFullPath('/modal/dist/emeal-modal.css'));
     document.getElementsByTagName('head')[0].appendChild(modalStyles);
     new Promise(function (resolve) { return (modalStyles.onload = resolve); });
-    return Promise.all([vendorStyles, modalStyles]);
+    return Promise.all([modalStyles]);
 }
 function loadDependencies() {
     var vendorjs = window.document.createElement('script');
     vendorjs.type = 'text/javascript';
-    vendorjs.src = getFullPath('/dist/vendor.js');
+    vendorjs.src = getFullPath('/modal/dist/vendor.js');
     document.body.appendChild(vendorjs);
     var vendorjsPromise = new Promise(function (resolve) { return (vendorjs.onload = resolve); });
     return loadStyles().then(function () { return vendorjsPromise; });
