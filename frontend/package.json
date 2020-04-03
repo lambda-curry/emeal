@@ -34,8 +34,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:modal": "tsc ./public/modal/emeal-embed.tsx --outDir ./public/modal/dist --jsx react --module none --skipLibCheck true",
-    "dev:modal": "tsc --watch ./public/modal/emeal-embed.tsx --outDir ./public/modal/dist --jsx react --module none --skipLibCheck true"
+    "build:modal": "yarn build:modal:javascript && yarn build:modal:styles",
+    "build:modal:javascript": "tsc ./public/modal/emeal-embed.tsx --outDir ./public/modal/dist --jsx react --module none --skipLibCheck true",
+    "build:modal:styles": "node-sass ./public/modal/emeal-modal.scss -o ./public/modal/dist",
+    "dev:modal": "concurrently \"yarn dev:modal:javascript\" \"yarn dev:modal:styles\"",
+    "dev:modal:javascript": "tsc --watch ./public/modal/emeal-embed.tsx --outDir ./public/modal/dist --jsx react --module none --skipLibCheck true",
+    "dev:modal:styles": "node-sass --watch ./public/modal/emeal-modal.scss -o ./public/modal/dist"
   },
   "eslintConfig": {
     "extends": "react-app"
