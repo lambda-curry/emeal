@@ -12,6 +12,11 @@ export type UserDto = {
   avatar: string;
 };
 
+export type SessionDto = {
+  user: UserDto;
+  projects: ProjectDto[];
+};
+
 export type CouponDto = {
   id: string;
   projectId: string;

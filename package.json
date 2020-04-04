@@ -11,6 +11,8 @@
     "start:be": "yarn workspace emeal-backend run dev",
     "build:be": "yarn workspace emeal-backend run build",
     "build:modal": "yarn workspace emeal-frontend run build:modal",
-    "dev:modal": "yarn workspace emeal-frontend run dev:modal"
+    "dev:modal": "yarn workspace emeal-frontend run dev:modal",
+    "deploy:fe": "yarn workspace emeal-frontend run deploy",
+    "deploy:be": "yarn workspace emeal-backend run deploy"
   }
 }

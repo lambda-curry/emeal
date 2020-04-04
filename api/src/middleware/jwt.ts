@@ -3,9 +3,7 @@ import { User } from '../models/User';
 import jwt from 'jwt-simple';
 import logger from '../util/logger';
 import moment from 'moment';
-
-export const JWT_AUTH_SECRET: string =
-  process.env['JWT_AUTH_SECRET'] || 'sooper-secret';
+import { AUTH_SECRET } from '../util/secrets';
 
 export const notAuthenticatedResponse = (res: Response) => {
   return res
@@ -17,9 +15,9 @@ const attachUser = async (req: Request, res: Response, next: NextFunction) => {
   const jwtString = req?.cookies?.jwt;
   if (!jwtString) return notAuthenticatedResponse(res);
   try {
-    const parsedJwt = jwt.decode(jwtString, JWT_AUTH_SECRET);
+    const parsedJwt = jwt.decode(jwtString, AUTH_SECRET);
     if (moment(parsedJwt?.exp).isBefore(moment()))
-      throw new Error('Jwt Expired');
+      return res.status(401).json({ errors: ['JWT expired. Please login.'] });
     const user = await User.findById(parsedJwt.sub);
     if (!user) throw new Error('User not found');
     req.user = user;

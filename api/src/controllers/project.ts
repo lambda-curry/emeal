@@ -23,24 +23,22 @@ const projectSchema = yup.object().shape({
   coupon: yup.object({
     title: yup.string(),
     expirationDays: yup.number(),
-    description: yup.string()
-  })
+    description: yup.string(),
+  }),
 });
 
 async function getProjects(req: Request, res: Response) {
-  if (req.user) {
-    const projects = await Project.find({ ownerId: req.user.id });
-    return res.json({
-      projects: projects.map(p => p.toDto())
-    });
-  }
+  const projects = await Project.find({ ownerId: req.user.id });
+  return res.json({
+    projects: projects.map((p) => p.toDto()),
+  });
 }
 
 export async function downloadEmailCsv(req: Request, res: Response) {
   const projectId = req.params.id;
   const project = await Project.findOne({
     _id: projectId,
-    ownerId: req.user.id
+    ownerId: req.user.id,
   });
   if (!project)
     return res
@@ -51,7 +49,7 @@ export async function downloadEmailCsv(req: Request, res: Response) {
   res.setHeader('Content-type', 'application/csv');
   res.setHeader('Content-disposition', 'attachment; filename=emeal-emails.csv');
   res.write('Email\n');
-  emails.forEach(e => res.write(`${e}\n`));
+  emails.forEach((e) => res.write(`${e}\n`));
   res.end();
 }
 
@@ -75,7 +73,7 @@ async function updateProjectImage(req: Request, res: Response) {
   const projectId = req.params.id;
   const project = await Project.findOne({
     _id: projectId,
-    ownerId: req.user.id
+    ownerId: req.user.id,
   });
   if (!project)
     return res
@@ -83,12 +81,12 @@ async function updateProjectImage(req: Request, res: Response) {
       .json({ errors: ['Could not find project with provided id'] });
   if (!file)
     return res.status(400).json({
-      errors: ['No file uploaded in multipart/form for field "image"']
+      errors: ['No file uploaded in multipart/form for field "image"'],
     });
 
   const fileExtensions: { [x: string]: string } = {
     'image/jpeg': 'jpg',
-    'image/png': 'png'
+    'image/png': 'png',
   };
   const extension = fileExtensions[file.mimetype];
   if (!extension)

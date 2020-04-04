@@ -4,7 +4,7 @@ import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jwt-simple';
 import * as yup from 'yup'; // for everything
-import { JWT_AUTH_SECRET, notAuthenticatedResponse } from '../middleware/jwt';
+import { JWT_AUTH_SECRET } from '../middleware/jwt';
 import moment from 'moment';
 import { sendForgotPasswordEmail } from '../services/mail';
 import { Project } from '../models/Project';
@@ -61,10 +61,10 @@ async function buildLoginResponse(user: UserDocument, res: Response) {
       expires: moment()
         .add(7, 'days')
         .toDate(),
-      domain: PRODUCTION ? '.email.me' : undefined,
+      domain: PRODUCTION ? '.emeal.me' : undefined,
       sameSite: 'lax',
       secure: PRODUCTION,
-      httpOnly: PRODUCTION
+      httpOnly: true
     })
     .json({
       jwt: createdJwt,

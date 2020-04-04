@@ -16,10 +16,13 @@ export const MONGO_CONNECTION_OPTIONS: any = {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
-  sslValidate: false
+  sslValidate: false,
 };
 
 export const PRODUCTION = process.env['NODE_ENV'] === 'production';
+
+export const AUTH_SECRET: string =
+  process.env['JWT_AUTH_SECRET'] || 'sooper-secret';
 
 if (!MONGODB_URI) {
   logger.error(
