@@ -6,7 +6,7 @@ import { patch } from '../../utils/api';
 import { useSession } from '../../state/session/SessionProvider';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
-import { UserResponse } from '../../../../shared';
+import { UserResponse, UserDto } from '../../../../shared';
 
 interface ProfileFormValues {
   name: string;
@@ -30,7 +30,10 @@ export const ProfileForm = () => {
     values: ProfileFormValues,
     { setSubmitting, setStatus }: FormikHelpers<ProfileFormValues>
   ) => {
-    const [user, error] = await patch<UserResponse>('user', values);
+    const [user, error] = await patch<UserResponse, Partial<UserDto>>(
+      'user',
+      values
+    );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
     if (user) sessionActions.saveUser(user);

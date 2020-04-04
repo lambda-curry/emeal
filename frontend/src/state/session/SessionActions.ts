@@ -3,8 +3,7 @@ import {
   SessionResponse,
   ProjectResponse,
 } from '../../../../shared';
-import { SessionState } from './SessionProvider';
-import { SessionReducerNames } from './SessionReducers';
+import { SessionState, SessionDispatch } from './SessionProvider';
 
 export type SessionActionNames =
   | 'saveSession'
@@ -12,21 +11,16 @@ export type SessionActionNames =
   | 'saveProject'
   | 'destroySession';
 
-export type SessionActions = {
-  [key in SessionActionNames]: (payload: any) => void;
-};
-
-// export type SessionActionsCreator = <T>(
-//   state: SessionState,
-//   dispatch: SessionDispatch<T>
-// ) => SessionActions;
+export interface SessionActions {
+  saveSession: (payload: SessionResponse) => void;
+  saveUser: (payload: UserResponse) => void;
+  saveProject: (payload: ProjectResponse) => void;
+  destroySession: () => void;
+}
 
 export const sessionActions = (
   state: SessionState,
-  dispatch: (sessionDispatch: {
-    name: SessionReducerNames;
-    payload?: any;
-  }) => void
+  dispatch: SessionDispatch<any>
 ) => ({
   saveSession: (payload: SessionResponse) =>
     dispatch({ name: 'set-session', payload }),
