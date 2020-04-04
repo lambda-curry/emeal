@@ -12,6 +12,8 @@ coverage/
 
 # production
 build/
+frontend/**/*.min.js
+frontend/**/*.min.js.map
 
 # misc
 .DS_Store
