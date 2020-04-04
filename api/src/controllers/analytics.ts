@@ -2,12 +2,13 @@ import { Request, Response, Router } from 'express';
 import { Project } from '../models/Project';
 import { Coupon } from '../models/Coupon';
 import asyncHandler from 'express-async-handler';
-import { jwtMiddleware } from '../middleware/jwt';
+import { authenticateUser } from '../middleware/jwt';
 import { PageView } from '../models/PageView';
 import moment from 'moment';
 
-export default jwtMiddleware(Router()).get(
+export const router = Router().get(
   '/:projectId',
+  authenticateUser,
   asyncHandler(getAnalyticsForProject)
 );
 

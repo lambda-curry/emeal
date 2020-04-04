@@ -2,10 +2,10 @@ import { UserDocument } from '../models/User';
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import * as yup from 'yup'; // for everything
-import { Project } from '../models/Project';
-import { jwtMiddleware } from '../middleware/jwt';
+import { authenticateUser } from '../middleware/jwt';
 
-export default jwtMiddleware(Router())
+export const router = Router()
+  .use(authenticateUser)
   .get('', asyncHandler(getUser))
   .patch('', asyncHandler(updateUser))
   .put('/password', asyncHandler(updatePassword));

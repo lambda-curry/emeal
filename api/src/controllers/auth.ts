@@ -9,7 +9,7 @@ import { sendForgotPasswordEmail } from '../services/mail';
 import { Project } from '../models/Project';
 import { PRODUCTION, AUTH_SECRET, JWT_NAME } from '../util/secrets';
 
-export default Router()
+export const router = Router()
   .post('/login', asyncHandler(postLogin))
   .get('/logout', asyncHandler(logout))
   .post('/forgotPassword', asyncHandler(forgotPassword))

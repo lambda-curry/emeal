@@ -8,11 +8,12 @@
     "start": "concurrently \"yarn start:fe\" \"yarn start:be\"",
     "start:fe": "yarn workspace emeal-frontend run react-scripts start",
     "build:fe": "yarn workspace emeal-frontend run react-scripts build",
-    "start:be": "yarn workspace emeal-backend run dev",
-    "build:be": "yarn workspace emeal-backend run build",
+    "start:be": "yarn workspace emeal-api run dev",
+    "build:be": "yarn workspace emeal-api run build",
     "build:modal": "yarn workspace emeal-frontend run build:modal",
     "dev:modal": "yarn workspace emeal-frontend run dev:modal",
     "deploy:fe": "yarn workspace emeal-frontend run deploy",
-    "deploy:be": "yarn workspace emeal-backend run deploy"
+    "deploy:be": "yarn workspace emeal-api run deploy",
+    "deploy": "yarn workspace emeal-api run deploy && yarn workspace emeal-frontend run deploy"
   }
 }
