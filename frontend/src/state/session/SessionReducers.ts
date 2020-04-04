@@ -6,7 +6,6 @@ export type SessionReducerNames =
   | 'set-session'
   | 'set-user'
   | 'set-coupon'
-  | 'select-default-project'
   | 'destroy-session';
 
 type SessionReducers = {
@@ -29,9 +28,5 @@ export const sessionReducers: SessionReducers = {
     selectedProject(state).coupon = coupon;
     return state;
   },
-  'select-default-project': (state) => ({
-    ...state,
-    selectedProjectIndex: 0,
-  }),
   'destroy-session': () => emptySessionState,
 };

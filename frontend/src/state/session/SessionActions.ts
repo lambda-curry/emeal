@@ -20,7 +20,6 @@ export const SessionActions: SessionActionsCreator = (
 ) => ({
   saveSession: (payload: SessionResponse) => {
     dispatch({ name: 'set-session', payload });
-    dispatch({ name: 'select-default-project' });
   },
 
   saveUser: (payload: UserResponse) => {
