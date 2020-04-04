@@ -2,6 +2,49 @@
 
 /* Adding !important to everything is annoying, but cleanslate allows us to make sure we can deliver styles consistently */
 
+// Animation
+.cleanslate {
+  .emeal-modal-overlay {
+    opacity: 0 !important;
+    transition: opacity 500ms ease-in-out !important;
+
+    &.ReactModal__Overlay--after-open {
+      opacity: 1 !important;
+    }
+
+    &.ReactModal__Overlay--before-close {
+      opacity: 0 !important;
+    }
+  }
+
+  .emeal-modal {
+    transform: scale(0.8) !important;
+    transition: transform 500ms ease-in-out !important;
+
+    &-content {
+      opacity: 0 !important;
+      transition: opacity 500ms ease-in-out !important;
+      transition-delay: 150ms !important;
+    }
+  }
+
+  .ReactModal__Overlay--after-open .emeal-modal {
+    transform: scale(1) !important;
+
+    &-content {
+      opacity: 1 !important;
+    }
+  }
+
+  .ReactModal__Overlay--before-close .emeal-modal {
+    transform: scale(0.8) !important;
+
+    &-content {
+      opacity: 0 !important;
+    }
+  }
+}
+
 .ReactModal__Body--open {
   overflow: hidden !important;
 }
@@ -38,21 +81,11 @@
       right: 0 !important;
       bottom: 0 !important;
       background-color: rgba(0, 0, 0, 0.4) !important;
-      opacity: 0 !important;
-      transition: opacity 500ms ease-in-out !important;
       z-index: 99999999 !important;
       overflow-y: auto !important;
 
       * {
         font-family: 'modal-gilroy', sans-serif !important;
-      }
-
-      &.ReactModal__Overlay--after-open {
-        opacity: 1 !important;
-      }
-
-      &.ReactModal__Overlay--before-close {
-        opacity: 0 !important;
       }
     }
 
@@ -108,6 +141,7 @@
         letter-spacing: 0.01em !important;
         border-radius: 10px !important;
         cursor: pointer !important;
+        width: 130px !important;
 
         &[disabled] {
           opacity: 0.4 !important;

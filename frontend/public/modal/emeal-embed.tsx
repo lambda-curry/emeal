@@ -40,12 +40,6 @@ function loadModal() {
   const removeAllAddedScriptsAndStyles = () => {
     // TODO: make sure we clean up everything once the modal is closed
     setTimeout(() => {
-      console.log('meow', {
-        embedTarget,
-        vendorScript,
-        modalStyles,
-        modalEmbedScript,
-      });
       embedTarget.remove();
       vendorScript.remove();
       modalStyles.remove();
@@ -112,7 +106,7 @@ function loadModal() {
     const configureSettings = async () => {
       if (!presetSettings && !emealCouponId) return;
 
-      setTimeout(() => setOpen(true), 200);
+      setTimeout(() => setOpen(true), 100);
       if (presetSettings) return setSettings(presetSettings);
 
       const response = await fetch(

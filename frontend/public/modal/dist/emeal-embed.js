@@ -56,12 +56,6 @@ function loadModal() {
     var removeAllAddedScriptsAndStyles = function () {
         // TODO: make sure we clean up everything once the modal is closed
         setTimeout(function () {
-            console.log('meow', {
-                embedTarget: embedTarget,
-                vendorScript: vendorScript,
-                modalStyles: modalStyles,
-                modalEmbedScript: modalEmbedScript
-            });
             embedTarget.remove();
             vendorScript.remove();
             modalStyles.remove();
@@ -113,7 +107,7 @@ function loadModal() {
                     case 0:
                         if (!presetSettings && !emealCouponId)
                             return [2 /*return*/];
-                        setTimeout(function () { return setOpen(true); }, 200);
+                        setTimeout(function () { return setOpen(true); }, 100);
                         if (presetSettings)
                             return [2 /*return*/, setSettings(presetSettings)];
                         return [4 /*yield*/, fetch('https://app.emeal.me/api/coupon/' + emealCouponId, {
