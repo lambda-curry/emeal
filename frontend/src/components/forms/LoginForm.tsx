@@ -30,7 +30,10 @@ export const LoginForm = () => {
     values: LoginFormValues,
     { setSubmitting, setStatus }: FormikHelpers<LoginFormValues>
   ) => {
-    const [response, error] = await post<SessionResponse>('login', values);
+    const [response, error] = await post<SessionResponse, LoginFormValues>(
+      'login',
+      values
+    );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
     if (response) sessionActions.saveSession(response);

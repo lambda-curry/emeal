@@ -5,8 +5,13 @@ import { FieldWrapper } from './FieldWrapper';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
 import { FileUpload } from '../FileUpload';
-import { post } from '../../utils/api';
-import { ProjectResponse } from '../../../../shared';
+import { patch } from '../../utils/api';
+import {
+  ProjectResponse,
+  CouponResponse,
+  ProjectDto,
+  CouponDto,
+} from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
 
 declare global {
@@ -36,10 +41,17 @@ export const DesignForm = () => {
   const { actions: sessionActions } = useSession();
 
   const saveProject = async (
-    values: DesignFormValues,
+    { title, info }: DesignFormValues,
     { setSubmitting, setStatus }: FormikHelpers<DesignFormValues>
   ) => {
-    const [response, error] = await post<ProjectResponse>('coupon', values);
+    const project = {
+      coupon: { title, info },
+    };
+
+    const [response, error] = await patch<
+      ProjectResponse,
+      { coupon: Partial<CouponDto> }
+    >('project', project);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
     if (response) sessionActions.saveProject(response);

@@ -19,7 +19,7 @@ const handleResponse = <T>(
 ): Promise<[T, ErrorDto]> =>
   handlePromise(respond(response, error)) as Promise<[T, ErrorDto]>;
 
-export const post = async <T>(location: string, values: any) => {
+export const post = async <T, R>(location: string, values: R) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'POST',
@@ -44,7 +44,7 @@ export const get = async <T>(location: string) => {
   return handleResponse<T>(response, error);
 };
 
-export const patch = async <T>(location: string, values: any) => {
+export const patch = async <T, R>(location: string, values: R) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'PATCH',

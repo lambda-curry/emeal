@@ -23,10 +23,10 @@ export const ForgotPasswordForm = () => {
     values: ForgotPasswordValues,
     { setSubmitting, setStatus }: FormikHelpers<ForgotPasswordValues>
   ) => {
-    const [response, error] = await post<ForgotPasswordResponse>(
-      'forgotPassword',
-      values
-    );
+    const [response, error] = await post<
+      ForgotPasswordResponse,
+      ForgotPasswordValues
+    >('forgotPassword', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
 
