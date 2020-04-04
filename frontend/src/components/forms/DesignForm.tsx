@@ -5,6 +5,8 @@ import { FieldWrapper } from './FieldWrapper';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
 import { FileUpload } from '../FileUpload';
+import { post } from '../../utils/api';
+import { CouponResponse } from '../../../../shared';
 
 declare global {
   interface Window {
@@ -32,11 +34,11 @@ const DesignSchema = Yup.object().shape({
 export const DesignForm = () => {
   // const { actions: sessionActions } = useSession();
 
-  const saveDesign = async (
+  const saveCoupon = async (
     values: DesignFormValues,
     { setSubmitting, setStatus }: FormikHelpers<DesignFormValues>
   ) => {
-    // const [response, error] = await post('login', values);
+    const [response, error] = await post<CouponResponse>('coupon', values);
     setSubmitting(false);
     // if (error) return setStatus({ serverErrors: error.errors });
     // if (response) sessionActions.saveUser(response);
@@ -65,7 +67,7 @@ export const DesignForm = () => {
           'Join our taco club and receive a free taco next time you come in!',
       }}
       validationSchema={DesignSchema}
-      onSubmit={saveDesign}
+      onSubmit={saveCoupon}
     >
       {(formikProps: FormikProps<DesignFormValues>) => (
         <>

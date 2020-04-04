@@ -31,6 +31,8 @@
   }
 
   .form {
+    margin-bottom: 48px;
+
     &-field {
       width: 100%;
     }
@@ -52,7 +54,7 @@
 .login,
 .forgot-password {
   p {
-    margin: 0 0 16px;
+    margin: 0 0 32px;
     text-align: center;
     a {
       color: black;

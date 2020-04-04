@@ -1,30 +1,37 @@
 import { UserResponse, SessionResponse } from '../../../../shared';
 import { SessionState, emptySessionState } from './SessionProvider';
-import { selectDefaultProject } from './SessionSelectors';
+import { selectedProject } from './SessionSelectors';
 
-interface SessionReducers {
-  'set-session': (
+export type SessionReducerNames =
+  | 'set-session'
+  | 'set-user'
+  | 'set-coupon'
+  | 'select-default-project'
+  | 'destroy-session';
+
+type SessionReducers = {
+  [key in SessionReducerNames]: (
     state: SessionState,
-    payload: SessionResponse
+    payload: any
   ) => SessionState;
-  'set-user': (state: SessionState, { user }: UserResponse) => SessionState;
-  'select-default-project': (state: SessionState) => SessionState;
-  'destroy-session': (state: SessionState) => SessionState;
-  [x: string]: (state: any, payload?: any) => SessionState;
-}
+};
 
 export const sessionReducers: SessionReducers = {
-  'set-session': (state, { session }) => ({
+  'set-session': (state, { session }: SessionResponse) => ({
     ...state,
     ...session,
   }),
-  'set-user': (state, { user }) => ({
+  'set-user': (state, { user }: UserResponse) => ({
     ...state,
     user,
   }),
+  'set-coupon': (state, { coupon }) => {
+    selectedProject(state).coupon = coupon;
+    return state;
+  },
   'select-default-project': (state) => ({
     ...state,
-    selectedProject: selectDefaultProject(state),
+    selectedProjectIndex: 0,
   }),
   'destroy-session': () => emptySessionState,
 };

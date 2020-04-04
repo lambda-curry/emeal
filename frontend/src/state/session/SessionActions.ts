@@ -1,26 +1,37 @@
-import { UserResponse, SessionResponse } from '../../../../shared';
-import { SessionState } from './SessionProvider';
-import { Dispatch } from 'react';
+import {
+  UserResponse,
+  SessionResponse,
+  CouponResponse,
+} from '../../../../shared';
+import { SessionState, SessionDispatch } from './SessionProvider';
 
-export class SessionActions {
-  constructor(
-    private state: SessionState,
-    private dispatch: Dispatch<{
-      name: string;
-      payload?: any;
-    }>
-  ) {}
+export type SessionActionsCreator = (
+  state: SessionState,
+  dispatch: SessionDispatch
+) => SessionActionsType;
 
-  saveSession(payload: SessionResponse) {
-    this.dispatch({ name: 'set-session', payload });
-    this.dispatch({ name: 'select-default-project' });
-  }
+export type SessionActionsType = {
+  [x: string]: (payload: any) => void;
+};
 
-  saveUser(payload: UserResponse) {
-    this.dispatch({ name: 'set-user', payload });
-  }
+export const SessionActions: SessionActionsCreator = (
+  state: SessionState,
+  dispatch: SessionDispatch
+) => ({
+  saveSession: (payload: SessionResponse) => {
+    dispatch({ name: 'set-session', payload });
+    dispatch({ name: 'select-default-project' });
+  },
 
-  destroySession() {
-    this.dispatch({ name: 'destroy-session' });
-  }
-}
+  saveUser: (payload: UserResponse) => {
+    dispatch({ name: 'set-user', payload });
+  },
+
+  saveCoupon: (payload: CouponResponse) => {
+    dispatch({ name: 'set-coupon', payload });
+  },
+
+  destroySession: () => {
+    dispatch({ name: 'destroy-session' });
+  },
+});

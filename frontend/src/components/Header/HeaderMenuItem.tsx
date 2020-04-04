@@ -3,14 +3,21 @@ import classnames from 'classnames';
 import { useLocation, Link } from 'react-router-dom';
 
 export const HeaderMenuItem: FunctionComponent<{
+  disabled?: boolean;
   className?: string;
   to: string;
-}> = props => {
+}> = (props) => {
   const location = useLocation();
-  const active = location.pathname === props.to ? 'active' : '';
   const { children, className, ...rest } = props;
   return (
-    <Link className={classnames(className, active)} {...rest}>
+    <Link
+      className={classnames(
+        className,
+        location.pathname === props.to ? 'active' : '',
+        props.disabled ? 'disabled' : ''
+      )}
+      {...rest}
+    >
       {children}
     </Link>
   );

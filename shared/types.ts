@@ -2,11 +2,13 @@ export type ErrorDto = {
   errors: string[];
 };
 
+export type ProjectResponse = { project: ProjectDto };
 export type ProjectDto = {
   id: string;
   name: string;
   website: string;
   createdAt: Date;
+  coupon: CouponDto;
 };
 
 export type UserResponse = { user: UserDto };
@@ -23,6 +25,7 @@ export type SessionDto = {
   projects: ProjectDto[];
 };
 
+export type CouponResponse = { coupon: CouponDto };
 export type CouponDto = {
   id: string;
   projectId: string;

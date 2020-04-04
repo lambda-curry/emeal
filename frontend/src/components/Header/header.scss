@@ -47,6 +47,11 @@
         border-bottom: 6px solid $primary-red;
         border-bottom: 6px solid var(--primary-red);
       }
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.4;
+      }
     }
 
     &-profile {
