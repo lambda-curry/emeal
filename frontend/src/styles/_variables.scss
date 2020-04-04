@@ -1,7 +1,27 @@
+$brand-color: #bb5450;
+$primary-red: #ff4500;
+$primary-blue: #0068ff;
+$warning-red: darkred;
+$success-green: #4caf50;
+$border-color: #ccc;
+$light-gray: #fafafa;
+$header-bg: white;
+$page-bg: $light-gray;
+$page-item-bg: white;
+$dark-gray: darkgray;
+$border-radius: 10px;
+
 :root {
-  --brand-color: #bb5450;
-  --primary-red: #ff4500;
-  --warning-red: darkred;
-  --success-green: #4caf50;
-  --border-color: #ccc;
+  --brand-color: #{$brand-color};
+  --primary-red: #{$primary-red};
+  --primary-blue: #{$primary-blue};
+  --warning-red: #{$warning-red};
+  --success-green: #{$success-green};
+  --border-color: #{$border-color};
+  --light-gray: #{$light-gray};
+  --header-bg: #{$header-bg};
+  --page-bg: #{$page-bg};
+  --page-item-bg: #{$page-item-bg};
+  --dark-gray: #{$dark-gray};
+  --border-radius: #{$border-radius};
 }

@@ -123,7 +123,7 @@ export const DesignForm = () => {
 function loadModalScripts() {
   const modaljs = window.document.createElement('script');
   modaljs.type = 'text/javascript';
-  modaljs.src = `${process.env.PUBLIC_URL}/modal/dist/emeal-embed.js`;
+  modaljs.src = `${process.env.PUBLIC_URL}/modal/dist/emeal-embed.min.js`;
   document.body.appendChild(modaljs);
   return new Promise((resolve) => (modaljs.onload = resolve));
 }

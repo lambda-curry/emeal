@@ -49,13 +49,23 @@ function loadModal() {
     var presetSettings = window.emealModalSettings;
     var emealCouponId = window.emealCouponId;
     var modalStyles = document.querySelector("link[href=\"" + getFullPath('/modal/dist/emeal-modal.css') + "\"]");
-    var modalEmbedScript = document.querySelector("script[src=\"" + getFullPath('/modal/dist/emeal-embed.js') + "\"]");
+    var vendorScript = document.querySelector("script[src=\"" + getFullPath('/modal/dist/vendor.js') + "\"]");
+    var modalEmbedScript = document.querySelector("script[src=\"" + getFullPath('/modal/dist/emeal-embed.min.js') + "\"]");
+    var embedTarget = document.querySelector('#emeal-embed');
     // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
     var removeAllAddedScriptsAndStyles = function () {
         // TODO: make sure we clean up everything once the modal is closed
         setTimeout(function () {
-            modalStyles === null || modalStyles === void 0 ? void 0 : modalStyles.remove();
-            modalEmbedScript === null || modalEmbedScript === void 0 ? void 0 : modalEmbedScript.remove();
+            console.log('meow', {
+                embedTarget: embedTarget,
+                vendorScript: vendorScript,
+                modalStyles: modalStyles,
+                modalEmbedScript: modalEmbedScript
+            });
+            embedTarget.remove();
+            vendorScript.remove();
+            modalStyles.remove();
+            modalEmbedScript.remove();
         }, modalCloseTimeout);
     };
     var ModalContent = function (_a) {
@@ -87,8 +97,11 @@ function loadModal() {
             React.createElement("h1", { className: 'emeal-modal-title' }, settings.title),
             React.createElement("p", null, settings.info),
             React.createElement("div", { className: 'emeal-modal-content-row' },
-                React.createElement("input", { type: 'email', name: 'email', id: 'email', value: email, onChange: function (e) { return setEmail(e.target.value); }, placeholder: 'Email' }),
-                React.createElement("button", { type: 'button', onClick: function () { } }, "Send"))));
+                React.createElement("input", { type: 'email', name: 'email', id: 'email', value: email, onChange: function (e) { return setEmail(e.target.value); }, placeholder: 'Your email' }),
+                React.createElement("button", { type: 'button', onClick: function () { } }, "SUBSCRIBE")),
+            React.createElement("div", { className: 'emeal-modal-link' },
+                "Powered\u00A0by\u00A0",
+                React.createElement("a", { href: 'https://emeal.me', target: '_blank', rel: 'noopener noreferrer' }, "emeal.me"))));
     };
     var ModalContainer = function () {
         var _a = React.useState(), open = _a[0], setOpen = _a[1];
@@ -98,9 +111,9 @@ function loadModal() {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        setOpen(true);
                         if (!presetSettings && !emealCouponId)
                             return [2 /*return*/];
+                        setTimeout(function () { return setOpen(true); }, 200);
                         if (presetSettings)
                             return [2 /*return*/, setSettings(presetSettings)];
                         return [4 /*yield*/, fetch('https://app.emeal.me/api/coupon/' + emealCouponId, {

@@ -25,16 +25,31 @@ function loadModal() {
   const modalStyles = document.querySelector(
     `link[href="${getFullPath('/modal/dist/emeal-modal.css')}"]`
   );
-  const modalEmbedScript = document.querySelector(
-    `script[src="${getFullPath('/modal/dist/emeal-embed.js')}"]`
+
+  const vendorScript = document.querySelector(
+    `script[src="${getFullPath('/modal/dist/vendor.js')}"]`
   );
+
+  const modalEmbedScript = document.querySelector(
+    `script[src="${getFullPath('/modal/dist/emeal-embed.min.js')}"]`
+  );
+
+  const embedTarget = document.querySelector('#emeal-embed');
 
   // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
   const removeAllAddedScriptsAndStyles = () => {
     // TODO: make sure we clean up everything once the modal is closed
     setTimeout(() => {
-      modalStyles?.remove();
-      modalEmbedScript?.remove();
+      console.log('meow', {
+        embedTarget,
+        vendorScript,
+        modalStyles,
+        modalEmbedScript,
+      });
+      embedTarget.remove();
+      vendorScript.remove();
+      modalStyles.remove();
+      modalEmbedScript.remove();
     }, modalCloseTimeout);
   };
 
@@ -74,11 +89,17 @@ function loadModal() {
             id='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder='Email'
+            placeholder='Your email'
           />
           <button type='button' onClick={() => {}}>
-            Send
+            SUBSCRIBE
           </button>
+        </div>
+        <div className='emeal-modal-link'>
+          Powered&nbsp;by&nbsp;
+          <a href='https://emeal.me' target='_blank' rel='noopener noreferrer'>
+            emeal.me
+          </a>
         </div>
       </div>
     );
@@ -89,8 +110,9 @@ function loadModal() {
     const [settings, setSettings] = React.useState<EmealModalSettings>();
 
     const configureSettings = async () => {
-      setOpen(true);
       if (!presetSettings && !emealCouponId) return;
+
+      setTimeout(() => setOpen(true), 200);
       if (presetSettings) return setSettings(presetSettings);
 
       const response = await fetch(

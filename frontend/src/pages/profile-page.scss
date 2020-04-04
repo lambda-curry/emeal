@@ -1,19 +1,20 @@
-.profile {
-  padding-top: 64px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+@import '../styles/variables';
 
-  &-content {
-    width: 340px;
+.profile {
+  .page-container {
+    width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   &-img {
     display: block;
-    border-radius: 8px;
+    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     width: 200px;
     height: 200px;
     margin: 0 auto 32px;
+    border: 4px solid $border-color;
     border: 4px solid var(--border-color);
     box-shadow: none;
     transition: box-shadow 300ms ease-in-out;

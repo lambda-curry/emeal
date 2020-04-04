@@ -4,9 +4,11 @@ import './profile-page.scss';
 
 export const ProfilePage = () => (
   <main className='page profile'>
-    <div className='profile-content'>
+    <div className='page-container'>
       <h2>Update Profile</h2>
-      <ProfileForm />
+      <div className='page-item'>
+        <ProfileForm />
+      </div>
     </div>
   </main>
 );

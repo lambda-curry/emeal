@@ -1,3 +1,5 @@
+@import '../styles/variables';
+
 .dropzone {
   flex: 1;
   display: flex;
@@ -6,11 +8,15 @@
   justify-content: center;
   padding: 20px;
   border-width: 2px;
-  border-radius: 8px;
-  border-color: #eeeeee;
+  border-radius: 10px;
+  border-radius: var(--border-radius);
+  border-color: $border-color;
+  border-color: var(--border-color);
   border-style: dashed;
   background-color: #fafafa;
+  border-color: var(--light-gray);
   color: darkgray;
+  color: var(--dark-gray);
   outline: none;
   transition: border 0.24s ease-in-out;
   cursor: pointer;
@@ -20,7 +26,8 @@
 
   &:hover,
   &:focus {
-    border-color: #2196f3;
+    border-color: $primary-blue;
+    border-color: var(--primary-blue);
   }
 
   &.disabled {

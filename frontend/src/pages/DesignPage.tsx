@@ -6,7 +6,9 @@ export const DesignPage = () => (
   <div className='page design'>
     <div className='page-container'>
       <h2>Coupon</h2>
-      <DesignForm />
+      <div className='page-item'>
+        <DesignForm />
+      </div>
     </div>
   </div>
 );

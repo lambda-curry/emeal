@@ -1,9 +1,15 @@
+@import '../variables';
+
 .private-layout {
+  $header-height: 80px;
+
+  background: $page-bg;
+  background: var(--page-bg);
   width: 100%;
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: 80px auto;
+  grid-template-rows: $header-height auto;
   grid-template-areas:
     'header'
     'page';
@@ -18,5 +24,12 @@
     box-sizing: border-box;
     padding: 64px 32px 16px;
     width: 100%;
+    min-height: calc(100vh - #{$header-height});
+
+    &-item {
+      padding: 32px;
+      background: $page-item-bg;
+      background: var(--page-item-bg);
+    }
   }
 }

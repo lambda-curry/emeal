@@ -1,4 +1,7 @@
+@import './variables';
+
 button {
+  background-color: $brand-color;
   background-color: var(--brand-color);
   border: none;
   color: white;
@@ -10,7 +13,8 @@ button {
   line-height: 20px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  border-radius: 40px;
+  border-radius: $border-radius;
+  border-radius: var(--border-radius);
   min-width: 150px;
   cursor: pointer;
 
@@ -23,12 +27,15 @@ button {
 
 .button {
   &-primary {
-    background-color: var(--primary-red);
+    background-color: $primary-blue;
+    background-color: var(--primary-blue);
 
     &-outline {
-      color: var(--primary-red);
+      color: $primary-blue;
+      color: var(--primary-blue);
       background-color: transparent;
-      border: 2px solid var(--primary-red);
+      border: 2px solid $primary-blue;
+      border: 2px solid var(--primary-blue);
     }
   }
 }

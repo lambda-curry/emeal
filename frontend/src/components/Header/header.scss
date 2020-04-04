@@ -1,6 +1,11 @@
+@import '../../styles/variables';
+
 .header {
+  background: $header-bg;
+  background: var(--header-bg);
   box-sizing: border-box;
   position: relative;
+  border-bottom: 6px solid $border-color;
   border-bottom: 6px solid var(--border-color);
   height: 100%;
   display: flex;
@@ -34,10 +39,12 @@
       font-size: 16px;
       color: black;
       text-decoration: none;
+      border-bottom: 6px solid $border-color;
       border-bottom: 6px solid var(--border-color);
       transition: border-color 300ms ease-in;
 
       &.active {
+        border-bottom: 6px solid $primary-red;
         border-bottom: 6px solid var(--primary-red);
       }
     }
@@ -47,12 +54,14 @@
         height: 50px;
         width: 50px;
         border-radius: 80px;
+        border: 2px solid $border-color;
         border: 2px solid var(--border-color);
         transition: border-color 300ms ease-in;
       }
 
       &.active {
         img {
+          border-color: $primary-red;
           border-color: var(--primary-red);
         }
       }
