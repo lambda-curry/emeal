@@ -39,7 +39,7 @@ export const DesignForm = () => {
     values: DesignFormValues,
     { setSubmitting, setStatus }: FormikHelpers<DesignFormValues>
   ) => {
-    const [response, error] = await post<ProjectResponse>('coupon', values);
+    const [response, error] = await post<ProjectResponse>('project', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
     if (response) sessionActions.saveProject(response);
@@ -60,7 +60,7 @@ export const DesignForm = () => {
 
   return (
     <FormWrapper
-      className='design-form'
+      className="design-form"
       initialValues={{
         files: [],
         title: 'Want a free taco?',
@@ -72,8 +72,8 @@ export const DesignForm = () => {
     >
       {(formikProps: FormikProps<DesignFormValues>) => (
         <>
-          <div className='design-file'>
-            <label htmlFor='dropzone'>Image</label>
+          <div className="design-file">
+            <label htmlFor="dropzone">Image</label>
             <FileUpload
               fileLimit={1}
               handleDrop={(files) =>
@@ -81,33 +81,33 @@ export const DesignForm = () => {
               }
             />
             <ErrorMessage
-              className='form-input-error'
-              name='files'
-              component='div'
+              className="form-input-error"
+              name="files"
+              component="div"
             />
           </div>
-          <label htmlFor='title'>Title</label>
-          <FieldWrapper {...formikProps} label='' type='title' name='title' />
-          <label htmlFor='info'>Info</label>
+          <label htmlFor="title">Title</label>
+          <FieldWrapper {...formikProps} label="" type="title" name="title" />
+          <label htmlFor="info">Info</label>
           <FieldWrapper
             {...formikProps}
-            label=''
-            type='info'
-            name='info'
-            as='textarea'
+            label=""
+            type="info"
+            name="info"
+            as="textarea"
           />
           <ServerErrors status={formikProps.status} />
-          <div className='form-actions'>
+          <div className="form-actions">
             <button
-              className='button-primary-outline'
-              type='button'
+              className="button-primary-outline"
+              type="button"
               disabled={!formikProps.values.title}
               onClick={() => preview(formikProps)}
             >
               Preview
             </button>
             <button
-              type='submit'
+              type="submit"
               disabled={
                 formikProps.isSubmitting ||
                 !formikProps.dirty ||
