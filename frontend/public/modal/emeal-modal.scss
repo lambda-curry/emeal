@@ -1,4 +1,4 @@
-@import './vendor.css';
+@import './vendor';
 
 /* Adding !important to everything is annoying, but cleanslate allows us to make sure we can deliver styles consistently */
 
@@ -32,10 +32,6 @@
     }
 
     &-overlay {
-      * {
-        font-family: 'gilroy', sans-serif !important;
-      }
-
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
@@ -46,6 +42,10 @@
       transition: opacity 500ms ease-in-out !important;
       z-index: 99999999 !important;
       overflow-y: auto !important;
+
+      * {
+        font-family: 'modal-gilroy', sans-serif !important;
+      }
 
       &.ReactModal__Overlay--after-open {
         opacity: 1 !important;
