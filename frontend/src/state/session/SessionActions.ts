@@ -1,7 +1,6 @@
 import { UserResponse, SessionResponse } from '../../../../shared';
 import { SessionState } from './SessionProvider';
 import { Dispatch } from 'react';
-import * as SessionSelectors from './SessionSelectors';
 
 export class SessionActions {
   constructor(

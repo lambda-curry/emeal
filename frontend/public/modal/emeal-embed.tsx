@@ -1,5 +1,4 @@
 /// <reference path="./emeal-embed.d.ts" />
-
 interface EmealModalSettings {
   isLocal?: boolean;
   title: string;
@@ -39,13 +38,51 @@ function loadModal() {
     }, modalCloseTimeout);
   };
 
-  const ModalContent = ({ settings }: { settings: EmealModalSettings }) => (
-    <div className='emeal-modal-content'>
-      <img src={settings.imgSrc} role='presentation' alt='coupon graphic' />
-      <h1 className='emeal-modal-title'>{settings.title}</h1>
-      <p>{settings.info}</p>
-    </div>
-  );
+  const ModalContent = ({
+    settings,
+    setOpen,
+  }: {
+    settings: EmealModalSettings;
+    setOpen: Function;
+  }) => {
+    const [email, setEmail] = React.useState('');
+
+    const sendCoupon = async () => {
+      const response = await fetch(
+        'https://app.emeal.me/api/coupon/' + emealCouponId,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await response.json();
+      setOpen(false);
+    };
+
+    return (
+      <div className='emeal-modal-content'>
+        <img src={settings.imgSrc} role='presentation' alt='coupon graphic' />
+        <h1 className='emeal-modal-title'>{settings.title}</h1>
+        <p>{settings.info}</p>
+        <div className='emeal-modal-content-row'>
+          <input
+            type='email'
+            name='email'
+            id='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder='Email'
+          />
+          <button type='button' onClick={() => {}}>
+            Send
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   const ModalContainer = () => {
     const [open, setOpen] = React.useState<boolean>();
@@ -62,8 +99,8 @@ function loadModal() {
           method: 'GET',
           headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         }
       );
       const data: EmealModalSettings = await response.json();
@@ -89,7 +126,10 @@ function loadModal() {
         contentLabel='emeal coupon modal'
         onRequestClose={handleRequestClose}
       >
-        <ModalContent settings={settings as EmealModalSettings} />
+        <ModalContent
+          settings={settings as EmealModalSettings}
+          setOpen={setOpen}
+        />
       </Modal>
     );
   };
@@ -117,7 +157,7 @@ function loadStyles() {
   modalStyles.setAttribute('type', 'text/css');
   modalStyles.setAttribute('href', getFullPath('/modal/dist/emeal-modal.css'));
   document.getElementsByTagName('head')[0].appendChild(modalStyles);
-  return new Promise(resolve => (modalStyles.onload = resolve));
+  return new Promise((resolve) => (modalStyles.onload = resolve));
 }
 
 function loadDependencies() {
@@ -125,7 +165,7 @@ function loadDependencies() {
   vendorjs.type = 'text/javascript';
   vendorjs.src = getFullPath('/modal/dist/vendor.js');
   document.body.appendChild(vendorjs);
-  const vendorjsPromise = new Promise(resolve => (vendorjs.onload = resolve));
+  const vendorjsPromise = new Promise((resolve) => (vendorjs.onload = resolve));
   return loadStyles().then(() => vendorjsPromise);
 }
 

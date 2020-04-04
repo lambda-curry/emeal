@@ -1,4 +1,3 @@
-/// <reference path="./emeal-embed.d.ts" />
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+/// <reference path="./emeal-embed.d.ts" />
 // Note: you cannot set global variables for preview when the script gets readded.
 // Once a variable is set, it doesn't like to be readded,
 // but for some reason functions don't complain about it.
@@ -59,11 +59,36 @@ function loadModal() {
         }, modalCloseTimeout);
     };
     var ModalContent = function (_a) {
-        var settings = _a.settings;
+        var settings = _a.settings, setOpen = _a.setOpen;
+        var _b = React.useState(''), email = _b[0], setEmail = _b[1];
+        var sendCoupon = function () { return __awaiter(_this, void 0, void 0, function () {
+            var response, data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, fetch('https://app.emeal.me/api/coupon/' + emealCouponId, {
+                            method: 'GET',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        })];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        data = _a.sent();
+                        setOpen(false);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         return (React.createElement("div", { className: 'emeal-modal-content' },
             React.createElement("img", { src: settings.imgSrc, role: 'presentation', alt: 'coupon graphic' }),
             React.createElement("h1", { className: 'emeal-modal-title' }, settings.title),
-            React.createElement("p", null, settings.info)));
+            React.createElement("p", null, settings.info),
+            React.createElement("div", { className: 'emeal-modal-content-row' },
+                React.createElement("input", { type: 'email', name: 'email', id: 'email', value: email, onChange: function (e) { return setEmail(e.target.value); }, placeholder: 'Email' }),
+                React.createElement("button", { type: 'button', onClick: function () { } }, "Send"))));
     };
     var ModalContainer = function () {
         var _a = React.useState(), open = _a[0], setOpen = _a[1];
@@ -103,7 +128,7 @@ function loadModal() {
             setOpen(false);
         };
         return (React.createElement(Modal, { portalClassName: 'cleanslate', className: 'emeal-modal', overlayClassName: 'emeal-modal-overlay', isOpen: !!settings && !!open, closeTimeoutMS: modalCloseTimeout, contentLabel: 'emeal coupon modal', onRequestClose: handleRequestClose },
-            React.createElement(ModalContent, { settings: settings })));
+            React.createElement(ModalContent, { settings: settings, setOpen: setOpen })));
     };
     Modal.setAppElement('#emeal-embed');
     var domContainer = document.getElementById('emeal-embed');
@@ -125,8 +150,7 @@ function loadStyles() {
     modalStyles.setAttribute('type', 'text/css');
     modalStyles.setAttribute('href', getFullPath('/modal/dist/emeal-modal.css'));
     document.getElementsByTagName('head')[0].appendChild(modalStyles);
-    new Promise(function (resolve) { return (modalStyles.onload = resolve); });
-    return Promise.all([modalStyles]);
+    return new Promise(function (resolve) { return (modalStyles.onload = resolve); });
 }
 function loadDependencies() {
     var vendorjs = window.document.createElement('script');
