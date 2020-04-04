@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './dashboard-page.scss';
-import { Redirect, useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useSession } from '../state/session/SessionProvider';
-import { selectedProject } from '../state/session/SessionSelectors';
+import { selectCurrentProject } from '../state/session/SessionSelectors';
 
 export const DashboardPage = () => {
   const location = useLocation();
   const { state } = useSession();
+  const history = useHistory();
 
-  if (location.pathname === '/')
-    return <Redirect to={`/project/${selectedProject(state).id}`} />;
+  useEffect(() => {
+    history.push(`/project/${selectCurrentProject(state).id}`);
+  }, [history, state, location.pathname]);
+
+  if (location.pathname === '/') return null;
 
   return (
     <div className='page dashboard'>

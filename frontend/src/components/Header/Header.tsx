@@ -5,14 +5,14 @@ import { ProfileBug } from './ProfileBug';
 import { HeaderMenuItem } from './HeaderMenuItem';
 import { useSession } from '../../state/session/SessionProvider';
 import {
-  selectedProject,
-  selectedCoupon,
+  selectCurrentProject,
+  selectedCouponExists,
 } from '../../state/session/SessionSelectors';
 
 export const Header = () => {
   const { state } = useSession();
-  const selectedProjectId = selectedProject(state)?.id;
-  const hasCoupon = !!selectedCoupon(state)?.id;
+  const currentProjectId = selectCurrentProject(state)?.id;
+  const hasCoupon = selectedCouponExists(state);
 
   return (
     <div className='header'>
@@ -20,23 +20,23 @@ export const Header = () => {
       <div className='header-row'>
         <div className='header-menu'>
           <HeaderMenuItem
-            disabled={!selectedProjectId}
+            disabled={!currentProjectId}
             className='header-menu-item'
-            to={`/project/${selectedProjectId}`}
+            to={`/project/${currentProjectId}`}
           >
             Dashboard
           </HeaderMenuItem>
           <HeaderMenuItem
-            disabled={!selectedProjectId}
+            disabled={!currentProjectId}
             className='header-menu-item'
-            to={`/project/${selectedProjectId}/design`}
+            to={`/project/${currentProjectId}/design`}
           >
             Design
           </HeaderMenuItem>
           <HeaderMenuItem
             disabled={!hasCoupon}
             className='header-menu-item'
-            to={`/project/${selectedProjectId}/embed`}
+            to={`/project/${currentProjectId}/embed`}
           >
             Embed
           </HeaderMenuItem>

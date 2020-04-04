@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormikHelpers, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { FieldWrapper } from './FieldWrapper';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
 import { FileUpload } from '../FileUpload';
-import { patch } from '../../utils/api';
-import {
-  ProjectResponse,
-  CouponResponse,
-  ProjectDto,
-  CouponDto,
-} from '../../../../shared';
+import { patch, upload } from '../../utils/api';
+import { ProjectResponse, CouponDto } from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
+import { selectCurrentProject } from '../../state/session/SessionSelectors';
 
 declare global {
   interface Window {
@@ -37,24 +33,66 @@ const DesignSchema = Yup.object().shape({
   info: Yup.string().required('Please enter details for the coupon.'),
 });
 
+// export type ProjectDto = {
+//   id: string;
+//   name: string;
+//   website: string;
+//   createdAt: Date;
+//   coupon: CouponDto;
+// };
+
+// export type CouponDto = {
+//   id: string;
+//   projectId: string;
+//   projectName: string;
+//   title: string;
+//   image: string;
+//   description: string;
+//   expirationDate: Date;
+//   redeemedDate?: Date;
+// };
+
 export const DesignForm = () => {
   const { actions: sessionActions } = useSession();
+  const { state } = useSession();
+  const currentProject = selectCurrentProject(state);
 
   const saveProject = async (
-    { title, info }: DesignFormValues,
+    values: DesignFormValues,
     { setSubmitting, setStatus }: FormikHelpers<DesignFormValues>
   ) => {
+    const { title, info, files } = values;
+    setStatus({ state: 'saving' });
+
+    const imageUploadFormData = new FormData();
+    imageUploadFormData.append('image', files[0]);
+
+    const [, uploadError] = await upload<ProjectResponse>(
+      `project/${currentProject.id}/image`,
+      imageUploadFormData
+    );
+
+    if (uploadError) {
+      setSubmitting(false);
+      return setStatus({ state: 'error', serverErrors: uploadError.errors });
+    }
+
     const project = {
-      coupon: { title, info },
+      ...currentProject,
+      coupon: { title, description: info },
     };
 
-    const [response, error] = await patch<
+    const [projectResponse, projectError] = await patch<
       ProjectResponse,
       { coupon: Partial<CouponDto> }
     >('project', project);
     setSubmitting(false);
-    if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveProject(response);
+    if (projectError)
+      return setStatus({ state: 'error', serverErrors: projectError.errors });
+    if (projectResponse) {
+      sessionActions.saveProject(projectResponse);
+      setStatus({ state: 'success' });
+    }
   };
 
   const preview = async (formikProps: FormikProps<DesignFormValues>) => {
@@ -82,55 +120,64 @@ export const DesignForm = () => {
       validationSchema={DesignSchema}
       onSubmit={saveProject}
     >
-      {(formikProps: FormikProps<DesignFormValues>) => (
-        <>
-          <div className='design-file'>
-            <label htmlFor='dropzone'>Image</label>
-            <FileUpload
-              fileLimit={1}
-              handleDrop={(files) =>
-                formikProps.setFieldValue('files', files, true)
-              }
+      {(formikProps: FormikProps<DesignFormValues>) => {
+        const {
+          setFieldValue,
+          status,
+          isSubmitting,
+          dirty,
+          isValid,
+          values,
+        } = formikProps;
+        return (
+          <>
+            <div className='design-file'>
+              <label htmlFor='dropzone'>Image</label>
+              <FileUpload
+                fileLimit={1}
+                handleDrop={(files) => setFieldValue('files', files, true)}
+              />
+              <ErrorMessage
+                className='form-input-error'
+                name='files'
+                component='div'
+              />
+            </div>
+            <label htmlFor='title'>Title</label>
+            <FieldWrapper {...formikProps} label='' type='title' name='title' />
+            <label htmlFor='info'>Info</label>
+            <FieldWrapper
+              {...formikProps}
+              label=''
+              type='info'
+              name='info'
+              as='textarea'
             />
-            <ErrorMessage
-              className='form-input-error'
-              name='files'
-              component='div'
-            />
-          </div>
-          <label htmlFor='title'>Title</label>
-          <FieldWrapper {...formikProps} label='' type='title' name='title' />
-          <label htmlFor='info'>Info</label>
-          <FieldWrapper
-            {...formikProps}
-            label=''
-            type='info'
-            name='info'
-            as='textarea'
-          />
-          <ServerErrors status={formikProps.status} />
-          <div className='form-actions'>
-            <button
-              className='button-primary-outline'
-              type='button'
-              disabled={!formikProps.values.title}
-              onClick={() => preview(formikProps)}
-            >
-              Preview
-            </button>
-            <button
-              type='submit'
-              disabled={
-                formikProps.isSubmitting ||
-                !formikProps.dirty ||
-                !formikProps.isValid
-              }
-            >
-              Save
-            </button>
-          </div>
-        </>
-      )}
+            <ServerErrors status={status} />
+            <div className='form-actions'>
+              <button
+                className='button-primary-outline'
+                type='button'
+                disabled={!values.title}
+                onClick={() => preview(formikProps)}
+              >
+                Preview
+              </button>
+              <button
+                type='submit'
+                disabled={
+                  status?.state === 'saving' ||
+                  isSubmitting ||
+                  !dirty ||
+                  !isValid
+                }
+              >
+                {status?.state === 'saving' ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </>
+        );
+      }}
     </FormWrapper>
   );
 };

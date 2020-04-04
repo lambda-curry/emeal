@@ -17,13 +17,13 @@ export type SessionDispatch<T> = Dispatch<{
 export interface SessionState {
   user: UserDto | Partial<UserDto>;
   projects: ProjectDto[];
-  selectedProjectIndex: number;
+  currentProjectIndex: number;
 }
 
 export const emptySessionState: SessionState = {
   user: {},
   projects: [],
-  selectedProjectIndex: 0,
+  currentProjectIndex: 0,
 };
 
 const SessionStateContext: Context<SessionState> = React.createContext<
