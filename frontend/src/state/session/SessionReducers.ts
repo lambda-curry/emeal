@@ -1,22 +1,25 @@
-import { UserResponse, SessionResponse } from '../../../../shared';
+import {
+  UserResponse,
+  SessionResponse,
+  ProjectResponse,
+} from '../../../../shared';
 import { SessionState, emptySessionState } from './SessionProvider';
-import { selectedProject } from './SessionSelectors';
 
 export type SessionReducerNames =
   | 'set-session'
   | 'set-user'
-  | 'set-coupon'
+  | 'set-project'
   | 'destroy-session';
 
 type SessionReducers = {
   [key in SessionReducerNames]: (
     state: SessionState,
-    payload: any
+    payload?: any
   ) => SessionState;
 };
 
 export const sessionReducers: SessionReducers = {
-  'set-session': (state, { session }: SessionResponse) => ({
+  'set-session': (state: SessionState, { session }: SessionResponse) => ({
     ...state,
     ...session,
   }),
@@ -24,8 +27,8 @@ export const sessionReducers: SessionReducers = {
     ...state,
     user,
   }),
-  'set-coupon': (state, { coupon }) => {
-    selectedProject(state).coupon = coupon;
+  'set-project': (state, { project }: ProjectResponse) => {
+    state.projects[state.selectedProjectIndex] = project;
     return state;
   },
   'destroy-session': () => emptySessionState,
