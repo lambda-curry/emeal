@@ -120,57 +120,6 @@ export const DesignForm = () => {
       validationSchema={DesignSchema}
       onSubmit={saveProject}
     >
-<<<<<<< HEAD
-      {(formikProps: FormikProps<DesignFormValues>) => (
-        <>
-          <div className="design-file">
-            <label htmlFor="dropzone">Image</label>
-            <FileUpload
-              fileLimit={1}
-              handleDrop={(files) =>
-                formikProps.setFieldValue('files', files, true)
-              }
-            />
-            <ErrorMessage
-              className="form-input-error"
-              name="files"
-              component="div"
-            />
-          </div>
-          <label htmlFor="title">Title</label>
-          <FieldWrapper {...formikProps} label="" type="title" name="title" />
-          <label htmlFor="info">Info</label>
-          <FieldWrapper
-            {...formikProps}
-            label=""
-            type="info"
-            name="info"
-            as="textarea"
-          />
-          <ServerErrors status={formikProps.status} />
-          <div className="form-actions">
-            <button
-              className="button-primary-outline"
-              type="button"
-              disabled={!formikProps.values.title}
-              onClick={() => preview(formikProps)}
-            >
-              Preview
-            </button>
-            <button
-              type="submit"
-              disabled={
-                formikProps.isSubmitting ||
-                !formikProps.dirty ||
-                !formikProps.isValid
-              }
-            >
-              Save
-            </button>
-          </div>
-        </>
-      )}
-=======
       {(formikProps: FormikProps<DesignFormValues>) => {
         const {
           setFieldValue,
@@ -182,40 +131,40 @@ export const DesignForm = () => {
         } = formikProps;
         return (
           <>
-            <div className='design-file'>
-              <label htmlFor='dropzone'>Image</label>
+            <div className="design-file">
+              <label htmlFor="dropzone">Image</label>
               <FileUpload
                 fileLimit={1}
                 handleDrop={(files) => setFieldValue('files', files, true)}
               />
               <ErrorMessage
-                className='form-input-error'
-                name='files'
-                component='div'
+                className="form-input-error"
+                name="files"
+                component="div"
               />
             </div>
-            <label htmlFor='title'>Title</label>
-            <FieldWrapper {...formikProps} label='' type='title' name='title' />
-            <label htmlFor='info'>Info</label>
+            <label htmlFor="title">Title</label>
+            <FieldWrapper {...formikProps} label="" type="title" name="title" />
+            <label htmlFor="info">Info</label>
             <FieldWrapper
               {...formikProps}
-              label=''
-              type='info'
-              name='info'
-              as='textarea'
+              label=""
+              type="info"
+              name="info"
+              as="textarea"
             />
             <ServerErrors status={status} />
-            <div className='form-actions'>
+            <div className="form-actions">
               <button
-                className='button-primary-outline'
-                type='button'
+                className="button-primary-outline"
+                type="button"
                 disabled={!values.title}
                 onClick={() => preview(formikProps)}
               >
                 Preview
               </button>
               <button
-                type='submit'
+                type="submit"
                 disabled={
                   status?.state === 'saving' ||
                   isSubmitting ||
@@ -229,7 +178,6 @@ export const DesignForm = () => {
           </>
         );
       }}
->>>>>>> ad27136261c8714acb2b4e6d25ce83dbb09e3078
     </FormWrapper>
   );
 };
