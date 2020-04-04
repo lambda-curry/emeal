@@ -5,13 +5,17 @@ import logger from '../util/logger';
 import moment from 'moment';
 import { AUTH_SECRET, JWT_NAME } from '../util/secrets';
 
-export const notAuthenticatedResponse = (res: Response) => {
+const notAuthenticatedResponse = (res: Response) => {
   return res
     .status(401)
     .json({ errors: ['Please login to access this resource'] });
 };
 
-const attachUser = async (req: Request, res: Response, next: NextFunction) => {
+export const authenticateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const jwtString = req?.cookies[JWT_NAME];
   if (!jwtString) return notAuthenticatedResponse(res);
   try {
@@ -27,4 +31,4 @@ const attachUser = async (req: Request, res: Response, next: NextFunction) => {
     return notAuthenticatedResponse(res);
   }
 };
-export const jwtMiddleware = (router: Router) => router.use(attachUser);
+export const jwtMiddleware = (router: Router) => router.use(authenticateUser);

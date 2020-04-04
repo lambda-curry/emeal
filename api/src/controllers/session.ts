@@ -1,9 +1,11 @@
-import { jwtMiddleware } from '../middleware/jwt';
+import { authenticateUser } from '../middleware/jwt';
 import { Router, Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { Project } from '../models/Project';
 
-export default jwtMiddleware(Router()).get('', asyncHandler(getSession));
+export const router = Router()
+  .use(authenticateUser)
+  .get('', asyncHandler(getSession));
 
 async function getSession(req: Request, res: Response) {
   const user = req.user;

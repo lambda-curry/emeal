@@ -1,20 +1,29 @@
 import { Request, Response, Router } from 'express';
 import * as yup from 'yup';
 import { Project } from '../models/Project';
-import { jwtMiddleware } from '../middleware/jwt';
+import { authenticateUser } from '../middleware/jwt';
 import asyncHandler from 'express-async-handler';
 import multer, { memoryStorage } from 'multer';
 import * as uuid from 'uuid';
 import * as s3 from '../services/s3';
 import { Coupon } from '../models/Coupon';
+import { PageView } from '../models/PageView';
 
 const upload = multer({ storage: memoryStorage() });
 
-export default jwtMiddleware(Router())
-  .get('', asyncHandler(getProjects))
-  .get('/:id/emails/csv', asyncHandler(downloadEmailCsv))
-  .post('/:id/image', upload.single('image'), asyncHandler(updateProjectImage))
-  .patch('', asyncHandler(updateProject));
+export const router = Router()
+  .get('/project/:id/markPageView', asyncHandler(markProjectPageView))
+  .get('/project/:id', asyncHandler(getProjectById))
+  // authenticatedRoutes
+  .get('', authenticateUser, asyncHandler(getProjects))
+  .get('/:id/emails/csv', authenticateUser, asyncHandler(downloadEmailCsv))
+  .post(
+    '/:id/image',
+    authenticateUser,
+    upload.single('image'),
+    asyncHandler(updateProjectImage)
+  )
+  .patch('', authenticateUser, asyncHandler(updateProject));
 
 const projectSchema = yup.object().shape({
   id: yup.string().required(),
@@ -32,6 +41,44 @@ async function getProjects(req: Request, res: Response) {
   return res.json({
     projects: projects.map((p) => p.toDto()),
   });
+}
+
+async function getProjectById(req: Request, res: Response) {
+  const id = req.params.id;
+
+  const project = await Project.findById(id);
+  if (!project)
+    return res
+      .status(404)
+      .json({ errors: [`Could not find project with id: ${id}`] });
+  const existingProjects = req.session.projects || [];
+  const projects = new Set([...existingProjects, id]);
+  req.session.projects = [...projects];
+
+  return res.json({
+    project: project.toDto(),
+  });
+}
+
+async function markProjectPageView(req: Request, res: Response) {
+  const id = req.params.id;
+
+  const project = await Project.findById(id);
+  if (!project)
+    return res
+      .status(404)
+      .json({ errors: [`Could not find project with id: ${id}`] });
+
+  let pageView = await PageView.findOne({
+    sessionId: req.session.id,
+    projectId: project.id,
+  });
+  if (!pageView)
+    pageView = await new PageView({
+      sessionId: req.session.id,
+      projectId: project.id,
+    }).save();
+  return res.json({ message: 'OK' });
 }
 
 export async function downloadEmailCsv(req: Request, res: Response) {
