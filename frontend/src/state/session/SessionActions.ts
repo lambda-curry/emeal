@@ -1,36 +1,40 @@
 import {
   UserResponse,
   SessionResponse,
-  CouponResponse,
+  ProjectResponse,
 } from '../../../../shared';
-import { SessionState, SessionDispatch } from './SessionProvider';
+import { SessionState } from './SessionProvider';
+import { SessionReducerNames } from './SessionReducers';
 
-export type SessionActionsCreator = (
-  state: SessionState,
-  dispatch: SessionDispatch
-) => SessionActionsType;
+export type SessionActionNames =
+  | 'saveSession'
+  | 'saveUser'
+  | 'saveProject'
+  | 'destroySession';
 
-export type SessionActionsType = {
-  [x: string]: (payload: any) => void;
+export type SessionActions = {
+  [key in SessionActionNames]: (payload: any) => void;
 };
 
-export const SessionActions: SessionActionsCreator = (
+// export type SessionActionsCreator = <T>(
+//   state: SessionState,
+//   dispatch: SessionDispatch<T>
+// ) => SessionActions;
+
+export const sessionActions = (
   state: SessionState,
-  dispatch: SessionDispatch
+  dispatch: (sessionDispatch: {
+    name: SessionReducerNames;
+    payload?: any;
+  }) => void
 ) => ({
-  saveSession: (payload: SessionResponse) => {
-    dispatch({ name: 'set-session', payload });
-  },
+  saveSession: (payload: SessionResponse) =>
+    dispatch({ name: 'set-session', payload }),
 
-  saveUser: (payload: UserResponse) => {
-    dispatch({ name: 'set-user', payload });
-  },
+  saveUser: (payload: UserResponse) => dispatch({ name: 'set-user', payload }),
 
-  saveCoupon: (payload: CouponResponse) => {
-    dispatch({ name: 'set-coupon', payload });
-  },
+  saveProject: (payload: ProjectResponse) =>
+    dispatch({ name: 'set-project', payload }),
 
-  destroySession: () => {
-    dispatch({ name: 'destroy-session' });
-  },
+  destroySession: () => dispatch({ name: 'destroy-session' }),
 });

@@ -6,12 +6,12 @@ import React, {
   Dispatch,
 } from 'react';
 import { UserDto, ProjectDto } from '../../../../shared';
-import { SessionActions, SessionActionsType } from './SessionActions';
+import { sessionActions, SessionActions } from './SessionActions';
 import { sessionReducers, SessionReducerNames } from './SessionReducers';
 
-export type SessionDispatch = Dispatch<{
+export type SessionDispatch<T> = Dispatch<{
   name: SessionReducerNames;
-  payload?: any;
+  payload?: T;
 }>;
 
 export interface SessionState {
@@ -30,9 +30,9 @@ const SessionStateContext: Context<SessionState> = React.createContext<
   SessionState
 >(emptySessionState);
 
-const SessionActionsContext: Context<SessionActionsType> = React.createContext<
-  SessionActionsType
->({} as SessionActionsType);
+const SessionActionsContext: Context<SessionActions> = React.createContext<
+  SessionActions
+>({} as SessionActions);
 
 const middleware = (
   state: SessionState,
@@ -50,11 +50,11 @@ const middleware = (
 
 const sessionActionsReducer = (
   state: SessionState,
-  dispatched: { name: SessionReducerNames; payload?: any }
+  sessionDispatch: { name: SessionReducerNames; payload?: any }
 ) => {
-  if (!sessionReducers[dispatched.name])
-    throw new Error(`reducer ${dispatched.name} not defined`);
-  return { ...middleware(state, dispatched) };
+  if (!sessionReducers[sessionDispatch.name])
+    throw new Error(`reducer ${sessionDispatch.name} not defined`);
+  return { ...middleware(state, sessionDispatch) };
 };
 
 export const SessionProvider: FunctionComponent = ({ children }) => {
@@ -65,7 +65,7 @@ export const SessionProvider: FunctionComponent = ({ children }) => {
 
   return (
     <SessionStateContext.Provider value={state}>
-      <SessionActionsContext.Provider value={SessionActions(state, dispatch)}>
+      <SessionActionsContext.Provider value={sessionActions(state, dispatch)}>
         {children}
       </SessionActionsContext.Provider>
     </SessionStateContext.Provider>

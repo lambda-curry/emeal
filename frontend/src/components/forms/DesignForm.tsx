@@ -6,7 +6,7 @@ import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
 import { FileUpload } from '../FileUpload';
 import { post } from '../../utils/api';
-import { CouponResponse } from '../../../../shared';
+import { ProjectResponse } from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
 
 declare global {
@@ -35,14 +35,14 @@ const DesignSchema = Yup.object().shape({
 export const DesignForm = () => {
   const { actions: sessionActions } = useSession();
 
-  const saveCoupon = async (
+  const saveProject = async (
     values: DesignFormValues,
     { setSubmitting, setStatus }: FormikHelpers<DesignFormValues>
   ) => {
-    const [response, error] = await post<CouponResponse>('coupon', values);
+    const [response, error] = await post<ProjectResponse>('coupon', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveCoupon(response);
+    if (response) sessionActions.saveProject(response);
   };
 
   const preview = async (formikProps: FormikProps<DesignFormValues>) => {
@@ -68,7 +68,7 @@ export const DesignForm = () => {
           'Join our taco club and receive a free taco next time you come in!',
       }}
       validationSchema={DesignSchema}
-      onSubmit={saveCoupon}
+      onSubmit={saveProject}
     >
       {(formikProps: FormikProps<DesignFormValues>) => (
         <>
