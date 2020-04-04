@@ -1,11 +1,10 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { useSession } from '../state/SessionProvider';
+import { useSession } from '../state/session/SessionProvider';
+import { isAuthenticated } from '../state/session/SessionSelectors';
 
 export const PrivateRoute = (props: RouteProps) => {
-  const {
-    selectors: { isAuthenticated }
-  } = useSession();
-  if (!isAuthenticated) return <Redirect to='/login' />;
+  const { state } = useSession();
+  if (!isAuthenticated(state)) return <Redirect to='/login' />;
   return <Route {...props} />;
 };

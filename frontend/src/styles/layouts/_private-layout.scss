@@ -15,5 +15,8 @@
 
   .page {
     grid-area: page;
+    box-sizing: border-box;
+    padding: 64px 32px 16px;
+    width: 100%;
   }
 }

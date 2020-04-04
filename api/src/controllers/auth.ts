@@ -4,11 +4,10 @@ import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jwt-simple';
 import * as yup from 'yup'; // for everything
-import { JWT_AUTH_SECRET } from '../middleware/jwt';
 import moment from 'moment';
 import { sendForgotPasswordEmail } from '../services/mail';
 import { Project } from '../models/Project';
-import { PRODUCTION } from '../util/secrets';
+import { PRODUCTION, AUTH_SECRET, JWT_NAME } from '../util/secrets';
 
 export default Router()
   .post('/login', asyncHandler(postLogin))
@@ -18,58 +17,47 @@ export default Router()
   .post('/signup', asyncHandler(signup));
 
 const forgotPasswordSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email()
-    .required()
+  email: yup.string().email().required(),
 });
 
 const loginSchema = yup.object().shape({
   email: yup.string().required(),
-  password: yup
-    .string()
-    .min(1)
-    .required()
+  password: yup.string().min(1).required(),
 });
 
 const getUserForTokenSchema = yup.object().shape({
-  token: yup.string().required()
+  token: yup.string().required(),
 });
 
 const resetPasswordSchema = yup.object().shape({
   token: yup.string().required(),
-  password: yup
-    .string()
-    .min(8)
-    .required()
+  password: yup.string().min(8).required(),
 });
 
 async function buildLoginResponse(user: UserDocument, res: Response) {
   const createdJwt = jwt.encode(
     {
       sub: user.id,
-      exp: moment()
-        .add(7, 'days')
-        .toISOString()
+      exp: moment().add(7, 'days').toISOString(),
     },
-    JWT_AUTH_SECRET
+    AUTH_SECRET
   );
   const projects = await Project.find({ ownerId: user.id });
   return res
     .status(200)
-    .cookie('jwt', createdJwt, {
-      expires: moment()
-        .add(7, 'days')
-        .toDate(),
+    .cookie(JWT_NAME, createdJwt, {
+      expires: moment().add(7, 'days').toDate(),
       domain: PRODUCTION ? '.emeal.me' : undefined,
       sameSite: 'lax',
       secure: PRODUCTION,
-      httpOnly: true
+      httpOnly: true,
     })
     .json({
-      jwt: createdJwt,
-      user: user.toDto(),
-      projects: projects.map(p => p.toDto())
+      session: {
+        jwt: createdJwt,
+        user: user.toDto(),
+        projects: projects.map((p) => p.toDto()),
+      },
     });
 }
 
@@ -91,7 +79,7 @@ async function postLogin(req: Request, res: Response) {
  * Log out.
  */
 async function logout(req: Request, res: Response) {
-  return res.status(200).clearCookie('jwt');
+  return res.status(200).clearCookie(JWT_NAME);
 }
 
 /**
@@ -102,15 +90,9 @@ async function signup(req: Request, res: Response) {
   const schema = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email(),
-    password: yup
-      .string()
-      .min(8)
-      .required(),
+    password: yup.string().min(8).required(),
     projectName: yup.string().required(),
-    website: yup
-      .string()
-      .url()
-      .required()
+    website: yup.string().url().required(),
   });
 
   const body = await schema.validate(req.body);
@@ -118,7 +100,7 @@ async function signup(req: Request, res: Response) {
   const user = new User({
     email: body.email,
     password: body.password,
-    name: body.name
+    name: body.name,
   });
 
   const existingUser = await User.findOne({ email: body.email });
@@ -132,7 +114,7 @@ async function signup(req: Request, res: Response) {
   const project = new Project({
     name: body.projectName,
     website: body.website,
-    ownerId: createdUser.id
+    ownerId: createdUser.id,
   });
   await project.save();
   return await buildLoginResponse(createdUser, res);
@@ -188,9 +170,7 @@ async function forgotPassword(req: Request, res: Response) {
       .status(400)
       .json({ errors: [`Could not find user with email ${body.email}`] });
   user.passwordResetToken = token;
-  user.passwordResetExpires = moment()
-    .add(24, 'hours')
-    .toDate();
+  user.passwordResetExpires = moment().add(24, 'hours').toDate();
 
   await user.save();
   await sendForgotPasswordEmail(token, user);

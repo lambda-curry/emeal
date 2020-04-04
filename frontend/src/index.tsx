@@ -5,21 +5,22 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { RouteLayouts } from './routes/RouteLayouts';
 import { AllProviders } from './state/AllProviders';
-import { useSession } from './state/SessionProvider';
+import { useSession } from './state/session/SessionProvider';
 import { useAsyncEffect } from './utils/helpers';
 import { get } from './utils/api';
+import { SessionResponse } from '../../shared';
 
 const OnLoad: FunctionComponent = ({ children }) => {
   const { actions: sessionActions } = useSession();
   const [loading, setLoading] = useState(true);
 
-  const fetchUser = async () => {
-    const [response, error] = await get('user');
-    if (!error) sessionActions.saveUser(response.user);
+  const fetchSession = async () => {
+    const [response, error] = await get<SessionResponse>('session');
+    if (!error) sessionActions.saveSession(response);
     setLoading(false);
   };
 
-  useAsyncEffect(fetchUser, undefined, []);
+  useAsyncEffect(fetchSession, undefined, []);
   if (loading) return null;
   return <>{children}</>;
 };

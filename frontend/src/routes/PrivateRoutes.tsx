@@ -5,8 +5,8 @@ import { routes } from './routes';
 
 export const PrivateRoutes = () => (
   <FadeRouteSwitchAnimation>
-    {routes.private.map(route => (
-      <PrivateRoute key={route.path} {...route} />
+    {routes.private.map((route) => (
+      <PrivateRoute key={route.path || ''} {...route} />
     ))}
   </FadeRouteSwitchAnimation>
 );

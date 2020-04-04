@@ -4,9 +4,10 @@ import * as Yup from 'yup';
 
 import { post } from '../../utils/api';
 import { FieldWrapper } from './FieldWrapper';
-import { useSession } from '../../state/SessionProvider';
+import { useSession } from '../../state/session/SessionProvider';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
+import { SessionResponse } from '../../../../shared';
 
 interface LoginFormValues {
   email: string;
@@ -19,7 +20,7 @@ const LoginSchema = Yup.object().shape({
     .required('Please enter your email address.'),
   password: Yup.string()
     .min(7, 'Please enter a longer password')
-    .required('Please enter your password.')
+    .required('Please enter your password.'),
 });
 
 export const LoginForm = () => {
@@ -29,10 +30,10 @@ export const LoginForm = () => {
     values: LoginFormValues,
     { setSubmitting, setStatus }: FormikHelpers<LoginFormValues>
   ) => {
-    const [response, error] = await post('login', values);
+    const [response, error] = await post<SessionResponse>('login', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveUser(response.user);
+    if (response) sessionActions.saveSession(response);
   };
 
   return (

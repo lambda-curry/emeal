@@ -11,28 +11,23 @@ export default jwtMiddleware(Router())
   .put('/password', asyncHandler(updatePassword));
 
 const updatePasswordSchema = yup.object().shape({
-  password: yup
-    .string()
-    .min(8)
-    .required()
+  password: yup.string().min(8).required(),
 });
 
 const updateUserSchema = yup.object().shape({
   email: yup.string(),
-  name: yup.string()
+  name: yup.string(),
 });
 
 async function getUser(req: Request, res: Response) {
-  const projects = await Project.find({ ownerId: req.user.id });
   return res.json({
     user: req.user.toDto(),
-    projects: projects.map(p => p.toDto())
   });
 }
 
 async function updateUser(req: Request, res: Response) {
   const body = await updateUserSchema.validate(req.body, {
-    stripUnknown: true
+    stripUnknown: true,
   });
   const user = req.user as UserDocument;
   Object.assign(user, body);

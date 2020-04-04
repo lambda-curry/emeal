@@ -1,3 +1,7 @@
+export type ErrorDto = {
+  errors: string[];
+};
+
 export type ProjectDto = {
   id: string;
   name: string;
@@ -5,6 +9,7 @@ export type ProjectDto = {
   createdAt: Date;
 };
 
+export type UserResponse = { user: UserDto };
 export type UserDto = {
   id: string;
   name: string;
@@ -12,6 +17,7 @@ export type UserDto = {
   avatar: string;
 };
 
+export type SessionResponse = { session: SessionDto };
 export type SessionDto = {
   user: UserDto;
   projects: ProjectDto[];
@@ -26,4 +32,8 @@ export type CouponDto = {
   description: string;
   expirationDate: Date;
   redeemedDate?: Date;
+};
+
+export type ForgotPasswordResponse = {
+  message: 'Success';
 };

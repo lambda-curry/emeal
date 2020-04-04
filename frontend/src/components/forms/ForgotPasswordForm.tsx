@@ -6,6 +6,7 @@ import { post } from '../../utils/api';
 import { FieldWrapper } from './FieldWrapper';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
+import { ForgotPasswordResponse } from '../../../../shared';
 
 interface ForgotPasswordValues {
   email: string;
@@ -14,7 +15,7 @@ interface ForgotPasswordValues {
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
     .email('Please enter a valid email address.')
-    .required('Please enter your email address.')
+    .required('Please enter your email address.'),
 });
 
 export const ForgotPasswordForm = () => {
@@ -22,7 +23,10 @@ export const ForgotPasswordForm = () => {
     values: ForgotPasswordValues,
     { setSubmitting, setStatus }: FormikHelpers<ForgotPasswordValues>
   ) => {
-    const [response, error] = await post('forgotPassword', values);
+    const [response, error] = await post<ForgotPasswordResponse>(
+      'forgotPassword',
+      values
+    );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
 

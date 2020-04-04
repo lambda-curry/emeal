@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSession } from '../../state/SessionProvider';
+import { useSession } from '../../state/session/SessionProvider';
 
 export const ProfileBug = () => {
   const {
     state: {
-      user: { avatar }
-    }
+      user: { avatar },
+    },
   } = useSession();
   return (
     <div className='profile-bug'>

@@ -7,11 +7,12 @@ import { ForgotPasswordPage } from '../pages/ForgotPasswordPage';
 import { ProfilePage } from '../pages/ProfilePage';
 import { DesignPage } from '../pages/DesignPage';
 import { ComponentType } from 'react';
+import { EmbedPage } from '../pages/EmbedPage';
 
 interface RouteConfig {
-  path: string;
+  path?: string;
   component: ComponentType;
-  exact: boolean;
+  exact?: boolean;
 }
 
 interface EmealRoutes {
@@ -21,7 +22,7 @@ interface EmealRoutes {
 
 export const emealLayouts = {
   public: PublicLayout,
-  private: PrivateLayout
+  private: PrivateLayout,
 };
 
 export const routes: EmealRoutes = {
@@ -29,34 +30,43 @@ export const routes: EmealRoutes = {
     {
       path: '/login',
       component: LoginPage,
-      exact: true
+      exact: true,
     },
     {
       path: '/signup',
       component: SignupPage,
-      exact: true
+      exact: true,
     },
     {
       path: '/reset-password',
       component: ForgotPasswordPage,
-      exact: true
-    }
+      exact: true,
+    },
   ],
   private: [
     {
-      path: '/',
+      path: '/project/:projectId',
       component: DashboardPage,
-      exact: true
+      exact: true,
     },
     {
       path: '/profile',
       component: ProfilePage,
-      exact: true
+      exact: true,
     },
     {
-      path: '/design',
+      path: '/project/:projectId/design',
       component: DesignPage,
-      exact: true
-    }
-  ]
+      exact: true,
+    },
+    {
+      path: '/project/:projectId/embed',
+      component: EmbedPage,
+      exact: true,
+    },
+    {
+      // No Match
+      component: DashboardPage,
+    },
+  ],
 };

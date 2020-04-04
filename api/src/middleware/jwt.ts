@@ -3,7 +3,7 @@ import { User } from '../models/User';
 import jwt from 'jwt-simple';
 import logger from '../util/logger';
 import moment from 'moment';
-import { AUTH_SECRET } from '../util/secrets';
+import { AUTH_SECRET, JWT_NAME } from '../util/secrets';
 
 export const notAuthenticatedResponse = (res: Response) => {
   return res
@@ -12,7 +12,7 @@ export const notAuthenticatedResponse = (res: Response) => {
 };
 
 const attachUser = async (req: Request, res: Response, next: NextFunction) => {
-  const jwtString = req?.cookies?.jwt;
+  const jwtString = req?.cookies[JWT_NAME];
   if (!jwtString) return notAuthenticatedResponse(res);
   try {
     const parsedJwt = jwt.decode(jwtString, AUTH_SECRET);

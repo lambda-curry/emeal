@@ -26,7 +26,7 @@ interface DesignFormValues {
 const DesignSchema = Yup.object().shape({
   files: Yup.array().required('Please select an image.'),
   title: Yup.string().required('Please enter the coupon title.'),
-  info: Yup.string().required('Please enter details for the coupon.')
+  info: Yup.string().required('Please enter details for the coupon.'),
 });
 
 export const DesignForm = () => {
@@ -39,7 +39,7 @@ export const DesignForm = () => {
     // const [response, error] = await post('login', values);
     setSubmitting(false);
     // if (error) return setStatus({ serverErrors: error.errors });
-    // if (response) sessionActions.saveUser(response.user);
+    // if (response) sessionActions.saveUser(response);
   };
 
   const preview = async (formikProps: FormikProps<DesignFormValues>) => {
@@ -50,7 +50,7 @@ export const DesignForm = () => {
       isLocal: process.env.REACT_APP_ENV === 'local' ? true : false,
       title,
       info,
-      imgSrc: files[0] ? URL.createObjectURL(files[0]) : ''
+      imgSrc: files[0] ? URL.createObjectURL(files[0]) : '',
     };
     await loadModalScripts();
   };
@@ -62,7 +62,7 @@ export const DesignForm = () => {
         files: [],
         title: 'Want a free taco?',
         info:
-          'Join our taco club and receive a free taco next time you come in!'
+          'Join our taco club and receive a free taco next time you come in!',
       }}
       validationSchema={DesignSchema}
       onSubmit={saveDesign}
@@ -73,7 +73,7 @@ export const DesignForm = () => {
             <label htmlFor='dropzone'>Image</label>
             <FileUpload
               fileLimit={1}
-              handleDrop={files =>
+              handleDrop={(files) =>
                 formikProps.setFieldValue('files', files, true)
               }
             />
@@ -125,5 +125,5 @@ function loadModalScripts() {
   modaljs.type = 'text/javascript';
   modaljs.src = `${process.env.PUBLIC_URL}/modal/dist/emeal-embed.js`;
   document.body.appendChild(modaljs);
-  return new Promise(resolve => (modaljs.onload = resolve));
+  return new Promise((resolve) => (modaljs.onload = resolve));
 }

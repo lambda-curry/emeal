@@ -1,54 +1,58 @@
 import { handlePromise } from './helpers';
+import { ErrorDto } from '../../../shared';
 const api = process.env.REACT_APP_API;
 const headers = {
   Accept: 'application/json',
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
 
-const respond = async (response: Response, error: Error) => {
+const respond = async (response: Response, error: ErrorDto) => {
   if (error) return Promise.reject(error);
   const responseJson = await response.json();
   if (response.status !== 200) return Promise.reject(responseJson);
   return Promise.resolve(responseJson);
 };
 
-const handleResponse = (response: Response, error: Error) =>
-  handlePromise(respond(response, error));
+const handleResponse = <T>(
+  response: Response,
+  error: ErrorDto
+): Promise<[T, ErrorDto]> =>
+  handlePromise(respond(response, error)) as Promise<[T, ErrorDto]>;
 
-export const post = async (location: string, values: any) => {
+export const post = async <T>(location: string, values: any) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'POST',
       headers,
       credentials: 'include',
-      body: JSON.stringify(values)
+      body: JSON.stringify(values),
     })
   );
 
-  return handleResponse(response, error);
+  return handleResponse<T>(response, error);
 };
 
-export const get = async (location: string) => {
+export const get = async <T>(location: string) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'GET',
       headers,
-      credentials: 'include'
+      credentials: 'include',
     })
   );
 
-  return handleResponse(response, error);
+  return handleResponse<T>(response, error);
 };
 
-export const patch = async (location: string, values: any) => {
+export const patch = async <T>(location: string, values: any) => {
   const [response, error] = await handlePromise(
     fetch(`${api}${location}`, {
       method: 'PATCH',
       headers,
       credentials: 'include',
-      body: JSON.stringify(values)
+      body: JSON.stringify(values),
     })
   );
 
-  return handleResponse(response, error);
+  return handleResponse<T>(response, error);
 };

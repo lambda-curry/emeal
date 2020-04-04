@@ -3,9 +3,10 @@ import { FormikProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { FieldWrapper } from './FieldWrapper';
 import { patch } from '../../utils/api';
-import { useSession } from '../../state/SessionProvider';
+import { useSession } from '../../state/session/SessionProvider';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
+import { UserResponse } from '../../../../shared';
 
 interface ProfileFormValues {
   name: string;
@@ -16,23 +17,23 @@ const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Please enter your name.'),
   email: Yup.string()
     .email('Please enter a valid email address.')
-    .required('Please enter your email address.')
+    .required('Please enter your email address.'),
 });
 
 export const ProfileForm = () => {
   const {
     state: { user },
-    actions: sessionActions
+    actions: sessionActions,
   } = useSession();
 
   const update = async (
     values: ProfileFormValues,
     { setSubmitting, setStatus }: FormikHelpers<ProfileFormValues>
   ) => {
-    const [response, error] = await patch('user', values);
+    const [user, error] = await patch<UserResponse>('user', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveUser(response.user);
+    if (user) sessionActions.saveUser(user);
   };
 
   return (
@@ -40,7 +41,7 @@ export const ProfileForm = () => {
       className='signup-form'
       initialValues={{
         name: user.name,
-        email: user.email
+        email: user.email,
       }}
       validationSchema={SignupSchema}
       onSubmit={update}

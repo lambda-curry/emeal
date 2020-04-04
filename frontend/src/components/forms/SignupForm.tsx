@@ -3,9 +3,10 @@ import { FormikProps, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { FieldWrapper } from './FieldWrapper';
 import { post } from '../../utils/api';
-import { useSession } from '../../state/SessionProvider';
+import { useSession } from '../../state/session/SessionProvider';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
+import { SessionResponse } from '../../../../shared';
 
 interface SignupFormValues {
   name: string;
@@ -28,7 +29,7 @@ const SignupSchema = Yup.object().shape({
   ),
   website: Yup.string()
     .url('Please enter a valid website url.')
-    .required(`Please enter your restaurant's website url.`)
+    .required(`Please enter your restaurant's website url.`),
 });
 
 export const SignupForm = () => {
@@ -38,10 +39,10 @@ export const SignupForm = () => {
     values: SignupFormValues,
     { setSubmitting, setStatus }: FormikHelpers<SignupFormValues>
   ) => {
-    const [response, error] = await post('signup', values);
+    const [response, error] = await post<SessionResponse>('signup', values);
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveUser(response.user);
+    if (response) sessionActions.saveSession(response);
   };
 
   return (
@@ -52,7 +53,7 @@ export const SignupForm = () => {
         email: '',
         password: '',
         projectName: '',
-        website: ''
+        website: '',
       }}
       validationSchema={SignupSchema}
       onSubmit={signup}
