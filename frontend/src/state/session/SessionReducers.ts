@@ -28,7 +28,7 @@ export const sessionReducers: SessionReducers = {
     user,
   }),
   'set-project': (state, { project }: ProjectResponse) => {
-    state.projects[state.selectedProjectIndex] = project;
+    state.projects[state.currentProjectIndex] = project;
     return state;
   },
   'destroy-session': () => emptySessionState,

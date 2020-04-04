@@ -56,3 +56,15 @@ export const patch = async <T, R>(location: string, values: R) => {
 
   return handleResponse<T>(response, error);
 };
+
+export const upload = async <T>(location: string, body: FormData) => {
+  const [response, error] = await handlePromise(
+    fetch(`${api}${location}`, {
+      method: 'POST',
+      credentials: 'include',
+      body,
+    })
+  );
+
+  return handleResponse<T>(response, error);
+};

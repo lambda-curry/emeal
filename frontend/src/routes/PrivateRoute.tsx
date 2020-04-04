@@ -1,10 +1,16 @@
 import React from 'react';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { Route, Redirect, RouteProps, useHistory } from 'react-router-dom';
 import { useSession } from '../state/session/SessionProvider';
 import { isAuthenticated } from '../state/session/SessionSelectors';
 
 export const PrivateRoute = (props: RouteProps) => {
   const { state } = useSession();
-  if (!isAuthenticated(state)) return <Redirect to='/login' />;
+  const history = useHistory();
+
+  if (!isAuthenticated(state)) {
+    history.push(`/login`);
+    return null;
+  }
+
   return <Route {...props} />;
 };
