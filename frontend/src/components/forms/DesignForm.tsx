@@ -98,7 +98,7 @@ export const DesignForm = () => {
 
   return (
     <FormWrapper
-      className='design-form'
+      className="design-form"
       initialValues={{
         image: currentCoupon.image || null,
         files: [],
@@ -127,6 +127,7 @@ export const DesignForm = () => {
 
         return (
           <>
+<<<<<<< HEAD
             {previewImage ? (
               <div className='design-preview'>
                 <img src={previewImage} alt='coupon graphic' />
@@ -159,26 +160,53 @@ export const DesignForm = () => {
             <label htmlFor='title'>Title</label>
             <FieldWrapper {...formikProps} label='' type='title' name='title' />
             <label htmlFor='info'>Info</label>
+=======
+            <div className="design-file">
+              <label htmlFor="dropzone">Image</label>
+              <FileUpload
+                fileLimit={1}
+                handleDrop={(files) => setFieldValue('files', files, true)}
+              />
+              <ErrorMessage
+                className="form-input-error"
+                name="files"
+                component="div"
+              />
+            </div>
+            <label htmlFor="title">Title</label>
+            <FieldWrapper {...formikProps} label="" type="title" name="title" />
+            <label htmlFor="info">Info</label>
+>>>>>>> 25fbf05db7f62b046017ef30678c3c56eada2463
             <FieldWrapper
               {...formikProps}
-              label=''
-              type='info'
-              name='info'
-              as='textarea'
+              label=""
+              type="info"
+              name="info"
+              as="textarea"
             />
             <ServerErrors status={status} />
-            <div className='form-actions'>
+            <div className="form-actions">
               <button
-                className='button-primary-outline'
-                type='button'
+                className="button-primary-outline"
+                type="button"
                 disabled={!values.title}
                 onClick={() => preview(formikProps)}
               >
                 Preview
               </button>
               <button
+<<<<<<< HEAD
                 type='submit'
                 disabled={status?.state === 'saving' || isSubmitting || !dirty}
+=======
+                type="submit"
+                disabled={
+                  status?.state === 'saving' ||
+                  isSubmitting ||
+                  !dirty ||
+                  !isValid
+                }
+>>>>>>> 25fbf05db7f62b046017ef30678c3c56eada2463
               >
                 {status?.state === 'saving' ? 'Saving...' : 'Save'}
               </button>
