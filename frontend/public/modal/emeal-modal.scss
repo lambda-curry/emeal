@@ -43,6 +43,14 @@
       opacity: 0 !important;
     }
   }
+
+  .loaded .emeal-modal-content-loading {
+    display: none !important;
+  }
+
+  .emeal-modal-content .loaded img {
+    opacity: 1 !important;
+  }
 }
 
 .ReactModal__Body--open {
@@ -103,9 +111,21 @@
         align-items: center !important;
       }
 
+      &-loading {
+        position: relative !important;
+        height: 100% !important;
+        width: 100% !important;
+      }
+
+      &-img {
+        height: 200px !important;
+      }
+
       img {
         max-width: 100% !important;
         max-height: 200px !important;
+        opacity: 0 !important;
+        transition: opacity 100ms ease-in !important;
       }
 
       p {

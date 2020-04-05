@@ -55,8 +55,11 @@ function loadModal() {
     setOpen: Function;
   }) => {
     const [email, setEmail] = React.useState('');
+    const [imgLoaded, setImgLoaded] = React.useState(false);
 
     const sendCoupon = async () => {
+      if (settings.isLocal) return setOpen(false);
+
       const response = await fetch('https://app.emeal.me/api/coupon/', {
         method: 'POST',
         headers: {
@@ -74,7 +77,28 @@ function loadModal() {
 
     return (
       <div className='emeal-modal-content'>
-        <img src={settings.image} role='presentation' alt='coupon graphic' />
+        <div className={`emeal-modal-content-img ${imgLoaded ? 'loaded' : ''}`}>
+          <div className='emeal-modal-content-loading'>
+            <svg className='emeal-spinner' viewBox='0 0 50 50'>
+              <circle
+                className='path'
+                cx='25'
+                cy='25'
+                r='20'
+                fill='none'
+                stroke-width='5'
+              ></circle>
+            </svg>
+          </div>
+          <img
+            onLoad={() => setImgLoaded(true)}
+            src={settings.image}
+            height='300'
+            width='auto'
+            role='presentation'
+            alt='coupon graphic'
+          />
+        </div>
         <h1 className='emeal-modal-title'>{settings.title}</h1>
         <p>{settings.description}</p>
         <div className='emeal-modal-content-row'>
@@ -110,6 +134,7 @@ function loadModal() {
       if (!presetSettings && !emealCouponId) return;
 
       setTimeout(() => setOpen(true), 100);
+      if (presetSettings.isLocal) return setSettings(presetSettings);
 
       const response = await fetch(
         'https://app.emeal.me/api/project/' + emealCouponId,

@@ -605,6 +605,46 @@
   white-space: pre !important;
 }
 
+.cleanslate {
+  .emeal-spinner {
+    animation: emeal-rotate 2s linear infinite !important;
+    z-index: 2 !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    margin: -25px 0 0 -25px !important;
+    width: 50px !important;
+    height: 50px !important;
+
+    & .path {
+      stroke: #0068ff !important;
+      stroke-linecap: round !important;
+      animation: emeal-dash 1.5s ease-in-out infinite !important;
+    }
+  }
+
+  @keyframes emeal-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes emeal-dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }
+}
+
 @font-face {
   font-family: 'modal-gilroy';
   src: url('//app.emeal.me/fonts/gilroy-thin.woff2') format('woff2'),

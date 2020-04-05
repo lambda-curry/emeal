@@ -95,7 +95,7 @@ export const DesignForm = () => {
       : '';
 
     window.emealModalSettings = {
-      isLocal: process.env.REACT_APP_ENV === 'local' ? true : false,
+      isLocal: window.location.host === 'local.emeal.me:3000' ? true : false,
       title,
       description: info,
       image: previewImage,
