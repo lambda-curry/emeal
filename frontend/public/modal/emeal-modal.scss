@@ -61,7 +61,7 @@
   .emeal-modal {
     box-sizing: border-box !important;
     position: absolute !important;
-    top: 12vh !important;
+    top: 5vw !important;
     left: 5vw !important;
     right: 5vw !important;
     height: auto !important;
@@ -74,6 +74,10 @@
     margin-bottom: 64px !important;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
     max-width: 500px !important;
+
+    @media (min-width: 525px) {
+      top: 12vh !important;
+    }
 
     @media (min-width: 660px) {
       width: 500px !important;
