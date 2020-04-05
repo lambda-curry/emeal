@@ -19,6 +19,8 @@ export const MONGO_CONNECTION_OPTIONS: any = {
   sslValidate: false,
 };
 
+export const STRIPE_API_KEY = process.env['STRIPE_API_KEY'];
+
 export const PRODUCTION = process.env['NODE_ENV'] === 'production';
 
 export const JWT_NAME = PRODUCTION ? 'jwt' : 'devjwt';

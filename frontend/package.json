@@ -17,6 +17,7 @@
     "@types/react-transition-group": "^4.2.4",
     "@types/yup": "^0.26.33",
     "classnames": "^2.2.6",
+    "env-cmd": "^10.1.0",
     "formik": "^2.1.4",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
@@ -33,9 +34,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:dev": "env-cmd -f .env.development.hosted react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:modal": "yarn build:modal:javascript && yarn build:modal:styles",
+    "build:modal:dev": "yarn build:modal:javascript:dev && yarn build:modal:styles:dev",
     "build:modal:javascript": "tsc ./public/modal/emeal-embed.tsx --outDir ./public/modal/dist --jsx react --module none --skipLibCheck true && yarn minify:modal:javascript",
     "minify:modal:javascript": "rm -f ./public/modal/dist/emeal-embed.min.js && rm -f ./public/modal/dist/emeal-embed.min.js.map && uglifyjs ./public/modal/dist/emeal-embed.js -o ./public/modal/dist/emeal-embed.min.js --mangle --compress --source-map",
     "minify:modal:javascript:watch": "nodemon --exec 'yarn minify:modal:javascript' --watch ./public/modal/dist -e js --ignore '*.min.js'",
@@ -43,7 +46,8 @@
     "dev:modal": "concurrently \"yarn dev:modal:javascript\" \"yarn dev:modal:styles\" \"yarn minify:modal:javascript:watch\"",
     "dev:modal:javascript": "tsc --watch ./public/modal/emeal-embed.tsx --outDir ./public/modal/dist --jsx react --module none --skipLibCheck true",
     "dev:modal:styles": "node-sass --watch ./public/modal/emeal-modal.scss -o ./public/modal/dist",
-    "deploy": "sh deploy.sh"
+    "deploy": "sh deploy.sh",
+    "deploy:dev": "sh deploy_dev.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
