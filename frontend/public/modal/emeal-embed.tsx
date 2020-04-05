@@ -58,14 +58,17 @@ function loadModal() {
 
     const sendCoupon = async () => {
       const response = await fetch(
-        'https://app.emeal.me/api/project/' + emealCouponId,
+        'https://app.emeal.me/api/coupon/' + emealCouponId,
         {
           method: 'GET',
-          mode: 'no-cors',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({
+            projectId: emealCouponId,
+            email,
+          }),
         }
       );
       const data = await response.json();
@@ -115,16 +118,16 @@ function loadModal() {
         'https://app.emeal.me/api/project/' + emealCouponId,
         {
           method: 'GET',
-          mode: 'no-cors',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
         }
       );
-      const data: {
-        project: { coupon: EmealModalSettings };
-      } = await response.json();
+      const data = await response.json();
+
+      console.log('project response', data);
+
       if (!data || !data.project) return;
       setSettings(data.project.coupon);
     };
