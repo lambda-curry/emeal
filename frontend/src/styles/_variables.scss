@@ -9,6 +9,7 @@ $header-bg: white;
 $page-bg: $light-gray;
 $page-item-bg: white;
 $dark-gray: darkgray;
+$darker-gray: #4d4d4d;
 $border-radius: 10px;
 
 :root {
@@ -23,5 +24,6 @@ $border-radius: 10px;
   --page-bg: #{$page-bg};
   --page-item-bg: #{$page-item-bg};
   --dark-gray: #{$dark-gray};
+  --darker-gray: #{$darker-gray};
   --border-radius: #{$border-radius};
 }

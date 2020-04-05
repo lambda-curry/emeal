@@ -1,0 +1,15 @@
+@import '../styles/variables';
+
+.page.embed {
+  code {
+    padding: 32px;
+    display: block;
+    background: $darker-gray;
+    background: var(--darker-gray);
+    border-radius: $border-radius;
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    line-height: 24px;
+    color: white;
+  }
+}
