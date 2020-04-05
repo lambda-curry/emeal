@@ -134,7 +134,7 @@ function loadModal() {
       if (!presetSettings && !emealCouponId) return;
 
       setTimeout(() => setOpen(true), 100);
-      if (presetSettings.isLocal) return setSettings(presetSettings);
+      if (presetSettings?.isLocal) return setSettings(presetSettings);
 
       const response = await fetch(
         'https://app.emeal.me/api/project/' + emealCouponId,
@@ -187,7 +187,7 @@ function loadModal() {
 }
 
 function getFullPath(path: string) {
-  return window.emealModalSettings && window.emealModalSettings.isLocal
+  return window.emealModalSettings && window.emealModalSettings?.isLocal
     ? path
     : 'https://app.emeal.me' + path;
 }
