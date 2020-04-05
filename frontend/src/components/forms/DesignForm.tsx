@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormikHelpers, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { FieldWrapper } from './FieldWrapper';
@@ -22,40 +22,29 @@ declare global {
 }
 
 interface DesignFormValues {
+  image: null | string;
   files: File[];
   title: string;
   info: string;
 }
 
 const DesignSchema = Yup.object().shape({
-  files: Yup.array().required('Please select an image.'),
+  image: Yup.string().url().nullable(),
+  files: Yup.array().when(
+    'image',
+    (image: string, schema: Yup.ArraySchema<any>) => {
+      return !!image ? schema : schema.required('Please select an image.');
+    }
+  ),
   title: Yup.string().required('Please enter the coupon title.'),
   info: Yup.string().required('Please enter details for the coupon.'),
 });
-
-// export type ProjectDto = {
-//   id: string;
-//   name: string;
-//   website: string;
-//   createdAt: Date;
-//   coupon: CouponDto;
-// };
-
-// export type CouponDto = {
-//   id: string;
-//   projectId: string;
-//   projectName: string;
-//   title: string;
-//   image: string;
-//   description: string;
-//   expirationDate: Date;
-//   redeemedDate?: Date;
-// };
 
 export const DesignForm = () => {
   const { actions: sessionActions } = useSession();
   const { state } = useSession();
   const currentProject = selectCurrentProject(state);
+  const currentCoupon = currentProject.coupon;
 
   const saveProject = async (
     values: DesignFormValues,
@@ -96,7 +85,6 @@ export const DesignForm = () => {
   };
 
   const preview = async (formikProps: FormikProps<DesignFormValues>) => {
-    console.log(formikProps.values);
     const { title, info, files } = formikProps.values;
 
     window.emealModalSettings = {
@@ -110,12 +98,12 @@ export const DesignForm = () => {
 
   return (
     <FormWrapper
-      className="design-form"
+      className='design-form'
       initialValues={{
+        image: currentCoupon.image || null,
         files: [],
-        title: 'Want a free taco?',
-        info:
-          'Join our taco club and receive a free taco next time you come in!',
+        title: currentCoupon.title || '',
+        info: currentCoupon.description || '',
       }}
       validationSchema={DesignSchema}
       onSubmit={saveProject}
@@ -129,48 +117,68 @@ export const DesignForm = () => {
           isValid,
           values,
         } = formikProps;
+
+        console.log(values, formikProps.errors);
+
+        const previewImage =
+          values.image || values.files[0]
+            ? URL.createObjectURL(values.files[0])
+            : null;
+
         return (
           <>
-            <div className="design-file">
-              <label htmlFor="dropzone">Image</label>
-              <FileUpload
-                fileLimit={1}
-                handleDrop={(files) => setFieldValue('files', files, true)}
-              />
-              <ErrorMessage
-                className="form-input-error"
-                name="files"
-                component="div"
-              />
-            </div>
-            <label htmlFor="title">Title</label>
-            <FieldWrapper {...formikProps} label="" type="title" name="title" />
-            <label htmlFor="info">Info</label>
+            {previewImage ? (
+              <div className='design-preview'>
+                <img src={previewImage} alt='coupon graphic' />
+                <button
+                  className='button-primary-outline'
+                  type='button'
+                  onClick={() => {
+                    setFieldValue('files', [], false);
+                    setFieldValue('image', null, false);
+                  }}
+                >
+                  Select another image
+                </button>
+              </div>
+            ) : null}
+            {values.files.length < 1 && !previewImage ? (
+              <div className='design-file'>
+                <label htmlFor='dropzone'>Image</label>
+                <FileUpload
+                  fileLimit={1}
+                  handleDrop={(files) => setFieldValue('files', files, true)}
+                />
+                <ErrorMessage
+                  className='form-input-error'
+                  name='files'
+                  component='div'
+                />
+              </div>
+            ) : null}
+            <label htmlFor='title'>Title</label>
+            <FieldWrapper {...formikProps} label='' type='title' name='title' />
+            <label htmlFor='info'>Info</label>
             <FieldWrapper
               {...formikProps}
-              label=""
-              type="info"
-              name="info"
-              as="textarea"
+              label=''
+              type='info'
+              name='info'
+              as='textarea'
             />
             <ServerErrors status={status} />
-            <div className="form-actions">
+            <div className='form-actions'>
               <button
-                className="button-primary-outline"
-                type="button"
+                className='button-primary-outline'
+                type='button'
                 disabled={!values.title}
                 onClick={() => preview(formikProps)}
               >
                 Preview
               </button>
               <button
-                type="submit"
-                disabled={
-                  status?.state === 'saving' ||
-                  isSubmitting ||
-                  !dirty ||
-                  !isValid
-                }
+                type='submit'
+                disabled={status?.state === 'saving' || isSubmitting || !dirty}
               >
                 {status?.state === 'saving' ? 'Saving...' : 'Save'}
               </button>
