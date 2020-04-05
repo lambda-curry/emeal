@@ -114,11 +114,8 @@ export const DesignForm = () => {
           status,
           isSubmitting,
           dirty,
-          isValid,
           values,
         } = formikProps;
-
-        console.log(values, formikProps.errors);
 
         const previewImage =
           values.image || values.files[0]

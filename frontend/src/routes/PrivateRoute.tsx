@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect, RouteProps, useHistory } from 'react-router-dom';
+import { Route, RouteProps, useHistory } from 'react-router-dom';
 import { useSession } from '../state/session/SessionProvider';
 import { isAuthenticated } from '../state/session/SessionSelectors';
 
