@@ -71,6 +71,7 @@ function loadModal() {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, fetch('https://app.emeal.me/api/project/' + emealCouponId, {
                             method: 'GET',
+                            mode: 'no-cors',
                             headers: {
                                 Accept: 'application/json',
                                 'Content-Type': 'application/json'
@@ -110,6 +111,7 @@ function loadModal() {
                         setTimeout(function () { return setOpen(true); }, 100);
                         return [4 /*yield*/, fetch('https://app.emeal.me/api/project/' + emealCouponId, {
                                 method: 'GET',
+                                mode: 'no-cors',
                                 headers: {
                                     Accept: 'application/json',
                                     'Content-Type': 'application/json'
@@ -120,6 +122,7 @@ function loadModal() {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
+                        console.log('project response', data);
                         if (!data || !data.project)
                             return [2 /*return*/];
                         setSettings(data.project.coupon);

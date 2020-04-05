@@ -58,7 +58,7 @@ function loadModal() {
 
     const sendCoupon = async () => {
       const response = await fetch(
-        'https://app.emeal.me/api/project/' + emealCouponId,
+        'https://app.emeal.me/api/coupon/' + emealCouponId,
         {
           method: 'GET',
           mode: 'no-cors',
@@ -66,6 +66,10 @@ function loadModal() {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({
+            projectId: emealCouponId,
+            email,
+          }),
         }
       );
       const data = await response.json();
