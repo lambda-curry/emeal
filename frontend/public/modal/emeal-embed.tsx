@@ -61,7 +61,6 @@ function loadModal() {
         'https://app.emeal.me/api/coupon/' + emealCouponId,
         {
           method: 'GET',
-          mode: 'no-cors',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -119,7 +118,6 @@ function loadModal() {
         'https://app.emeal.me/api/project/' + emealCouponId,
         {
           method: 'GET',
-          mode: 'no-cors',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
