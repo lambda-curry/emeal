@@ -44,7 +44,7 @@ export const DesignForm = () => {
   const { actions: sessionActions } = useSession();
   const { state } = useSession();
   const currentProject = selectCurrentProject(state);
-  const currentCoupon = currentProject.coupon;
+  const currentCoupon = currentProject?.coupon;
 
   const saveProject = async (
     values: DesignFormValues,
