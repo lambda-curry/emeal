@@ -155,7 +155,7 @@ interface EmealModalSettings {
 
       const configureSettings = async () => {
         if (!presetSettings && !emealCouponId) return;
-        const showOnDelay = presetSettings?.isPreview ? 100 : 4000;
+        const showOnDelay = presetSettings?.isPreview ? 100 : 2000;
 
         setTimeout(() => setOpen(true), showOnDelay);
         if (presetSettings?.isPreview) return setSettings(presetSettings);
