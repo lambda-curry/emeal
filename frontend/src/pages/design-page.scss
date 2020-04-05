@@ -1,4 +1,9 @@
 .design {
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
   &-file {
     padding-bottom: 24px;
   }
@@ -9,7 +14,7 @@
 
     img {
       max-width: 600px - 32px;
-      width: 100%;
+      width: auto;
       max-height: 200px;
       height: auto;
     }
@@ -17,11 +22,5 @@
     button {
       margin-top: 16px;
     }
-  }
-
-  .page-container {
-    width: 400px;
-    max-width: 100%;
-    margin: 0 auto;
   }
 }

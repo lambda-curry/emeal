@@ -14,15 +14,14 @@ export const EmbedPage = () => {
     <div className='page embed'>
       <div className='page-container'>
         <div className='page-item'>
-          <h3>Embed Code</h3>
+          <CopyToClipboard
+            copyText={`${embedComment}\n${embedCode}`}
+          ></CopyToClipboard>
           <code>
             {embedComment}
             <br />
             {embedCode}
           </code>
-          <CopyToClipboard
-            copyText={`${embedComment}\n${embedCode}`}
-          ></CopyToClipboard>
         </div>
       </div>
     </div>
