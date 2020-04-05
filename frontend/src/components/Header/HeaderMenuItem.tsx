@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { useLocation, Link } from 'react-router-dom';
 
 export const HeaderMenuItem: FunctionComponent<{
@@ -11,7 +11,7 @@ export const HeaderMenuItem: FunctionComponent<{
   const { children, className, ...rest } = props;
   return (
     <Link
-      className={classnames(
+      className={classNames(
         className,
         location.pathname === props.to ? 'active' : '',
         props.disabled ? 'disabled' : ''

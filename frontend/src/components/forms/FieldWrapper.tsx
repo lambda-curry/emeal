@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, ErrorMessage, FormikProps } from 'formik';
 import { titleCase } from '../../utils/helpers';
 import { Icon } from '../Icon';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 export const FieldWrapper = (
   props: {
@@ -16,7 +16,7 @@ export const FieldWrapper = (
   const { type, name, icon, as } = props;
   const label = props.label ?? titleCase(name);
   return (
-    <div className={classnames('form-field', icon ? 'hasIcon' : '')}>
+    <div className={classNames('form-field', icon ? 'hasIcon' : '')}>
       {/* <label htmlFor={name}>{label}</label> */}
       {icon && <Icon name={icon} />}
       <Field

@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import { ReactComponent as logo } from '../icons/emeal-logo.svg';
 
 export const icons: {
   [x: string]: FunctionComponent<React.SVGProps<SVGSVGElement>>;
 } = {
-  logo
+  logo,
 };
 
 export const Icon = ({
@@ -22,7 +22,7 @@ export const Icon = ({
   const Icon = icons[name];
 
   return (
-    <span {...props} className={classnames(`icon icon-${name}`, className)}>
+    <span {...props} className={classNames(`icon icon-${name}`, className)}>
       <Icon role='presentation' />
     </span>
   );
