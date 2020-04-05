@@ -19,6 +19,8 @@ export const MONGO_CONNECTION_OPTIONS: any = {
   sslValidate: false,
 };
 
+export const STRIPE_PLAN_ID = process.env['STRIPE_PLAN_ID'];
+
 export const STRIPE_API_KEY = process.env['STRIPE_API_KEY'];
 
 export const PRODUCTION = process.env['NODE_ENV'] === 'production';

@@ -8,11 +8,12 @@ const corsWhitelist = [
 const corsOptions = {
   credentials: true,
   origin: function (origin: string, callback: any) {
-    if (!origin || corsWhitelist.some((host) => origin.indexOf(host) > -1)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    return callback(null, true);
+    // if (!origin || corsWhitelist.some((host) => origin.indexOf(host) > -1)) {
+    //   callback(null, true);
+    // } else {
+    //   callback(new Error('Not allowed by CORS'));
+    // }
   },
 };
 
