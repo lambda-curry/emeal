@@ -12,6 +12,7 @@ coverage/
 
 # production
 build/
+frontend/public/modal/dist/emeal-modal.css
 frontend/public/modal/dist/emeal-embed.js
 frontend/**/*.min.js
 frontend/**/*.min.js.map
