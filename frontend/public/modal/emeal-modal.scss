@@ -145,6 +145,23 @@
         font-size: 1.5em !important;
       }
 
+      &-input {
+        position: relative !important;
+
+        @media (min-width: 525px) {
+          margin-right: 8px !important;
+          flex: 1 !important;
+        }
+
+        &.hasError {
+          margin-bottom: 24px !important;
+
+          @media (min-width: 525px) {
+            margin-bottom: 0px !important;
+          }
+        }
+      }
+
       input {
         box-sizing: border-box !important;
         line-height: 24px !important;
@@ -156,12 +173,17 @@
         min-height: 52px !important;
         text-align: left !important;
         width: 100% !important;
-
-        @media (min-width: 525px) {
-          margin-right: 8px !important;
-          flex: 1 !important;
-        }
       }
+
+      &-error {
+        bottom: -26px !important;
+        position: absolute !important;
+        padding-left: 4px !important;
+        font-size: 16px !important;
+        color: darkred !important;
+        text-align: left !important;
+      }
+
       button {
         background: #0068ff !important;
         border: none !important;
