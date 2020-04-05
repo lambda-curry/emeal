@@ -51,6 +51,12 @@
         margin-right: 0;
       }
     }
+
+    &-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
   }
 }
 

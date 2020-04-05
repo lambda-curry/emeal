@@ -10,6 +10,7 @@ export const selectCurrentCoupon = (state: SessionState) =>
 
 export const selectedCouponExists = (state: SessionState) => {
   const coupon = state.projects[state.currentProjectIndex]?.coupon;
-  // TODO: Add image to this
-  return coupon && coupon.title && coupon.description;
+  return coupon && coupon.title && coupon.description && coupon.image;
 };
+
+export const isPaying = (state: SessionState) => false;

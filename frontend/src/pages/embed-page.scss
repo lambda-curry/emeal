@@ -11,9 +11,10 @@
     font-size: 18px;
     line-height: 24px;
     color: white;
+    word-break: break-all;
   }
 
   .copy-to-clipboard {
-    margin-top: 16px;
+    margin-bottom: 8px;
   }
 }

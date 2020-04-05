@@ -8,6 +8,7 @@ import { ProfilePage } from '../pages/ProfilePage';
 import { DesignPage } from '../pages/DesignPage';
 import { ComponentType } from 'react';
 import { EmbedPage } from '../pages/EmbedPage';
+import { PaymentPage } from '../pages/PaymentPage';
 
 interface RouteConfig {
   path?: string;
@@ -44,6 +45,7 @@ export const routes: EmealRoutes = {
     },
   ],
   private: [
+    { path: '/payment', component: PaymentPage, exact: true },
     {
       path: '/project/:projectId',
       component: DashboardPage,

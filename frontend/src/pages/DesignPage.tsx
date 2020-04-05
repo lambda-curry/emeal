@@ -5,7 +5,6 @@ import { DesignForm } from '../components/forms/DesignForm';
 export const DesignPage = () => (
   <div className='page design'>
     <div className='page-container'>
-      <h2>Coupon</h2>
       <div className='page-item'>
         <DesignForm />
       </div>

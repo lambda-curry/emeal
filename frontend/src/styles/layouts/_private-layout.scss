@@ -26,6 +26,12 @@
     width: 100vw;
     min-height: calc(100vh - #{$header-height});
 
+    &-container {
+      width: 600px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
     &-item {
       padding: 32px;
       background: $page-item-bg;
