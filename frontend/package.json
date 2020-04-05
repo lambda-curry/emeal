@@ -33,6 +33,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "env-cmd -f .env.development.hosted react-scripts start",
     "build": "react-scripts build",
     "build:dev": "env-cmd -f .env.development.hosted react-scripts build",
     "test": "react-scripts test",

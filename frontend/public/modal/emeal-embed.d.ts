@@ -1,8 +1,8 @@
 export interface EmealModalSettings {
   isLocal?: boolean;
   title: string;
-  info: string;
-  imgSrc: string;
+  description: string;
+  image: string;
 }
 
 declare global {

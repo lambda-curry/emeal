@@ -15,8 +15,8 @@ declare global {
     emealModalSettings: {
       isLocal: boolean;
       title: string;
-      info: string;
-      imgSrc: string;
+      description: string;
+      image: string;
     };
   }
 }
@@ -48,7 +48,7 @@ export const DesignForm = () => {
 
   const saveProject = async (
     values: DesignFormValues,
-    { setSubmitting, setStatus }: FormikHelpers<DesignFormValues>
+    { setSubmitting, setStatus, resetForm }: FormikHelpers<DesignFormValues>
   ) => {
     const { title, info, files } = values;
     setStatus({ state: 'saving' });
@@ -81,17 +81,24 @@ export const DesignForm = () => {
     if (projectResponse) {
       sessionActions.saveProject(projectResponse);
       setStatus({ state: 'success' });
+      resetForm({ values });
     }
   };
 
   const preview = async (formikProps: FormikProps<DesignFormValues>) => {
-    const { title, info, files } = formikProps.values;
+    const { title, info, files, image } = formikProps.values;
+
+    const previewImage = image
+      ? image
+      : files[0]
+      ? URL.createObjectURL(files[0])
+      : '';
 
     window.emealModalSettings = {
       isLocal: process.env.REACT_APP_ENV === 'local' ? true : false,
       title,
-      info,
-      imgSrc: files[0] ? URL.createObjectURL(files[0]) : '',
+      description: info,
+      image: previewImage,
     };
     await loadModalScripts();
   };
@@ -117,10 +124,11 @@ export const DesignForm = () => {
           values,
         } = formikProps;
 
-        const previewImage =
-          values.image || values.files[0]
-            ? URL.createObjectURL(values.files[0])
-            : null;
+        const previewImage = values.image
+          ? values.image
+          : values.files[0]
+          ? URL.createObjectURL(values.files[0])
+          : null;
 
         return (
           <>

@@ -2,8 +2,8 @@
 interface EmealModalSettings {
   isLocal?: boolean;
   title: string;
-  info: string;
-  imgSrc: string;
+  description: string;
+  image: string;
 }
 
 // Note: you cannot set global variables for preview when the script gets readded.
@@ -58,7 +58,7 @@ function loadModal() {
 
     const sendCoupon = async () => {
       const response = await fetch(
-        'https://app.emeal.me/api/coupon/' + emealCouponId,
+        'https://app.emeal.me/api/project/' + emealCouponId,
         {
           method: 'GET',
           headers: {
@@ -73,9 +73,9 @@ function loadModal() {
 
     return (
       <div className='emeal-modal-content'>
-        <img src={settings.imgSrc} role='presentation' alt='coupon graphic' />
+        <img src={settings.image} role='presentation' alt='coupon graphic' />
         <h1 className='emeal-modal-title'>{settings.title}</h1>
-        <p>{settings.info}</p>
+        <p>{settings.description}</p>
         <div className='emeal-modal-content-row'>
           <input
             type='email'
@@ -85,7 +85,7 @@ function loadModal() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Your email'
           />
-          <button type='button' onClick={() => {}}>
+          <button type='button' onClick={sendCoupon}>
             SUBSCRIBE
           </button>
         </div>
@@ -101,16 +101,17 @@ function loadModal() {
 
   const ModalContainer = () => {
     const [open, setOpen] = React.useState<boolean>();
-    const [settings, setSettings] = React.useState<EmealModalSettings>();
+    const [settings, setSettings] = React.useState<EmealModalSettings>(
+      presetSettings
+    );
 
     const configureSettings = async () => {
       if (!presetSettings && !emealCouponId) return;
 
       setTimeout(() => setOpen(true), 100);
-      if (presetSettings) return setSettings(presetSettings);
 
       const response = await fetch(
-        'https://app.emeal.me/api/coupon/' + emealCouponId,
+        'https://app.emeal.me/api/project/' + emealCouponId,
         {
           method: 'GET',
           headers: {
@@ -119,8 +120,11 @@ function loadModal() {
           },
         }
       );
-      const data: EmealModalSettings = await response.json();
-      setSettings(data);
+      const data: {
+        project: { coupon: EmealModalSettings };
+      } = await response.json();
+      if (!data || !data.project) return;
+      setSettings(data.project.coupon);
     };
 
     React.useEffect(() => {
