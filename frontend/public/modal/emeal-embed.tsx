@@ -1,6 +1,6 @@
 /// <reference path="./emeal-embed.d.ts" />
 interface EmealModalSettings {
-  isLocal?: boolean;
+  isPreview?: boolean;
   title: string;
   description: string;
   image: string;
@@ -59,7 +59,7 @@ interface EmealModalSettings {
         const emailValid = validateEmail(email);
         if (!emailValid) return setError('Please enter a valid email.');
 
-        if (settings.isLocal) return setOpen(false);
+        if (settings.isPreview) return setOpen(false);
 
         const response = await fetch('https://app.emeal.me/api/coupon/', {
           method: 'POST',
@@ -155,9 +155,10 @@ interface EmealModalSettings {
 
       const configureSettings = async () => {
         if (!presetSettings && !emealCouponId) return;
+        const showOnDelay = presetSettings?.isPreview ? 100 : 4000;
 
-        setTimeout(() => setOpen(true), 100);
-        if (presetSettings?.isLocal) return setSettings(presetSettings);
+        setTimeout(() => setOpen(true), showOnDelay);
+        if (presetSettings?.isPreview) return setSettings(presetSettings);
 
         const response = await fetch(
           'https://app.emeal.me/api/project/' + emealCouponId,
@@ -210,7 +211,7 @@ interface EmealModalSettings {
   }
 
   function getFullPath(path: string) {
-    return window.emealModalSettings && window.emealModalSettings?.isLocal
+    return window.emealModalSettings && window.emealModalSettings?.isPreview
       ? path
       : 'https://app.emeal.me' + path;
   }

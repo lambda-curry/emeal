@@ -1,5 +1,5 @@
 export interface EmealModalSettings {
-  isLocal?: boolean;
+  isPreview?: boolean;
   title: string;
   description: string;
   image: string;

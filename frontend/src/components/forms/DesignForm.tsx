@@ -13,7 +13,7 @@ import { selectCurrentProject } from '../../state/session/SessionSelectors';
 declare global {
   interface Window {
     emealModalSettings: {
-      isLocal: boolean;
+      isPreview?: boolean;
       title: string;
       description: string;
       image: string;
@@ -97,7 +97,11 @@ export const DesignForm = () => {
       : '';
 
     window.emealModalSettings = {
-      isLocal: window.location.host === 'local.emeal.me:3000' ? true : false,
+      isPreview:
+        window.location.host === 'local.emeal.me:3000' ||
+        window.location.host === 'app.emeal.me'
+          ? true
+          : false,
       title,
       description: info,
       image: previewImage,
