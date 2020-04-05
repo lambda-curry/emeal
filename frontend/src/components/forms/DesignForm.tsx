@@ -53,17 +53,19 @@ export const DesignForm = () => {
     const { title, info, files } = values;
     setStatus({ state: 'saving' });
 
-    const imageUploadFormData = new FormData();
-    imageUploadFormData.append('image', files[0]);
+    if (files?.length) {
+      const imageUploadFormData = new FormData();
+      imageUploadFormData.append('image', files[0]);
 
-    const [, uploadError] = await upload<ProjectResponse>(
-      `project/${currentProject.id}/image`,
-      imageUploadFormData
-    );
+      const [, uploadError] = await upload<ProjectResponse>(
+        `project/${currentProject.id}/image`,
+        imageUploadFormData
+      );
 
-    if (uploadError) {
-      setSubmitting(false);
-      return setStatus({ state: 'error', serverErrors: uploadError.errors });
+      if (uploadError) {
+        setSubmitting(false);
+        return setStatus({ state: 'error', serverErrors: uploadError.errors });
+      }
     }
 
     const project = {
