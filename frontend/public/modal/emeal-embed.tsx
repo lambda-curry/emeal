@@ -60,7 +60,7 @@ function loadModal() {
       const response = await fetch(
         'https://app.emeal.me/api/coupon/' + emealCouponId,
         {
-          method: 'GET',
+          method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
