@@ -5,7 +5,7 @@ export const isAuthenticated = (state: SessionState) => !!state.user.name;
 export const selectCurrentProject = (state: SessionState) =>
   state.projects[state.currentProjectIndex];
 
-export const selectedCoupon = (state: SessionState) =>
+export const selectCurrentCoupon = (state: SessionState) =>
   state.projects[state.currentProjectIndex].coupon;
 
 export const selectedCouponExists = (state: SessionState) => {

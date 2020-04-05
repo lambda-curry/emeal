@@ -3,6 +3,22 @@
     padding-bottom: 24px;
   }
 
+  &-preview {
+    text-align: center;
+    margin-bottom: 32px;
+
+    img {
+      max-width: 600px - 32px;
+      width: 100%;
+      max-height: 300px;
+      height: auto;
+    }
+
+    button {
+      margin-top: 16px;
+    }
+  }
+
   .page-container {
     width: 400px;
     max-width: 100%;
