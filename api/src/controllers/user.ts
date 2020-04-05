@@ -32,7 +32,7 @@ async function updateUser(req: Request, res: Response) {
   const user = req.user as UserDocument;
   Object.assign(user, body);
   await user.save();
-  res.json({ user });
+  res.json({ user: user.toDto() });
 }
 
 async function updatePassword(req: Request, res: Response) {
