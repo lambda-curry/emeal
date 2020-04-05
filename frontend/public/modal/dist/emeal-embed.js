@@ -69,7 +69,7 @@ function loadModal() {
             var response, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, fetch('https://app.emeal.me/api/coupon/' + emealCouponId, {
+                    case 0: return [4 /*yield*/, fetch('https://app.emeal.me/api/project/' + emealCouponId, {
                             method: 'GET',
                             headers: {
                                 Accept: 'application/json',
@@ -87,19 +87,19 @@ function loadModal() {
             });
         }); };
         return (React.createElement("div", { className: 'emeal-modal-content' },
-            React.createElement("img", { src: settings.imgSrc, role: 'presentation', alt: 'coupon graphic' }),
+            React.createElement("img", { src: settings.image, role: 'presentation', alt: 'coupon graphic' }),
             React.createElement("h1", { className: 'emeal-modal-title' }, settings.title),
-            React.createElement("p", null, settings.info),
+            React.createElement("p", null, settings.description),
             React.createElement("div", { className: 'emeal-modal-content-row' },
                 React.createElement("input", { type: 'email', name: 'email', id: 'email', value: email, onChange: function (e) { return setEmail(e.target.value); }, placeholder: 'Your email' }),
-                React.createElement("button", { type: 'button', onClick: function () { } }, "SUBSCRIBE")),
+                React.createElement("button", { type: 'button', onClick: sendCoupon }, "SUBSCRIBE")),
             React.createElement("div", { className: 'emeal-modal-link' },
                 "Powered\u00A0by\u00A0",
                 React.createElement("a", { href: 'https://emeal.me', target: '_blank', rel: 'noopener noreferrer' }, "emeal.me"))));
     };
     var ModalContainer = function () {
         var _a = React.useState(), open = _a[0], setOpen = _a[1];
-        var _b = React.useState(), settings = _b[0], setSettings = _b[1];
+        var _b = React.useState(presetSettings), settings = _b[0], setSettings = _b[1];
         var configureSettings = function () { return __awaiter(_this, void 0, void 0, function () {
             var response, data;
             return __generator(this, function (_a) {
@@ -108,9 +108,7 @@ function loadModal() {
                         if (!presetSettings && !emealCouponId)
                             return [2 /*return*/];
                         setTimeout(function () { return setOpen(true); }, 100);
-                        if (presetSettings)
-                            return [2 /*return*/, setSettings(presetSettings)];
-                        return [4 /*yield*/, fetch('https://app.emeal.me/api/coupon/' + emealCouponId, {
+                        return [4 /*yield*/, fetch('https://app.emeal.me/api/project/' + emealCouponId, {
                                 method: 'GET',
                                 headers: {
                                     Accept: 'application/json',
@@ -122,7 +120,9 @@ function loadModal() {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
-                        setSettings(data);
+                        if (!data || !data.project)
+                            return [2 /*return*/];
+                        setSettings(data.project.coupon);
                         return [2 /*return*/];
                 }
             });
