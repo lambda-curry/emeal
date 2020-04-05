@@ -106,9 +106,12 @@
 
       &-row {
         margin: 32px 0 !important;
-        display: flex !important;
         justify-content: center !important;
         align-items: center !important;
+
+        @media (min-width: 525px) {
+          display: flex !important;
+        }
       }
 
       &-loading {
@@ -144,8 +147,12 @@
         border: 1px solid #ccc !important;
         min-height: 52px !important;
         text-align: left !important;
-        margin-right: 8px !important;
-        flex: 1 !important;
+        width: 100% !important;
+
+        @media (min-width: 525px) {
+          margin-right: 8px !important;
+          flex: 1 !important;
+        }
       }
       button {
         background: #0068ff !important;
@@ -161,12 +168,19 @@
         letter-spacing: 0.01em !important;
         border-radius: 10px !important;
         cursor: pointer !important;
-        width: 130px !important;
+        margin-top: 24px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
 
         &[disabled] {
           opacity: 0.4 !important;
           pointer-events: none !important;
           cursor: default !important;
+        }
+
+        @media (min-width: 525px) {
+          margin-top: 0 !important;
+          width: 130px !important;
         }
       }
     }

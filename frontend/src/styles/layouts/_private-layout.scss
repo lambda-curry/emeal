@@ -23,7 +23,7 @@
     grid-area: page;
     box-sizing: border-box;
     padding: 64px 32px 16px;
-    width: 100%;
+    width: 100vw;
     min-height: calc(100vh - #{$header-height});
 
     &-item {
