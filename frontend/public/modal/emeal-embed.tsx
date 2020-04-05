@@ -57,20 +57,17 @@ function loadModal() {
     const [email, setEmail] = React.useState('');
 
     const sendCoupon = async () => {
-      const response = await fetch(
-        'https://app.emeal.me/api/coupon/' + emealCouponId,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            projectId: emealCouponId,
-            email,
-          }),
-        }
-      );
+      const response = await fetch('https://app.emeal.me/api/coupon/', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectId: emealCouponId,
+          email,
+        }),
+      });
       const data = await response.json();
       setOpen(false);
     };
