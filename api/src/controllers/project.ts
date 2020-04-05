@@ -12,8 +12,8 @@ import { PageView } from '../models/PageView';
 const upload = multer({ storage: memoryStorage() });
 
 export const router = Router()
-  .get('/project/:id/markPageView', asyncHandler(markProjectPageView))
-  .get('/project/:id', asyncHandler(getProjectById))
+  .get('/:id/markPageView', asyncHandler(markProjectPageView))
+  .get('/:id', asyncHandler(getProjectById))
   // authenticatedRoutes
   .get('', authenticateUser, asyncHandler(getProjects))
   .get('/:id/emails/csv', authenticateUser, asyncHandler(downloadEmailCsv))
@@ -51,9 +51,6 @@ async function getProjectById(req: Request, res: Response) {
     return res
       .status(404)
       .json({ errors: [`Could not find project with id: ${id}`] });
-  const existingProjects = req.session.projects || [];
-  const projects = new Set([...existingProjects, id]);
-  req.session.projects = [...projects];
 
   return res.json({
     project: project.toDto(),
