@@ -122,9 +122,10 @@ function loadModal() {
           },
         }
       );
-      const data: {
-        project: { coupon: EmealModalSettings };
-      } = await response.json();
+      const data = await response.json();
+
+      console.log('project response', data);
+
       if (!data || !data.project) return;
       setSettings(data.project.coupon);
     };
