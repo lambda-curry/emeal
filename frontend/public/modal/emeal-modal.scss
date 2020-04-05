@@ -120,6 +120,7 @@
       }
 
       &-img {
+        position: relative !important;
         min-height: 150px !important;
 
         @media (min-width: 450px) {
