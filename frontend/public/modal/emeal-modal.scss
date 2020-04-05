@@ -121,7 +121,11 @@
       }
 
       &-img {
-        height: 200px !important;
+        min-height: 150px !important;
+
+        @media (min-width: 450px) {
+          min-height: 200px !important;
+        }
       }
 
       img {
