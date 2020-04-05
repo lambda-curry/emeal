@@ -44,7 +44,7 @@ export const DesignForm = () => {
   const { actions: sessionActions } = useSession();
   const { state } = useSession();
   const currentProject = selectCurrentProject(state);
-  const currentCoupon = currentProject.coupon;
+  const currentCoupon = currentProject?.coupon;
 
   const saveProject = async (
     values: DesignFormValues,
@@ -114,11 +114,8 @@ export const DesignForm = () => {
           status,
           isSubmitting,
           dirty,
-          isValid,
           values,
         } = formikProps;
-
-        console.log(values, formikProps.errors);
 
         const previewImage =
           values.image || values.files[0]
