@@ -13,9 +13,7 @@ export const EmbedPage = () => {
         <div className='page-item'>
           <h3>Embed Code</h3>
           <code>
-            {`<script type="text/javascript">window.emealCouponId = '${currentProject.id}';</script>`}
-            <br />
-            {`<script async src="https://app.emeal.me/modal/dist/emeal-embed.min.js"></script>`}
+            {`<script async data-coupon-id="${currentProject.id}" src="https://app.emeal.me/modal/dist/emeal-embed.min.js"></script>`}
           </code>
         </div>
       </div>

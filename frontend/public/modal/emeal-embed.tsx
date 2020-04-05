@@ -17,20 +17,20 @@ interface EmealModalSettings {
 
     const modalCloseTimeout = 520;
     const presetSettings = window.emealModalSettings;
-    const emealCouponId = window.emealCouponId;
 
     const modalStyles = document.querySelector(
-      `link[href="${getFullPath('/modal/dist/emeal-modal.css')}"]`
+      `link[href$="/modal/dist/emeal-modal.css"]`
     );
 
     const vendorScript = document.querySelector(
-      `script[src="${getFullPath('/modal/dist/vendor.js')}"]`
+      `script[src$="/modal/dist/vendor.js"]`
     );
 
     const modalEmbedScript = document.querySelector(
-      `script[src="${getFullPath('/modal/dist/emeal-embed.min.js')}"]`
+      `script[src$="/modal/dist/emeal-embed.min.js"]`
     );
 
+    const emealCouponId = modalEmbedScript.getAttribute('data-coupon-id');
     const embedTarget = document.querySelector('#emeal-embed');
 
     // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
