@@ -30,7 +30,7 @@ interface EmealModalSettings {
       `script[src$="/modal/dist/emeal-embed.min.js"]`
     );
 
-    const emealCouponId = modalEmbedScript.getAttribute('data-coupon-id');
+    const emealProjectId = modalEmbedScript.getAttribute('data-coupon-id');
     const embedTarget = document.querySelector('#emeal-embed');
 
     // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
@@ -68,14 +68,14 @@ interface EmealModalSettings {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            projectId: emealCouponId,
+            projectId: emealProjectId,
             email,
           }),
         });
         if (response.status !== 200)
-          setError('An error occurred, let us know.');
+          return setError('An error occurred, let us know.');
         const data = await response.json();
-        if (data.errors) setError('An error occurred, let us know.');
+        if (data.errors) return setError('An error occurred, let us know.');
         setOpen(false);
       };
 
@@ -154,14 +154,19 @@ interface EmealModalSettings {
       );
 
       const configureSettings = async () => {
-        if (!presetSettings && !emealCouponId) return;
+        if (!presetSettings && !emealProjectId) return;
+        if (
+          !presetSettings?.isPreview &&
+          window.localStorage.getItem('__emeal')
+        )
+          return; // don't open modal if it's already been opened.
         const showOnDelay = presetSettings?.isPreview ? 100 : 2000;
 
         setTimeout(() => setOpen(true), showOnDelay);
         if (presetSettings?.isPreview) return setSettings(presetSettings);
 
         const response = await fetch(
-          'https://app.emeal.me/api/project/' + emealCouponId,
+          'https://app.emeal.me/api/project/' + emealProjectId,
           {
             method: 'GET',
             headers: {
@@ -178,9 +183,36 @@ interface EmealModalSettings {
         setSettings(data.project.coupon);
       };
 
+      const createSessionToken = () => {
+        const tinyRandom = () => Math.random().toString(36).substring(2);
+        return tinyRandom() + tinyRandom() + tinyRandom();
+      };
+
+      const markModalAsViewed = async () => {
+        const emealSessionId = createSessionToken();
+        console.log('__emeal session id', emealSessionId);
+        window.localStorage.setItem('__emeal', emealSessionId);
+        await fetch(
+          `https://app.emeal.me/api/project/${emealProjectId}/markPageView/${emealSessionId}`,
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+      };
+
       React.useEffect(() => {
         configureSettings();
       }, []);
+
+      React.useEffect(() => {
+        if (!!settings && !!open) {
+          markModalAsViewed();
+        }
+      }, [settings, open]);
 
       const handleRequestClose = () => {
         removeAllAddedScriptsAndStyles();

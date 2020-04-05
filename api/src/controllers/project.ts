@@ -12,7 +12,7 @@ import { PageView } from '../models/PageView';
 const upload = multer({ storage: memoryStorage() });
 
 export const router = Router()
-  .get('/:id/markPageView', asyncHandler(markProjectPageView))
+  .post('/:id/markPageView/:sessionId', asyncHandler(markProjectPageView))
   .get('/:id', asyncHandler(getProjectById))
   // authenticatedRoutes
   .get('', authenticateUser, asyncHandler(getProjects))
@@ -59,6 +59,7 @@ async function getProjectById(req: Request, res: Response) {
 
 async function markProjectPageView(req: Request, res: Response) {
   const id = req.params.id;
+  const sessionId = req.params.sessionId;
 
   const project = await Project.findById(id);
   if (!project)
@@ -66,13 +67,16 @@ async function markProjectPageView(req: Request, res: Response) {
       .status(404)
       .json({ errors: [`Could not find project with id: ${id}`] });
 
+  if (!sessionId) {
+    return res.status(400).json({ errors: ['missing sessionId'] });
+  }
   let pageView = await PageView.findOne({
-    sessionId: req.session.id,
+    sessionId,
     projectId: project.id,
   });
   if (!pageView)
     pageView = await new PageView({
-      sessionId: req.session.id,
+      sessionId,
       projectId: project.id,
     }).save();
   return res.json({ message: 'OK' });
