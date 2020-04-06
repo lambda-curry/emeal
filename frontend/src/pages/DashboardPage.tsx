@@ -37,7 +37,9 @@ export const DashboardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (location.pathname === '/' || analytics.subscriberCount !== undefined)
+  console.log(analytics);
+
+  if (location.pathname === '/' || analytics.subscriberCount === undefined)
     return null;
 
   return (

@@ -27,7 +27,7 @@ export const sessionReducers: SessionReducers = {
   }),
   'set-analytics': (state: SessionState, { analytics }: AnaltyicsResponse) => ({
     ...state,
-    ...analytics,
+    analytics,
   }),
   'set-user': (state, { user }: UserResponse) => ({
     ...state,
