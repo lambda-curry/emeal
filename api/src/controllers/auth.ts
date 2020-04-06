@@ -3,11 +3,15 @@ import { User, UserDocument } from '../models/User';
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jwt-simple';
-import * as yup from 'yup'; // for everything
+import * as yup from 'yup';
 import moment from 'moment';
 import { sendForgotPasswordEmail } from '../services/mail';
 import { Project } from '../models/Project';
 import { PRODUCTION, AUTH_SECRET, JWT_NAME } from '../util/secrets';
+import {
+  createStripeCustomer,
+  createStripeSubscription,
+} from '../services/stripe';
 
 export const router = Router()
   .post('/login', asyncHandler(postLogin))
@@ -116,6 +120,22 @@ async function signup(req: Request, res: Response) {
     website: body.website,
     ownerId: createdUser.id,
   });
+
+  const customer = await createStripeCustomer(createdUser);
+  const subscription = await createStripeSubscription(customer, 1);
+  createdUser.stripe = {
+    customer: {
+      id: customer.id,
+    },
+    subscription: {
+      id: subscription.id,
+      status: subscription.status,
+      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      trialEnd: new Date(subscription.trial_end * 1000),
+    },
+  };
+  await createdUser.save();
   await project.save();
   return await buildLoginResponse(createdUser, res);
 }

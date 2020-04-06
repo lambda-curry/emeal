@@ -1,13 +1,8 @@
 import bcrypt from 'bcrypt-nodejs';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
-
-export type UserDto = {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-};
+import { UserDto } from '@shared';
+import Stripe from 'stripe';
 
 export type UserDocument = mongoose.Document & {
   email: string;
@@ -18,13 +13,27 @@ export type UserDocument = mongoose.Document & {
   passwordResetExpires?: Date;
   createdAt?: Date;
   updatedAt?: Date;
-  subscription?: {
-    id: string;
-    status: string;
+  stripe?: {
+    customer: {
+      id: string;
+      defaultSource?: {
+        id: string;
+        brand: string;
+        lastFour: string;
+      };
+    };
+    subscription: {
+      id: string;
+      status: string;
+      cancelAtPeriodEnd: boolean;
+      currentPeriodEnd: Date;
+      trialEnd: Date;
+    };
   };
   comparePassword: comparePasswordFunction;
   gravatar: (size: number) => string;
   toDto: () => UserDto;
+  updateCustomer: (customer: Stripe.Customer) => UserDocument;
 };
 
 type comparePasswordFunction = (candidatePassword: string) => boolean;
@@ -42,6 +51,23 @@ const userSchema = new mongoose.Schema(
     name: String,
     emailVerified: Boolean,
     passwordResetExpires: Date,
+    stripe: {
+      customer: {
+        id: String,
+        defaultSource: {
+          id: String,
+          brand: String,
+          lastFour: String,
+        },
+      },
+      subscription: {
+        id: String,
+        status: String,
+        cancelAtPeriodEnd: String,
+        currentPeriodEnd: Date,
+        trialEnd: Date,
+      },
+    },
   },
   { timestamps: true }
 );
@@ -86,6 +112,21 @@ const gravatarUrl = (email: string, size: number): string => {
   return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
+userSchema.methods.updateCustomer = function (customer: Stripe.Customer) {
+  const user = this as UserDocument;
+  const defaultSource = customer.default_source as Stripe.Card;
+  user.stripe.customer = {
+    id: customer.id,
+    defaultSource: customer.default_source
+      ? {
+          id: defaultSource.id,
+          brand: defaultSource.brand,
+          lastFour: defaultSource.last4,
+        }
+      : null,
+  };
+};
+
 userSchema.methods.gravatar = function (size: number = 200) {
   const user = (this as unknown) as UserDocument;
   return gravatarUrl(user.email, size);
@@ -98,6 +139,7 @@ userSchema.methods.toDto = function () {
     email: user.email,
     name: user.name,
     avatar: gravatarUrl(user.email, 200),
+    stripe: user.stripe,
   };
 };
 
