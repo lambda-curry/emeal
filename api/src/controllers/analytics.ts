@@ -41,9 +41,11 @@ async function getAnalyticsForProject(req: Request, res: Response) {
     createdAt: { $gt: moment().subtract(30, 'days').toDate() },
   });
   return res.json({
-    subscriberCount,
-    redeemed30DayCount,
-    subscriber30DayCount,
-    pageViews30DayCount,
+    analytics: {
+      subscriberCount,
+      redeemed30DayCount,
+      subscriber30DayCount,
+      pageViews30DayCount,
+    },
   });
 }
