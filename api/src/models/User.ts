@@ -18,7 +18,10 @@ export type UserDocument = mongoose.Document & {
   passwordResetExpires?: Date;
   createdAt?: Date;
   updatedAt?: Date;
-
+  subscription?: {
+    id: string;
+    status: string;
+  };
   comparePassword: comparePasswordFunction;
   gravatar: (size: number) => string;
   toDto: () => UserDto;
@@ -38,7 +41,7 @@ const userSchema = new mongoose.Schema(
     passwordResetToken: String,
     name: String,
     emailVerified: Boolean,
-    passwordResetExpires: Date
+    passwordResetExpires: Date,
   },
   { timestamps: true }
 );
@@ -65,7 +68,7 @@ userSchema.pre('save', function save(next) {
   });
 });
 
-const comparePassword: comparePasswordFunction = function(candidatePassword) {
+const comparePassword: comparePasswordFunction = function (candidatePassword) {
   return bcrypt.compareSync(candidatePassword, this.password);
 };
 
@@ -79,25 +82,22 @@ const gravatarUrl = (email: string, size: number): string => {
   if (!email) {
     return `https://gravatar.com/avatar/?s=${size}&d=retro`;
   }
-  const md5 = crypto
-    .createHash('md5')
-    .update(email)
-    .digest('hex');
+  const md5 = crypto.createHash('md5').update(email).digest('hex');
   return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
 
-userSchema.methods.gravatar = function(size: number = 200) {
+userSchema.methods.gravatar = function (size: number = 200) {
   const user = (this as unknown) as UserDocument;
   return gravatarUrl(user.email, size);
 };
 
-userSchema.methods.toDto = function() {
+userSchema.methods.toDto = function () {
   const user = (this as unknown) as UserDocument;
   return {
     id: user.id,
     email: user.email,
     name: user.name,
-    avatar: gravatarUrl(user.email, 200)
+    avatar: gravatarUrl(user.email, 200),
   };
 };
 
