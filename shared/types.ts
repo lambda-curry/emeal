@@ -11,6 +11,14 @@ export type ProjectDto = {
   coupon: CouponDto;
 };
 
+export type AnaltyicsResponse = { analytics: AnalyticsDto };
+export type AnalyticsDto = {
+  subscriberCount: number;
+  redeemed30DayCount: number;
+  subscriber30DayCount: number;
+  pageViews30DayCount: number;
+};
+
 export type SubscriptionDto = {
   id: string;
   status: string;

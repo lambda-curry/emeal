@@ -11,12 +11,12 @@ import { get } from './utils/api';
 import { SessionResponse } from '../../shared';
 
 const OnLoad: FunctionComponent = ({ children }) => {
-  const { actions: sessionActions } = useSession();
+  const { actions } = useSession();
   const [loading, setLoading] = useState(true);
 
   const fetchSession = async () => {
     const [response, error] = await get<SessionResponse>('session');
-    if (!error) sessionActions.saveSession(response);
+    if (!error) actions.saveSession(response);
     setLoading(false);
   };
 

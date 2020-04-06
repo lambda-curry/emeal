@@ -1,0 +1,59 @@
+@import '../../styles/variables';
+
+.image {
+  position: relative;
+
+  img {
+    opacity: 0 !important;
+    transition: opacity 100ms ease-in !important;
+  }
+
+  &.loaded {
+    img {
+      opacity: 1 !important;
+    }
+  }
+
+  &-spinner {
+    animation: image-rotate 2s linear infinite;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    width: 50px;
+    height: 50px;
+
+    .loaded & {
+      display: none;
+    }
+
+    & .path {
+      stroke: $primary-blue;
+      stroke: var(--primary-blue);
+      stroke-linecap: round;
+      animation: image-dash 1.5s ease-in-out infinite;
+    }
+  }
+
+  @keyframes image-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes image-dash {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+  }
+}

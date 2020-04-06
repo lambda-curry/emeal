@@ -33,7 +33,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const SignupForm = () => {
-  const { actions: sessionActions } = useSession();
+  const { actions } = useSession();
 
   const signup = async (
     values: SignupFormValues,
@@ -45,7 +45,7 @@ export const SignupForm = () => {
     );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveSession(response);
+    if (response) actions.saveSession(response);
   };
 
   return (

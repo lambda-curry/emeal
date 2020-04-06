@@ -1,20 +1,51 @@
 @import '../styles/variables';
 
-.page.embed {
-  code {
-    padding: 32px;
-    display: block;
-    background: $darker-gray;
-    background: var(--darker-gray);
-    border-radius: $border-radius;
-    border-radius: var(--border-radius);
-    font-size: 18px;
-    line-height: 24px;
-    color: white;
-    word-break: break-all;
+.embed {
+  &-code {
+    position: relative;
+
+    .copy-to-clipboard {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    code {
+      padding: 32px 32px 64px;
+      display: block;
+      background: $darker-gray;
+      background: var(--darker-gray);
+      border-radius: $border-radius;
+      border-radius: var(--border-radius);
+      font-size: 18px;
+      line-height: 24px;
+      color: white;
+      word-break: break-all;
+    }
   }
 
-  .copy-to-clipboard {
-    margin-bottom: 8px;
+  &-info {
+    margin-top: 16px;
+    padding: 16px 32px;
+    line-height: 1.5;
+    border: 1px solid $primary-blue;
+    border: 1px solid var(--primary-blue);
+    font-weight: 500;
+    background: $light-blue;
+    background: var(--light-blue);
+    border-radius: $border-radius;
+    border-radius: var(--border-radius);
+
+    a {
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

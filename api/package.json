@@ -18,7 +18,8 @@
     "watch-ts": "tsc -w",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "debug": "npm run build && npm run watch-debug",
-    "deploy": "sh deploy.sh"
+    "deploy": "sh deploy.sh",
+    "deploy:dev": "sh deploy_dev.sh"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.5.5",

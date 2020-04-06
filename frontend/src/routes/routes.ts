@@ -9,11 +9,13 @@ import { DesignPage } from '../pages/DesignPage';
 import { ComponentType } from 'react';
 import { EmbedPage } from '../pages/EmbedPage';
 import { PaymentPage } from '../pages/PaymentPage';
+import { PrivateLayoutSimple } from '../layout/PrivateLayoutSimple';
 
 interface RouteConfig {
   path?: string;
   component: ComponentType;
   exact?: boolean;
+  layout?: ComponentType;
 }
 
 interface EmealRoutes {
@@ -45,7 +47,12 @@ export const routes: EmealRoutes = {
     },
   ],
   private: [
-    { path: '/payment', component: PaymentPage, exact: true },
+    {
+      path: '/payment',
+      component: PaymentPage,
+      exact: true,
+      layout: PrivateLayoutSimple,
+    },
     {
       path: '/project/:projectId',
       component: DashboardPage,

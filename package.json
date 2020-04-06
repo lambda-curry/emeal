@@ -14,6 +14,7 @@
     "dev:modal": "yarn workspace emeal-frontend run dev:modal",
     "deploy:fe": "yarn workspace emeal-frontend run deploy",
     "deploy:be": "yarn workspace emeal-api run deploy",
-    "deploy": "yarn workspace emeal-api run deploy && yarn workspace emeal-frontend run deploy"
+    "deploy": "yarn workspace emeal-api run deploy && yarn workspace emeal-frontend run deploy",
+    "deploy:dev": "yarn workspace emeal-api run deploy:dev && yarn workspace emeal-frontend run deploy:dev"
   }
 }

@@ -9,6 +9,5 @@ declare global {
   export interface Window {
     emealModalSettings: EmealModalSettings;
     emealCouponId: string | undefined;
-    Cookies: Cookies.CookiesStatic;
   }
 }

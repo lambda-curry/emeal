@@ -1,10 +1,17 @@
 @import '../styles/variables';
 
 .payment {
-  /**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
- */
+  text-align: center;
+
+  &-title {
+    margin-bottom: 4px;
+  }
+
+  &-content {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
 
   .StripeElement {
     font-size: 16px;
@@ -14,15 +21,12 @@
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background-color: white;
-    // box-shadow: 0 1px 3px 0 #e6ebf1;
-    // -webkit-transition: box-shadow 150ms ease;
-    // transition: box-shadow 150ms ease;
     color: $darker-gray;
     color: var(--darker-gray);
   }
 
   .StripeElement--focus {
-    // box-shadow: 0 1px 3px 0 #cfd7df;
+    //
   }
 
   .StripeElement--invalid {

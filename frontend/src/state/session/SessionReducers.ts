@@ -2,11 +2,13 @@ import {
   UserResponse,
   SessionResponse,
   ProjectResponse,
+  AnaltyicsResponse,
 } from '../../../../shared';
 import { SessionState, emptySessionState } from './SessionProvider';
 
 export type SessionReducerNames =
   | 'set-session'
+  | 'set-analytics'
   | 'set-user'
   | 'set-project'
   | 'destroy-session';
@@ -22,6 +24,10 @@ export const sessionReducers: SessionReducers = {
   'set-session': (state: SessionState, { session }: SessionResponse) => ({
     ...state,
     ...session,
+  }),
+  'set-analytics': (state: SessionState, { analytics }: AnaltyicsResponse) => ({
+    ...state,
+    analytics,
   }),
   'set-user': (state, { user }: UserResponse) => ({
     ...state,

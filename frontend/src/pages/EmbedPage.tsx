@@ -14,14 +14,21 @@ export const EmbedPage = () => {
     <div className='page embed'>
       <div className='page-container'>
         <div className='page-item'>
-          <CopyToClipboard
-            copyText={`${embedComment}\n${embedCode}`}
-          ></CopyToClipboard>
-          <code>
-            {embedComment}
-            <br />
-            {embedCode}
-          </code>
+          <div className='embed-code'>
+            <code>
+              {embedComment}
+              <br />
+              {embedCode}
+            </code>
+            <CopyToClipboard
+              copyText={`${embedComment}\n${embedCode}`}
+            ></CopyToClipboard>
+          </div>
+          {/* TODO: Hook up the Click here to show help. */}
+          <div className='embed-info'>
+            Copy the snippet above and add it anywhere you wish on your landing
+            page. Need additional help? <a href='#'>Click here.</a>
+          </div>
         </div>
       </div>
     </div>
