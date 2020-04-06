@@ -24,7 +24,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 export const LoginForm = () => {
-  const { actions: sessionActions } = useSession();
+  const { actions } = useSession();
 
   const login = async (
     values: LoginFormValues,
@@ -36,7 +36,7 @@ export const LoginForm = () => {
     );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (response) sessionActions.saveSession(response);
+    if (response) actions.saveSession(response);
   };
 
   return (

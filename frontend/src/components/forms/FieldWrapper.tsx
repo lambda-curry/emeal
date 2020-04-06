@@ -11,21 +11,22 @@ export const FieldWrapper = (
     label?: string;
     icon?: string;
     as?: string;
+    inputProps?: Partial<HTMLInputElement> | Partial<HTMLTextAreaElement>;
   } & FormikProps<any>
 ) => {
-  const { type, name, icon, as } = props;
-  const label = props.label ?? titleCase(name);
+  const { as, icon, name, inputProps, status } = props;
+  const label = props.label ?? titleCase(props.name);
   return (
     <div className={classNames('form-field', icon ? 'hasIcon' : '')}>
       {/* <label htmlFor={name}>{label}</label> */}
       {icon && <Icon name={icon} />}
       <Field
-        type={type}
+        {...inputProps}
+        as={as}
         name={name}
         placeholder={label}
-        as={as}
         onChange={(value: any) => {
-          props.setStatus({ ...props.status, serverErrors: [] });
+          props.setStatus({ ...status, serverErrors: [] });
           props.handleChange(value);
         }}
       />

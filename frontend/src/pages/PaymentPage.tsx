@@ -80,12 +80,7 @@ const CheckoutForm = () => {
   return (
     <form className='form' onSubmit={handleSubmit}>
       <div className='form-field'>
-        <label htmlFor='card-element'>Credit or debit card</label>
-        <CardElement
-          id='card-element'
-          options={CARD_ELEMENT_OPTIONS}
-          onChange={handleChange}
-        />
+        <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
         <div className='form-input-error' role='alert'>
           {error}
         </div>
@@ -111,6 +106,10 @@ export const PaymentPage = () => {
     <div className='page payment'>
       <div className='page-container'>
         <div className='page-item'>
+          <h2 className='payment-title'>ADD PAYMENT METHOD</h2>
+          <p className='payment-content'>
+            You won't be charged until your free trial ends.
+          </p>
           <Elements stripe={stripePromise}>
             <CheckoutForm />
           </Elements>

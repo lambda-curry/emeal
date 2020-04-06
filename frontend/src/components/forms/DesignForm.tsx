@@ -42,7 +42,7 @@ const DesignSchema = Yup.object().shape({
 });
 
 export const DesignForm = () => {
-  const { actions: sessionActions } = useSession();
+  const { actions } = useSession();
   const { state } = useSession();
   const currentProject = selectCurrentProject(state);
   const currentCoupon = currentProject?.coupon;
@@ -82,7 +82,7 @@ export const DesignForm = () => {
     if (projectError)
       return setStatus({ state: 'error', serverErrors: projectError.errors });
     if (projectResponse) {
-      sessionActions.saveProject(projectResponse);
+      actions.saveProject(projectResponse);
       setStatus({ state: 'success' });
       resetForm({ values });
     }
@@ -169,7 +169,13 @@ export const DesignForm = () => {
               </div>
             ) : null}
             <label htmlFor='title'>Title</label>
-            <FieldWrapper {...formikProps} label='' type='title' name='title' />
+            <FieldWrapper
+              {...formikProps}
+              label=''
+              type='title'
+              name='title'
+              inputProps={{ maxLength: 60 }}
+            />
             <label htmlFor='info'>Info</label>
             <FieldWrapper
               {...formikProps}
@@ -177,6 +183,7 @@ export const DesignForm = () => {
               type='info'
               name='info'
               as='textarea'
+              inputProps={{ maxLength: 180, rows: 4 }}
             />
             <ServerErrors status={status} />
             <div className='form-actions'>

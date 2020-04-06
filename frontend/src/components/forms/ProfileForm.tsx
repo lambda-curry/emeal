@@ -23,7 +23,7 @@ const SignupSchema = Yup.object().shape({
 export const ProfileForm = () => {
   const {
     state: { user },
-    actions: sessionActions,
+    actions,
   } = useSession();
 
   const update = async (
@@ -36,7 +36,7 @@ export const ProfileForm = () => {
     );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
-    if (user) sessionActions.saveUser(user);
+    if (user) actions.saveUser(user);
   };
 
   return (

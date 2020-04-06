@@ -6,11 +6,15 @@ import { routes, emealLayouts } from './routes';
 // but adding an empty string key fixes the `Warning: Each child in a list should have a unique "key" prop.`
 export const RouteLayouts = () => (
   <Switch>
-    {routes.public.map(route => (
+    {routes.public.map((route) => (
       <Route key='' {...route} component={emealLayouts.public} />
     ))}
-    {routes.private.map(route => (
-      <Route key='' {...route} component={emealLayouts.private} />
+    {routes.private.map((route) => (
+      <Route
+        key=''
+        {...route}
+        component={route.layout || emealLayouts.private}
+      />
     ))}
   </Switch>
 );

@@ -1,23 +1,70 @@
 import React, { useEffect } from 'react';
-import './dashboard-page.scss';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useSession } from '../state/session/SessionProvider';
 import { selectCurrentProject } from '../state/session/SessionSelectors';
+import { get } from '../utils/api';
+import { AnaltyicsResponse } from '../../../shared';
+import './dashboard-page.scss';
+
+// subscriberCount: number;
+// redeemed30DayCount: number;
+// subscriber30DayCount: number;
+// pageViews30DayCount: number;
 
 export const DashboardPage = () => {
   const location = useLocation();
-  const { state } = useSession();
+  const { state, actions } = useSession();
   const history = useHistory();
+  const { analytics } = state;
+
+  const currentProjectId = selectCurrentProject(state).id;
 
   useEffect(() => {
-    history.push(`/project/${selectCurrentProject(state).id}`);
-  }, [history, state, location.pathname]);
+    const fetchAnalytics = async () => {
+      const [response, error] = await get<AnaltyicsResponse>(
+        `analytics/${currentProjectId}`
+      );
+      if (error) return `Server down!`;
+      console.log('>>>>', response);
+      actions.saveAnalytics(response);
+    };
+    fetchAnalytics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (location.pathname === '/') return null;
+  useEffect(() => {
+    if (location.pathname === '/') history.push(`/project/${currentProjectId}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (location.pathname === '/' || analytics.subscriberCount !== undefined)
+    return null;
 
   return (
     <div className='page dashboard'>
-      <h2>Dashboard Page</h2>
+      <div className='page-container'>
+        <div className='page-item'>
+          <h3>Last 30 Days</h3>
+          <div className='dashboard-label'>Views</div>
+          <div className='dashboard-number'>
+            {analytics.pageViews30DayCount}
+          </div>
+          <div className='dashboard-label'>New Subscribers</div>
+          <div className='dashboard-number'>
+            {analytics.pageViews30DayCount}
+          </div>
+          <div className='dashboard-label'>Redemptions</div>
+          <div className='dashboard-number'>
+            {analytics.pageViews30DayCount}
+          </div>
+        </div>
+        <div className='page-item'>
+          <h3>Subscribers</h3>
+          <div className='dashboard-number-large'>
+            {analytics.subscriberCount}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import React, {
   Context,
   Dispatch,
 } from 'react';
-import { UserDto, ProjectDto } from '../../../../shared';
+import { UserDto, ProjectDto, AnalyticsDto } from '../../../../shared';
 import { sessionActions, SessionActions } from './SessionActions';
 import { sessionReducers, SessionReducerNames } from './SessionReducers';
 
@@ -14,13 +14,17 @@ export type SessionDispatch<T> = Dispatch<{
   payload?: T;
 }>;
 
+// Note: I wonder if there is a better approach to Dto | Partial<Dto> to allow me to set an empty state,
+// my initial thought was Dto | {}, but then the object properties couldn't be used elsewhere.
 export interface SessionState {
+  analytics: AnalyticsDto | Partial<AnalyticsDto>;
   user: UserDto | Partial<UserDto>;
   projects: ProjectDto[];
   currentProjectIndex: number;
 }
 
 export const emptySessionState: SessionState = {
+  analytics: {},
   user: {},
   projects: [],
   currentProjectIndex: 0,

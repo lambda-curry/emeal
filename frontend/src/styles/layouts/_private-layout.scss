@@ -1,8 +1,9 @@
 @import '../variables';
 
-.private-layout {
-  $header-height: 80px;
+$header-height: 80px;
 
+.private-layout,
+.private-layout-simple {
   background: $page-bg;
   background: var(--page-bg);
   width: 100%;
@@ -20,10 +21,11 @@
   }
 
   .page {
-    grid-area: page;
     box-sizing: border-box;
     padding: 64px 32px 16px;
     width: 100vw;
+    min-height: 100vh;
+    grid-area: page;
     min-height: calc(100vh - #{$header-height});
 
     &-container {
@@ -33,9 +35,31 @@
     }
 
     &-item {
+      margin-bottom: 32px;
       padding: 32px;
       background: $page-item-bg;
       background: var(--page-item-bg);
+      border-radius: $border-radius;
+      border-radius: var(--border-radius);
+      box-shadow: $box-shadow-1;
+      box-shadow: var(--box-shadow-1);
     }
+  }
+}
+
+.private-layout-simple {
+  $header-height: 160px;
+  grid-template-rows: $header-height auto;
+
+  .logo-type {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page {
+    padding-top: 0;
+    min-height: calc(100vh - #{$header-height});
   }
 }
