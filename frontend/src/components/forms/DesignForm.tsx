@@ -9,6 +9,7 @@ import { patch, upload } from '../../utils/api';
 import { ProjectResponse, CouponDto } from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
 import { selectCurrentProject } from '../../state/session/SessionSelectors';
+import { Image } from '../Image/image';
 
 declare global {
   interface Window {
@@ -140,7 +141,7 @@ export const DesignForm = () => {
           <>
             {previewImage ? (
               <div className='design-preview'>
-                <img src={previewImage} alt='coupon graphic' />
+                <Image src={previewImage} alt='coupon graphic' />
                 <button
                   className='button-primary-outline'
                   type='button'
