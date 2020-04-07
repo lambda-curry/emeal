@@ -9,7 +9,8 @@ const headers = {
 const respond = async (response: Response, error: ErrorDto) => {
   if (error) return Promise.reject(error);
   const responseJson = await response.json();
-  if (response.status !== 200) return Promise.reject(responseJson);
+  if (response.status !== 200 || responseJson.errors)
+    return Promise.reject(responseJson);
   return Promise.resolve(responseJson);
 };
 

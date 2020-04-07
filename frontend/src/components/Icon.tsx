@@ -1,12 +1,43 @@
 import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
-import { ReactComponent as logo } from '../icons/emeal-logo.svg';
+import { ReactComponent as computer } from '../icons/computer.svg';
+import { ReactComponent as email } from '../icons/email.svg';
+import { ReactComponent as emeal_logo } from '../icons/emeal_logo.svg';
+import { ReactComponent as image_upload } from '../icons/image_upload.svg';
+import { ReactComponent as link } from '../icons/link.svg';
+import { ReactComponent as lock } from '../icons/lock.svg';
+import { ReactComponent as paintbrush } from '../icons/paintbrush.svg';
+import { ReactComponent as pie_chart } from '../icons/pie_chart.svg';
+import { ReactComponent as profile } from '../icons/profile.svg';
+import { ReactComponent as restaurant } from '../icons/restaurant.svg';
+import './icon.scss';
+
+export type IconNames =
+  | 'computer'
+  | 'email'
+  | 'emeal_logo'
+  | 'image_upload'
+  | 'link'
+  | 'lock'
+  | 'paintbrush'
+  | 'pie_chart'
+  | 'profile'
+  | 'restaurant';
 
 export const icons: {
-  [x: string]: FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  [key in IconNames]: FunctionComponent<React.SVGProps<SVGSVGElement>>;
 } = {
-  logo,
+  computer,
+  email,
+  emeal_logo,
+  image_upload,
+  link,
+  lock,
+  paintbrush,
+  pie_chart,
+  profile,
+  restaurant,
 };
 
 export const Icon = ({
@@ -14,7 +45,7 @@ export const Icon = ({
   className,
   ...props
 }: {
-  name: string;
+  name: IconNames;
   className?: string;
 }) => {
   if (!name || !icons[name]) return null;

@@ -1,6 +1,8 @@
 @import '../../styles/variables';
 
 .header {
+  $breakpoint: 800px;
+
   background: $header-bg;
   background: var(--header-bg);
   box-sizing: border-box;
@@ -33,19 +35,40 @@
     &-item {
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 0 16px;
       height: 100%;
+      min-width: 60px;
       font-weight: bold;
       font-size: 16px;
-      color: black;
+      color: $darker-gray;
       text-decoration: none;
       border-bottom: 6px solid $border-color;
       border-bottom: 6px solid var(--border-color);
       transition: border-color 300ms ease-in;
 
+      .icon {
+        display: inline;
+        transition: color 300ms ease-in;
+      }
+
+      &-text {
+        padding-left: 8px;
+        display: none;
+
+        @media (min-width: $breakpoint) {
+          display: inline;
+        }
+      }
+
       &.active {
         border-bottom: 6px solid $primary-red;
         border-bottom: 6px solid var(--primary-red);
+
+        .icon {
+          color: $primary-red;
+          color: var(--primary-red);
+        }
       }
 
       &.disabled {
@@ -69,6 +92,16 @@
           border-color: $primary-red;
           border-color: var(--primary-red);
         }
+      }
+    }
+  }
+
+  .logo-type {
+    &-name {
+      display: none;
+
+      @media (min-width: $breakpoint) {
+        display: inline;
       }
     }
   }

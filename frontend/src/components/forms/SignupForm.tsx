@@ -63,17 +63,34 @@ export const SignupForm = () => {
     >
       {(formikProps: FormikProps<SignupFormValues>) => (
         <>
-          <FieldWrapper {...formikProps} type='name' name='name' />
-          <FieldWrapper {...formikProps} type='email' name='email' />
-          <FieldWrapper {...formikProps} type='password' name='password' />
           <FieldWrapper
             {...formikProps}
+            icon='profile'
+            type='name'
+            name='name'
+          />
+          <FieldWrapper
+            {...formikProps}
+            icon='email'
+            type='email'
+            name='email'
+          />
+          <FieldWrapper
+            {...formikProps}
+            icon='lock'
+            type='password'
+            name='password'
+          />
+          <FieldWrapper
+            {...formikProps}
+            icon='restaurant'
             type='text'
             name='projectName'
             label='Restaurant Name'
           />
           <FieldWrapper
             {...formikProps}
+            icon='link'
             type='text'
             name='website'
             label='Restaurant Website'

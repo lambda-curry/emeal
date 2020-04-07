@@ -20,26 +20,27 @@ export const Header = () => {
       <div className='header-row'>
         <div className='header-menu'>
           <HeaderMenuItem
+            text='Dasbhoard'
+            icon='pie_chart'
             disabled={!currentProjectId}
             className='header-menu-item'
             to={`/project/${currentProjectId}`}
-          >
-            Dashboard
-          </HeaderMenuItem>
+          />
           <HeaderMenuItem
+            text='Design'
+            icon='paintbrush'
             disabled={!currentProjectId}
             className='header-menu-item'
             to={`/project/${currentProjectId}/design`}
-          >
-            Design
-          </HeaderMenuItem>
+          />
+
           <HeaderMenuItem
+            text='Embed'
+            icon='computer'
             disabled={!hasCoupon}
             className='header-menu-item'
             to={`/project/${currentProjectId}/embed`}
-          >
-            Embed
-          </HeaderMenuItem>
+          />
         </div>
       </div>
       <HeaderMenuItem className='header-menu-profile' to='/profile'>

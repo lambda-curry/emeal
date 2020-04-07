@@ -52,18 +52,25 @@ export const ProfileForm = () => {
       {(formikProps: FormikProps<ProfileFormValues>) => (
         <>
           <a
+            className='profile-img'
             href='https://en.gravatar.com/'
             target='_blank'
             rel='noopener noreferrer'
           >
-            <img
-              className='profile-img'
-              src={user.avatar}
-              alt='gravatar profile'
-            />
+            <img src={user.avatar} alt='gravatar profile' />
           </a>
-          <FieldWrapper {...formikProps} type='name' name='name' />
-          <FieldWrapper {...formikProps} type='email' name='email' />
+          <FieldWrapper
+            {...formikProps}
+            icon='profile'
+            type='name'
+            name='name'
+          />
+          <FieldWrapper
+            {...formikProps}
+            icon='email'
+            type='email'
+            name='email'
+          />
           <ServerErrors status={formikProps.status} />
           <div className='form-actions'>
             <button

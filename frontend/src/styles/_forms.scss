@@ -9,11 +9,11 @@
 
     .icon {
       position: absolute;
-      top: 8px;
+      top: 12px;
       left: 12px;
 
       svg {
-        height: 24px;
+        height: 28px;
         width: auto;
       }
     }
@@ -91,6 +91,6 @@ textarea {
   }
 
   .form-field.hasIcon & {
-    padding-left: 46px;
+    padding-left: 50px;
   }
 }

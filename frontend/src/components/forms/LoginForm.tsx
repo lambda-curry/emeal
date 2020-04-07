@@ -48,8 +48,18 @@ export const LoginForm = () => {
     >
       {(formikProps: FormikProps<LoginFormValues>) => (
         <>
-          <FieldWrapper {...formikProps} type='email' name='email' />
-          <FieldWrapper {...formikProps} type='password' name='password' />
+          <FieldWrapper
+            {...formikProps}
+            icon='email'
+            type='email'
+            name='email'
+          />
+          <FieldWrapper
+            {...formikProps}
+            icon='lock'
+            type='password'
+            name='password'
+          />
           <ServerErrors status={formikProps.status} />
           <div className='form-actions'>
             <button type='submit' disabled={formikProps.isSubmitting}>

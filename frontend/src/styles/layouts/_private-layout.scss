@@ -7,26 +7,21 @@ $header-height: 80px;
   background: $page-bg;
   background: var(--page-bg);
   width: 100%;
-  display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: $header-height auto;
-  grid-template-areas:
-    'header'
-    'page';
 
   .header {
-    grid-area: header;
+    position: fixed;
+    height: $header-height;
     width: 100%;
+    z-index: 1;
   }
 
   .page {
     box-sizing: border-box;
-    padding: 64px 32px 16px;
+    padding: ($header-height + 32px) 32px 16px;
     width: 100vw;
     min-height: 100vh;
-    grid-area: page;
-    min-height: calc(100vh - #{$header-height});
 
     &-container {
       width: 600px;
@@ -49,10 +44,8 @@ $header-height: 80px;
 
 .private-layout-simple {
   $header-height: 160px;
-  grid-template-rows: $header-height auto;
 
   .logo-type {
-    grid-area: header;
     display: flex;
     align-items: center;
     justify-content: center;

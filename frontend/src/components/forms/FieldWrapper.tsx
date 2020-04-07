@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, ErrorMessage, FormikProps } from 'formik';
 import { titleCase } from '../../utils/helpers';
-import { Icon } from '../Icon';
+import { Icon, IconNames } from '../Icon';
 import classNames from 'classnames';
 
 export const FieldWrapper = (
@@ -9,12 +9,12 @@ export const FieldWrapper = (
     type: string;
     name: string;
     label?: string;
-    icon?: string;
+    icon?: IconNames;
     as?: string;
     inputProps?: Partial<HTMLInputElement> | Partial<HTMLTextAreaElement>;
   } & FormikProps<any>
 ) => {
-  const { as, icon, name, inputProps, status } = props;
+  const { as, icon, name, type, inputProps, status } = props;
   const label = props.label ?? titleCase(props.name);
   return (
     <div className={classNames('form-field', icon ? 'hasIcon' : '')}>
@@ -24,6 +24,7 @@ export const FieldWrapper = (
         {...inputProps}
         as={as}
         name={name}
+        type={type}
         placeholder={label}
         onChange={(value: any) => {
           props.setStatus({ ...status, serverErrors: [] });

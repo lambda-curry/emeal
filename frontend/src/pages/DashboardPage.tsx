@@ -17,15 +17,14 @@ export const DashboardPage = () => {
   const history = useHistory();
   const { analytics } = state;
 
-  const currentProjectId = selectCurrentProject(state).id;
+  const currentProjectId = selectCurrentProject(state)?.id;
 
   useEffect(() => {
     const fetchAnalytics = async () => {
       const [response, error] = await get<AnaltyicsResponse>(
         `analytics/${currentProjectId}`
       );
-      if (error) return `Server down!`;
-      console.log('>>>>', response);
+      if (error) throw new Error(`Server down!`);
       actions.saveAnalytics(response);
     };
     fetchAnalytics();
@@ -37,9 +36,11 @@ export const DashboardPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(analytics);
-
-  if (location.pathname === '/' || analytics.subscriberCount === undefined)
+  if (
+    !currentProjectId ||
+    location.pathname === '/' ||
+    analytics.subscriberCount === undefined
+  )
     return null;
 
   return (
