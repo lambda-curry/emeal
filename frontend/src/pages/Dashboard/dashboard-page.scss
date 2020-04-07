@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.dashboard {
+  &-label {
+    color: $dark-gray;
+    margin-bottom: 4px;
+  }
+
+  &-number {
+    font-size: 18px;
+    font-weight: 500;
+
+    &-large {
+      font-weight: 900;
+      font-size: 48px;
+      margin-bottom: 32px;
+    }
+  }
+
+  &-item {
+    &.subscribers {
+      text-align: right;
+    }
+  }
+}

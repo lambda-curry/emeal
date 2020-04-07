@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { useSession } from '../state/session/SessionProvider';
-import { selectCurrentProject } from '../state/session/SessionSelectors';
-import { get } from '../utils/api';
-import { AnaltyicsResponse } from '../../../shared';
+import { useSession } from '../../state/session/SessionProvider';
+import { selectCurrentProject } from '../../state/session/SessionSelectors';
+import { get } from '../../utils/api';
+import { AnaltyicsResponse } from '../../../../shared';
 import './dashboard-page.scss';
 
 // subscriberCount: number;
@@ -46,26 +46,33 @@ export const DashboardPage = () => {
   return (
     <div className='page dashboard'>
       <div className='page-container'>
+        <h3>Last 30 Days</h3>
         <div className='page-item'>
-          <h3>Last 30 Days</h3>
           <div className='dashboard-label'>Views</div>
-          <div className='dashboard-number'>
-            {analytics.pageViews30DayCount}
-          </div>
-          <div className='dashboard-label'>New Subscribers</div>
-          <div className='dashboard-number'>
-            {analytics.pageViews30DayCount}
-          </div>
-          <div className='dashboard-label'>Redemptions</div>
           <div className='dashboard-number'>
             {analytics.pageViews30DayCount}
           </div>
         </div>
         <div className='page-item'>
-          <h3>Subscribers</h3>
+          <div className='dashboard-label'>New Subscribers</div>
+          <div className='dashboard-number'>
+            {analytics.pageViews30DayCount}
+          </div>
+        </div>
+        <div className='page-item'>
+          <div className='dashboard-label'>Redemptions</div>
+          <div className='dashboard-number'>
+            {analytics.pageViews30DayCount}
+          </div>
+        </div>
+
+        <h3>Total Subscribers</h3>
+        <div className='page-item dashboard-item subscribers'>
           <div className='dashboard-number-large'>
             {analytics.subscriberCount}
           </div>
+
+          <button className='button-primary'>Download CSV</button>
         </div>
       </div>
     </div>

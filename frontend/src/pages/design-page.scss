@@ -14,13 +14,14 @@
 
     .image {
       min-height: 200px;
+      max-width: 600px - 32px;
     }
 
     img {
-      max-width: 600px - 32px;
       width: auto;
       max-height: 200px;
       height: auto;
+      max-width: 100%;
     }
 
     button {

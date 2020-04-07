@@ -2,6 +2,8 @@
 @import './variables';
 
 .form {
+  $breakpoint-sm: 400px;
+
   &-field {
     position: relative;
     padding-bottom: 24px;
@@ -34,28 +36,37 @@
 
   &-actions {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 16px 0;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 16px 0 0;
 
     button {
-      margin-right: 16px;
-      margin-left: 16px;
-      flex: 1;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
+      margin-bottom: 16px;
     }
 
-    &-right {
-      display: flex;
-      justify-content: flex-end;
+    @media (min-width: $breakpoint-sm) {
+      margin: 16px 0;
+      flex-direction: row;
+      justify-content: center;
       align-items: center;
+      button {
+        margin: 0 16px;
+        flex: 1;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      &-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
     }
   }
 }

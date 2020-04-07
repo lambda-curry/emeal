@@ -1,4 +1,4 @@
-import { DashboardPage } from '../pages/DashboardPage';
+import { DashboardPage } from '../pages/Dashboard/DashboardPage';
 import { PublicLayout } from '../layout/PublicLayout';
 import { PrivateLayout } from '../layout/PrivateLayout';
 import { LoginPage } from '../pages/LoginPage';
