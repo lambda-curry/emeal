@@ -19,12 +19,27 @@ export type AnalyticsDto = {
   pageViews30DayCount: number;
 };
 
+export type SubscriptionDto = {
+  id: string;
+  status: string;
+  cancelAtPeriodEnd: boolean;
+  currentPeriodEnd: Date;
+  trialEnd: Date;
+};
+
+export type StripeDto = {
+  customerId: string;
+  subscription: SubscriptionDto;
+};
+
 export type UserResponse = { user: UserDto };
+
 export type UserDto = {
   id: string;
   name: string;
   email: string;
   avatar: string;
+  stripe: StripeDto;
 };
 
 export type SessionResponse = { session: SessionDto };
