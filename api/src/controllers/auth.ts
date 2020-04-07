@@ -15,7 +15,7 @@ import {
 
 export const router = Router()
   .post('/login', asyncHandler(postLogin))
-  .get('/logout', asyncHandler(logout))
+  .post('/logout', asyncHandler(logout))
   .post('/forgotPassword', asyncHandler(forgotPassword))
   .post('/reset/:token', asyncHandler(resetPassword))
   .post('/signup', asyncHandler(signup));
