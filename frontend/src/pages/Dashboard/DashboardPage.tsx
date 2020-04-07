@@ -56,14 +56,12 @@ export const DashboardPage = () => {
         <div className='page-item'>
           <div className='dashboard-label'>New Subscribers</div>
           <div className='dashboard-number'>
-            {analytics.pageViews30DayCount}
+            {analytics.subscriber30DayCount}
           </div>
         </div>
         <div className='page-item'>
           <div className='dashboard-label'>Redemptions</div>
-          <div className='dashboard-number'>
-            {analytics.pageViews30DayCount}
-          </div>
+          <div className='dashboard-number'>{analytics.redeemed30DayCount}</div>
         </div>
 
         <h3>Total Subscribers</h3>
