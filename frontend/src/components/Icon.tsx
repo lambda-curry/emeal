@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
+import { ReactComponent as angle_down_regular } from '../icons/angle_down_regular.svg';
 import { ReactComponent as computer } from '../icons/computer.svg';
 import { ReactComponent as email } from '../icons/email.svg';
 import { ReactComponent as emeal_logo } from '../icons/emeal_logo.svg';
@@ -12,7 +13,6 @@ import { ReactComponent as paintbrush } from '../icons/paintbrush.svg';
 import { ReactComponent as pie_chart } from '../icons/pie_chart.svg';
 import { ReactComponent as profile } from '../icons/profile.svg';
 import { ReactComponent as restaurant } from '../icons/restaurant.svg';
-
 import { ReactComponent as play } from '../icons/play.svg';
 import { ReactComponent as trash } from '../icons/trash.svg';
 import { ReactComponent as download } from '../icons/download.svg';
@@ -20,6 +20,7 @@ import { ReactComponent as download } from '../icons/download.svg';
 import './icon.scss';
 
 export type IconNames =
+  | 'angle_down_regular'
   | 'computer'
   | 'email'
   | 'emeal_logo'
@@ -38,6 +39,7 @@ export type IconNames =
 export const icons: {
   [key in IconNames]: FunctionComponent<React.SVGProps<SVGSVGElement>>;
 } = {
+  angle_down_regular,
   computer,
   email,
   emeal_logo,

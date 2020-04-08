@@ -3,4 +3,14 @@
   path {
     fill: currentColor;
   }
+
+  &-trash {
+    position: relative;
+    top: 2px;
+  }
+
+  &-play {
+    position: relative;
+    top: 4px;
+  }
 }

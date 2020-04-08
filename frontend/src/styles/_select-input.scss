@@ -1,0 +1,51 @@
+@import './variables';
+
+// Src: https://github.com/filamentgroup/select-css/blob/master/src/select-css.css
+/* class applies to select element itself, not a wrapper element */
+select {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  line-height: 24px;
+  font-size: 18px;
+  padding: 8px 16px;
+  min-height: 52px;
+  background: white;
+  font-family: sans-serif;
+  width: 100%;
+  max-width: 100%; /* useful when width is set to anything other than 100% */
+  margin: 0;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: $border-radius;
+  border-radius: var(--border-radius);
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Hide arrow icon in IE browsers */
+select::-ms-expand {
+  display: none;
+}
+/* Hover style */
+select:hover {
+  border-color: $darker-gray;
+  cursor: pointer;
+}
+/* Focus style */
+select:focus {
+  border-color: #aaa;
+  /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
+}
+
+/* Disabled styles */
+select:disabled,
+select[aria-disabled='true'] {
+  opacity: 0.4;
+  pointer-events: none;
+}

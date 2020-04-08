@@ -6,6 +6,8 @@ import { get } from '../../utils/api';
 import { AnaltyicsResponse } from '../../../../shared';
 import './dashboard-page.scss';
 import { DashboardItem } from './DashboardItem';
+import classNames from 'classnames';
+import { Icon } from '../../components/Icon';
 
 // subscriberCount: number;
 // redeemed30DayCount: number;
@@ -74,7 +76,15 @@ export const DashboardPage = () => {
             {analytics.subscriberCount}
           </div>
 
-          <button className='button-primary'>Download CSV</button>
+          <a
+            className={classNames(
+              'button button-primary',
+              analytics.subscriberCount === 0 ? 'disabled' : ''
+            )}
+            href={`${process.env.REACT_APP_API}project/${currentProjectId}/emails/csv`}
+          >
+            Download CSV
+          </a>
         </div>
       </div>
     </div>

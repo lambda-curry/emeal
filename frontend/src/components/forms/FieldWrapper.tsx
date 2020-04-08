@@ -20,9 +20,17 @@ export const FieldWrapper = (
 ) => {
   const { as, icon, name, type, children, inputProps, status } = props;
   const label = props.label ?? titleCase(props.name);
+  const hasSuffix = as === 'select';
   return (
-    <div className={classNames('form-field', icon ? 'hasIcon' : '')}>
+    <div
+      className={classNames(
+        'form-field',
+        icon ? 'hasIcon' : '',
+        hasSuffix ? 'hasSuffix' : ''
+      )}
+    >
       {icon && <Icon name={icon} />}
+      {hasSuffix && <Icon className='suffix' name='angle_down_regular' />}
       <Field
         {...inputProps}
         as={as}

@@ -4,6 +4,7 @@ $breakpoint-sm: 800px;
 $breakpoint-lg: 1000px + 64px;
 
 .emeal-plan {
+  position: relative;
   border-radius: $border-radius;
   border-radius: var(--border-radius);
   border: 1px solid $border-color;
@@ -17,11 +18,11 @@ $breakpoint-lg: 1000px + 64px;
     justify-content: space-around;
     align-items: center;
 
-    &-section:first-child {
+    &-section.pricing {
       width: 300px;
     }
 
-    &-section:last-child {
+    &-section.details {
       flex: 1;
       border-left: 1px solid $border-color;
       padding-left: 48px;
@@ -34,7 +35,7 @@ $breakpoint-lg: 1000px + 64px;
   }
 
   @media (min-width: $breakpoint-lg) {
-    padding: 32px 16px 16px;
+    padding: 48px 16px 16px;
     display: block;
 
     &-section {
@@ -47,6 +48,23 @@ $breakpoint-lg: 1000px + 64px;
     hr {
       opacity: 1;
     }
+  }
+
+  &-most-popular {
+    box-sizing: border-box;
+    $width: 180px;
+    color: white;
+    font-weight: 600;
+    width: $width;
+    padding: 12px 16px;
+    background-color: $brand-color;
+    background-color: var(--brand-color);
+    border-radius: $border-radius;
+    border-radius: var(--border-radius);
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    margin-left: -($width / 2);
   }
 
   &-icon {

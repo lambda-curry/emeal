@@ -27,6 +27,7 @@ export const SelectPlan = () => {
               amount='$29'
               limits={['500 Email Captures', '20k Impressions']}
               onSelect={selectPlan}
+              extras={{ mostPopular: true }}
             />
 
             <EmealPlan

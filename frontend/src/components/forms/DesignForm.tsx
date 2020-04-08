@@ -164,7 +164,7 @@ export const DesignForm = () => {
                   }}
                   aria-label='replace coupon graphic'
                 >
-                  <Icon name='paintbrush' />
+                  <Icon name='trash' />
                 </button>
               </div>
             ) : null}
@@ -202,11 +202,12 @@ export const DesignForm = () => {
             <ServerErrors status={status} />
             <div className='form-actions'>
               <button
-                className='button-primary-outline'
+                className='button-primary-light'
                 type='button'
                 disabled={!values.title}
                 onClick={() => preview(formikProps)}
               >
+                <Icon name='play' />
                 Preview
               </button>
               <button

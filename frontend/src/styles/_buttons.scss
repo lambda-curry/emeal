@@ -1,6 +1,9 @@
 @import './variables';
 
-button {
+button,
+.button {
+  position: relative;
+  box-sizing: border-box;
   background-color: $brand-color;
   background-color: var(--brand-color);
   border: none;
@@ -19,10 +22,30 @@ button {
   min-height: 52px;
   cursor: pointer;
 
-  &[disabled] {
+  &[disabled],
+  &.disabled {
     opacity: 0.4;
     pointer-events: none;
     cursor: default;
+  }
+
+  &:not(.button-icon) {
+    .icon {
+      position: absolute !important;
+      left: 8px;
+
+      &-play {
+        top: 10px !important;
+
+        svg {
+          height: 32px;
+        }
+      }
+
+      svg {
+        width: auto;
+      }
+    }
   }
 }
 
@@ -31,17 +54,27 @@ button {
     background-color: $primary-blue;
     background-color: var(--primary-blue);
 
-    &-outline {
+    &-light {
       color: $primary-blue;
       color: var(--primary-blue);
-      background-color: transparent;
-      border: 2px solid $primary-blue;
-      border: 2px solid var(--primary-blue);
+      background-color: $primary-blue-lightened;
+      background-color: var(--primary-blue-lightened);
     }
   }
 
   &-icon {
     padding: 0;
     min-width: 52px;
+
+    svg {
+      height: 24px;
+      width: auto;
+    }
+  }
+}
+
+form {
+  button[type='submit'] {
+    @extend .button-primary;
   }
 }

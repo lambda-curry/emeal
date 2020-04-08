@@ -1,6 +1,8 @@
 $brand-color: #bb5450;
 $primary-red: #ff4500;
+$primary-red-lightened: lighten($primary-red, 45%);
 $primary-blue: #0068ff;
+$primary-blue-lightened: lighten($primary-blue, 45%);
 $light-blue: #def7ff;
 $warning-red: darkred;
 $success-green: #4caf50;
@@ -21,7 +23,9 @@ $box-shadow-5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 :root {
   --brand-color: #{$brand-color};
   --primary-red: #{$primary-red};
+  --primary-red-lightened: #{$primary-red-lightened};
   --primary-blue: #{$primary-blue};
+  --primary-blue-lightened: #{$primary-blue-lightened};
   --light-blue: #{$light-blue};
   --warning-red: #{$warning-red};
   --success-green: #{$success-green};

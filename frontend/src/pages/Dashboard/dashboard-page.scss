@@ -52,7 +52,8 @@
     .icon {
       border-radius: $border-radius;
       border-radius: var(--border-radius);
-      background: lighten($primary-red, 45%);
+      background: $primary-red-lightened;
+      background: var(--primary-red-lightened);
       color: $primary-red;
       color: var(--primary-red);
       padding: 16px;

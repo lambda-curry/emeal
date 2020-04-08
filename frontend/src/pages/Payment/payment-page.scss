@@ -20,7 +20,8 @@
     padding: 16px;
     border: 1px solid $border-color;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
+    border-radius: $border-radius;
+    border-radius: var(--border-radius);
     background-color: white;
     color: $darker-gray;
     color: var(--darker-gray);
