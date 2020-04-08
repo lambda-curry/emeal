@@ -10,6 +10,7 @@ import { ComponentType } from 'react';
 import { EmbedPage } from '../pages/EmbedPage';
 import { PaymentPage } from '../pages/Payment/PaymentPage';
 import { PrivateLayoutSimple } from '../layout/PrivateLayoutSimple';
+import { SelectPlan } from '../pages/Payment/SelectPlan';
 
 interface RouteConfig {
   path?: string;
@@ -47,6 +48,12 @@ export const routes: EmealRoutes = {
     },
   ],
   private: [
+    {
+      path: '/select-plan',
+      component: SelectPlan,
+      exact: true,
+      layout: PrivateLayoutSimple,
+    },
     {
       path: '/payment',
       component: PaymentPage,

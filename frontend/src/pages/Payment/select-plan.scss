@@ -1,0 +1,33 @@
+$breakpoint: 1000px + 64px;
+
+.select-plan {
+  .page-container {
+    width: 1000px;
+  }
+}
+
+.emeal-plans {
+  .emeal-plan {
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: $breakpoint) {
+    display: flex;
+
+    .emeal-plan {
+      flex: 1;
+      margin: 0 16px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

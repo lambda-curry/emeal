@@ -12,6 +12,11 @@ import { ReactComponent as paintbrush } from '../icons/paintbrush.svg';
 import { ReactComponent as pie_chart } from '../icons/pie_chart.svg';
 import { ReactComponent as profile } from '../icons/profile.svg';
 import { ReactComponent as restaurant } from '../icons/restaurant.svg';
+
+import { ReactComponent as play } from '../icons/play.svg';
+import { ReactComponent as trash } from '../icons/trash.svg';
+import { ReactComponent as download } from '../icons/download.svg';
+
 import './icon.scss';
 
 export type IconNames =
@@ -25,7 +30,10 @@ export type IconNames =
   | 'paintbrush'
   | 'pie_chart'
   | 'profile'
-  | 'restaurant';
+  | 'restaurant'
+  | 'play'
+  | 'trash'
+  | 'download';
 
 export const icons: {
   [key in IconNames]: FunctionComponent<React.SVGProps<SVGSVGElement>>;
@@ -41,6 +49,9 @@ export const icons: {
   pie_chart,
   profile,
   restaurant,
+  play,
+  trash,
+  download,
 };
 
 export const Icon = ({

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { StripeFormWrapper } from './StripeFormWrapper';
 import { ServerErrors } from './ServerErrors';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { CardFieldWrapper } from './CardFieldWrapper';
+import { FieldWrapper } from './FieldWrapper';
 
 interface PaymentFormValues {
   card: boolean;
@@ -15,18 +16,38 @@ const PaymentSchema = Yup.object().shape({
 
 export const PaymentForm = () => {
   const history = useHistory();
+  const location = useLocation<{ plan: string }>();
+  const [selectedPlan, setSelectedPlan] = useState(
+    location.state?.plan || 'basic'
+  );
 
   const pay = () => history.push('/');
+
+  console.log('>>>', selectedPlan);
 
   return (
     <StripeFormWrapper
       className='payment-form'
-      initialValues={{ card: false }}
+      initialValues={{ card: false, plan: selectedPlan }}
       validationSchema={PaymentSchema}
       onSubmit={pay}
     >
       {(formikProps: FormikProps<PaymentFormValues>) => (
         <>
+          <FieldWrapper
+            {...formikProps}
+            handleChange={(e: React.ChangeEvent<any>) => {
+              setSelectedPlan(e.target.value);
+              formikProps.handleChange(e);
+            }}
+            as='select'
+            name='plan'
+            inputProps={{ value: selectedPlan }}
+          >
+            <option value='basic' label='Basic - $14 a month' />
+            <option value='pro' label='Pro - $29 a month' />
+            <option value='restaurateur' label='Restaurateur - $49 a month' />
+          </FieldWrapper>
           <CardFieldWrapper {...formikProps} name='card' />
           <ServerErrors status={formikProps.status} />
           <div className='form-actions-right'>
