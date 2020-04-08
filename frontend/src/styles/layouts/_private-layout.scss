@@ -9,8 +9,6 @@ $breakpoint-md: 600px + 64px;
   background: $page-bg;
   background: var(--page-bg);
   width: 100%;
-  justify-items: center;
-  align-items: center;
 
   .header {
     position: fixed;
@@ -20,36 +18,7 @@ $breakpoint-md: 600px + 64px;
   }
 
   .page {
-    box-sizing: border-box;
-    padding: ($header-height + 32px) 8px 16px;
-    width: 100vw;
-    min-height: 100vh;
-
-    @media (min-width: $breakpoint-sm) {
-      padding: ($header-height + 32px) 32px 16px;
-    }
-
-    &-container {
-      width: 600px;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    &-item {
-      margin-bottom: 16px;
-      padding: 16px;
-      background: $page-item-bg;
-      background: var(--page-item-bg);
-      border-radius: $border-radius;
-      border-radius: var(--border-radius);
-      box-shadow: $box-shadow-1;
-      box-shadow: var(--box-shadow-1);
-
-      @media (min-width: $breakpoint-md) {
-        padding: 32px;
-        margin-bottom: 32px;
-      }
-    }
+    padding-top: ($header-height + 32px);
   }
 }
 

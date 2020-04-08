@@ -72,7 +72,7 @@ export const ProfileForm = () => {
             name='email'
           />
           <ServerErrors status={formikProps.status} />
-          <div className='form-actions'>
+          <div className='form-actions-right'>
             <button
               type='submit'
               disabled={formikProps.isSubmitting || !formikProps.dirty}

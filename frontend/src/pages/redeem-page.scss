@@ -1,0 +1,37 @@
+.redeem {
+  text-align: center;
+
+  .image {
+    min-height: 200px;
+    max-width: 600px - 32px;
+  }
+
+  img {
+    width: auto;
+    max-height: 200px;
+    height: auto;
+    max-width: 100%;
+  }
+
+  &-title {
+    margin-top: 16px;
+  }
+
+  &-description {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+
+  &-question {
+    font-weight: bold;
+  }
+
+  &-button {
+    min-width: 200px;
+    margin-top: 32px;
+  }
+
+  &-expires {
+    margin-top: 16px;
+  }
+}

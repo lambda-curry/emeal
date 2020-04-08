@@ -1,51 +1,30 @@
-.public-layout {
-  width: 100%;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  grid-template-rows: 160px auto;
+@import '../variables';
 
-  grid-template-areas:
-    'header'
-    'page';
+$header-height: 160px;
+
+.public-layout {
+  background: $page-bg;
+  background: var(--page-bg);
+  width: 100%;
+
+  &-header {
+    display: flex;
+    width: 100%;
+    height: $header-height;
+    justify-content: center;
+    align-items: center;
+  }
 
   &-logo {
-    display: block;
-    grid-area: header;
     color: black;
     text-decoration: none;
-    height: 0;
   }
 
   .page {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0 16px;
-    grid-area: page;
-    display: flex;
-    justify-content: center;
+    min-height: calc(100vh - #{$header-height});
 
     &-container {
-      width: 340px;
-    }
-  }
-
-  .form {
-    margin-bottom: 48px;
-
-    &-field {
-      width: 100%;
-    }
-
-    &-content {
-      text-align: center;
-      margin-top: 32px;
-      font-size: 14px;
-
-      a {
-        font-weight: bold;
-        color: black;
-      }
+      width: 480px;
     }
   }
 }

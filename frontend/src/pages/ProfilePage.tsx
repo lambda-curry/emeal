@@ -2,7 +2,7 @@ import React from 'react';
 import { ProfileForm } from '../components/forms/ProfileForm';
 import './profile-page.scss';
 import { post } from '../utils/api';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useSession } from '../state/session/SessionProvider';
 
 export const ProfilePage = () => {
@@ -24,6 +24,11 @@ export const ProfilePage = () => {
             Sign Out
           </button>
           <ProfileForm />
+
+          <p>
+            If you would like to cancel your plan, please{' '}
+            <Link to='/subscriptions'>click here</Link>.
+          </p>
         </div>
       </div>
     </main>

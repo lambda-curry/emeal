@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const titleCase = (str: string) => {
   const strArr = str.toLowerCase().split(' ');
@@ -13,7 +14,7 @@ export const titleCase = (str: string) => {
 // If there is a caught error, the responseData will be sent as an empty object.
 // Adapted from https://dev.to/sobiodarlington/better-error-handling-with-async-await-2e5m
 export const handlePromise = (promise: Promise<any>) =>
-  promise.then(data => [data, null]).catch(err => [{}, err]);
+  promise.then((data) => [data, null]).catch((err) => [{}, err]);
 
 // The useAsyncEffect function is a custom hook to pass asynchronous functions into.
 // Most helpful when you only want to load data once in functional components (since you don't have access to the
@@ -31,8 +32,8 @@ export const useAsyncEffect = (
     if (stillAround) {
       effect()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        .then(value => (result = value))
-        .catch(err => {
+        .then((value) => (result = value))
+        .catch((err) => {
           throw new Error(err);
         });
     }
@@ -45,4 +46,9 @@ export const useAsyncEffect = (
       }
     };
   }, inputs);
+};
+
+export const useQueryParams = () => {
+  const location = useLocation();
+  return new URLSearchParams(location.search);
 };

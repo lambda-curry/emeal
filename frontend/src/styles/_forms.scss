@@ -53,6 +53,12 @@
       margin-bottom: 16px;
     }
 
+    &-right {
+      button {
+        width: 100%;
+      }
+    }
+
     @media (min-width: $breakpoint-sm) {
       margin: 16px 0;
       flex-direction: row;
@@ -75,6 +81,10 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        button {
+          width: auto;
+        }
       }
     }
   }

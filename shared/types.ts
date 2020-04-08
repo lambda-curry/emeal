@@ -56,8 +56,8 @@ export type CouponDto = {
   title: string;
   image: string;
   description: string;
-  expirationDate: Date;
-  redeemedDate?: Date;
+  expirationDate: Date | string;
+  redeemedDate?: Date | string;
 };
 
 export type ForgotPasswordResponse = {

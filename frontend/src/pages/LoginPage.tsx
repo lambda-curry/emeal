@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 export const LoginPage = () => (
   <main className='page login'>
     <div className='page-container'>
-      <h2>Log In</h2>
-      <LoginForm />
+      <div className='page-item'>
+        <h2>Log In</h2>
+        <LoginForm />
+      </div>
       <p>
         Don't have an account? <Link to='/signup'>Create one now.</Link>
       </p>

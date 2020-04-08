@@ -4,15 +4,9 @@ import { useSession } from '../../state/session/SessionProvider';
 import { selectCurrentProject } from '../../state/session/SessionSelectors';
 import { get } from '../../utils/api';
 import { AnaltyicsResponse } from '../../../../shared';
-import './dashboard-page.scss';
 import { DashboardItem } from './DashboardItem';
 import classNames from 'classnames';
-import { Icon } from '../../components/Icon';
-
-// subscriberCount: number;
-// redeemed30DayCount: number;
-// subscriber30DayCount: number;
-// pageViews30DayCount: number;
+import './dashboard-page.scss';
 
 export const DashboardPage = () => {
   const location = useLocation();

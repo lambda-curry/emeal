@@ -1,6 +1,8 @@
 @import '../styles/variables';
 
 .profile {
+  text-align: center;
+
   .page-container {
     position: relative;
   }
@@ -43,5 +45,19 @@
   form {
     max-width: 400px;
     margin: 0 auto;
+  }
+
+  p {
+    margin-top: 32px;
+
+    a {
+      color: black;
+      font-weight: 500;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

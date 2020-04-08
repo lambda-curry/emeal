@@ -43,9 +43,14 @@ export const ForgotPasswordForm = () => {
     >
       {(formikProps: FormikProps<ForgotPasswordValues>) => (
         <>
-          <FieldWrapper {...formikProps} type='email' name='email' />
+          <FieldWrapper
+            {...formikProps}
+            icon='email'
+            type='email'
+            name='email'
+          />
           <ServerErrors status={formikProps.status} />
-          <div className='form-actions'>
+          <div className='form-actions-right'>
             <button type='submit' disabled={formikProps.isSubmitting}>
               Reset Password
             </button>

@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 
 export const PublicLayout = () => (
   <div className='public-layout'>
-    <Link className='public-layout-logo' to='/login'>
-      <LogoType />
-    </Link>
+    <div className='public-layout-header'>
+      <Link className='public-layout-logo' to='/login'>
+        <LogoType />
+      </Link>
+    </div>
     <PublicRoutes />
   </div>
 );

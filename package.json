@@ -7,6 +7,7 @@
   "scripts": {
     "start": "concurrently \"yarn start:fe\" \"yarn start:be\"",
     "start:fe": "yarn workspace emeal-frontend run start:dev",
+    "start:fe:prod": "yarn workspace emeal-frontend run start:prod",
     "build:fe": "yarn workspace emeal-frontend run react-scripts build",
     "start:be": "yarn workspace emeal-api run dev",
     "build:be": "yarn workspace emeal-api run build",

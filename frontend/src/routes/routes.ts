@@ -11,6 +11,8 @@ import { EmbedPage } from '../pages/EmbedPage';
 import { PaymentPage } from '../pages/Payment/PaymentPage';
 import { PrivateLayoutSimple } from '../layout/PrivateLayoutSimple';
 import { SelectPlan } from '../pages/Payment/SelectPlan';
+import { RedeemPage } from '../pages/RedeemPage';
+import { SubscriptionsPage } from '../pages/SubscriptionsPage';
 
 interface RouteConfig {
   path?: string;
@@ -46,6 +48,11 @@ export const routes: EmealRoutes = {
       component: ForgotPasswordPage,
       exact: true,
     },
+    {
+      path: '/redeem/:couponToken',
+      component: RedeemPage,
+      exact: true,
+    },
   ],
   private: [
     {
@@ -68,6 +75,11 @@ export const routes: EmealRoutes = {
     {
       path: '/profile',
       component: ProfilePage,
+      exact: true,
+    },
+    {
+      path: '/subscriptions',
+      component: SubscriptionsPage,
       exact: true,
     },
     {

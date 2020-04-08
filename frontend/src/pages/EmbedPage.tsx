@@ -27,7 +27,10 @@ export const EmbedPage = () => {
           {/* TODO: Hook up the Click here to show help. */}
           <div className='embed-info'>
             Copy the snippet above and add it anywhere you wish on your landing
-            page. Need additional help? <a href='#'>Click here.</a>
+            page.
+            <br />
+            Need additional help? Email&nbsp;us&nbsp;at&nbsp;
+            <a href='mailto:support@emeal.me'>support@emeal.me</a>.
           </div>
         </div>
       </div>
