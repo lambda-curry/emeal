@@ -209,9 +209,9 @@ interface EmealModalSettings {
       }, []);
 
       React.useEffect(() => {
-        if (!!settings && !!open) {
+        if (!window.emealModalSettings?.isPreview && !!settings && !!open)
           markModalAsViewed();
-        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [settings, open]);
 
       const handleRequestClose = () => {
@@ -243,7 +243,7 @@ interface EmealModalSettings {
   }
 
   function getFullPath(path: string) {
-    return window.emealModalSettings && window.emealModalSettings?.isPreview
+    return window.emealModalSettings?.isPreview
       ? path
       : 'https://app.emeal.me' + path;
   }

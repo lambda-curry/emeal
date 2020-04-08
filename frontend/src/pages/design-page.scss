@@ -9,6 +9,7 @@
   }
 
   &-preview {
+    position: relative;
     text-align: center;
     margin-bottom: 32px;
 
@@ -25,7 +26,20 @@
     }
 
     button {
-      margin-top: 16px;
+      pointer-events: none;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 100ms ease-in;
+    }
+
+    &.loaded {
+      button {
+        opacity: 1;
+        pointer-events: all;
+      }
     }
   }
 }

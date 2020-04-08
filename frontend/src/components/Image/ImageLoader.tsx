@@ -1,7 +1,7 @@
 import React from 'react';
 import './image.scss';
 
-export const Image = (
+export const ImageLoader = (
   props: React.DetailedHTMLProps<
     React.ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement

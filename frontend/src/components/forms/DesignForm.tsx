@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormikHelpers, FormikProps, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { FieldWrapper } from './FieldWrapper';
@@ -9,7 +9,9 @@ import { patch, upload } from '../../utils/api';
 import { ProjectResponse, CouponDto } from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
 import { selectCurrentProject } from '../../state/session/SessionSelectors';
-import { Image } from '../Image/image';
+import { ImageLoader } from '../Image/ImageLoader';
+import { Icon } from '../Icon';
+import classNames from 'classnames';
 
 declare global {
   interface Window {
@@ -46,6 +48,7 @@ export const DesignForm = () => {
   const { state } = useSession();
   const currentProject = selectCurrentProject(state);
   const currentCoupon = currentProject?.coupon;
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   const saveProject = async (
     values: DesignFormValues,
@@ -140,17 +143,28 @@ export const DesignForm = () => {
         return (
           <>
             {previewImage ? (
-              <div className='design-preview'>
-                <Image src={previewImage} alt='coupon graphic' />
+              <div
+                className={classNames(
+                  'design-preview',
+                  imgLoaded ? 'loaded' : ''
+                )}
+              >
+                <ImageLoader
+                  src={previewImage}
+                  onLoad={() => setImgLoaded(true)}
+                  alt='coupon graphic'
+                />
+
                 <button
-                  className='button-primary-outline'
+                  className='button-icon'
                   type='button'
                   onClick={() => {
                     setFieldValue('files', [], false);
                     setFieldValue('image', null, false);
                   }}
+                  aria-label='replace coupon graphic'
                 >
-                  Select another image
+                  <Icon name='paintbrush' />
                 </button>
               </div>
             ) : null}
