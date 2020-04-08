@@ -18,7 +18,6 @@ export const FieldWrapper = (
   const label = props.label ?? titleCase(props.name);
   return (
     <div className={classNames('form-field', icon ? 'hasIcon' : '')}>
-      {/* <label htmlFor={name}>{label}</label> */}
       {icon && <Icon name={icon} />}
       <Field
         {...inputProps}

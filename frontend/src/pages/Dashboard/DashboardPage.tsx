@@ -5,6 +5,7 @@ import { selectCurrentProject } from '../../state/session/SessionSelectors';
 import { get } from '../../utils/api';
 import { AnaltyicsResponse } from '../../../../shared';
 import './dashboard-page.scss';
+import { DashboardItem } from './DashboardItem';
 
 // subscriberCount: number;
 // redeemed30DayCount: number;
@@ -20,14 +21,16 @@ export const DashboardPage = () => {
   const currentProjectId = selectCurrentProject(state)?.id;
 
   useEffect(() => {
-    const fetchAnalytics = async () => {
-      const [response, error] = await get<AnaltyicsResponse>(
-        `analytics/${currentProjectId}`
-      );
-      if (error) throw new Error(`Server down!`);
-      actions.saveAnalytics(response);
-    };
-    fetchAnalytics();
+    if (currentProjectId) {
+      const fetchAnalytics = async () => {
+        const [response, error] = await get<AnaltyicsResponse>(
+          `analytics/${currentProjectId}`
+        );
+        if (error) throw new Error(`Server down!`);
+        actions.saveAnalytics(response);
+      };
+      fetchAnalytics();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -47,25 +50,26 @@ export const DashboardPage = () => {
     <div className='page dashboard'>
       <div className='page-container'>
         <h3>Last 30 Days</h3>
-        <div className='page-item'>
-          <div className='dashboard-label'>Views</div>
-          <div className='dashboard-number'>
-            {analytics.pageViews30DayCount}
+        <div className='dashboard-last30'>
+          <div className='page-item'>
+            <DashboardItem icon='eye' label='Views'>
+              {analytics.pageViews30DayCount}
+            </DashboardItem>
           </div>
-        </div>
-        <div className='page-item'>
-          <div className='dashboard-label'>New Subscribers</div>
-          <div className='dashboard-number'>
-            {analytics.subscriber30DayCount}
+          <div className='page-item'>
+            <DashboardItem icon='email' label='Subscribers'>
+              {analytics.subscriber30DayCount}
+            </DashboardItem>
           </div>
-        </div>
-        <div className='page-item'>
-          <div className='dashboard-label'>Redemptions</div>
-          <div className='dashboard-number'>{analytics.redeemed30DayCount}</div>
+          <div className='page-item'>
+            <DashboardItem icon='restaurant' label='Redemptions'>
+              {analytics.redeemed30DayCount}
+            </DashboardItem>
+          </div>
         </div>
 
         <h3>Total Subscribers</h3>
-        <div className='page-item dashboard-item subscribers'>
+        <div className='page-item dashboard-subscribers'>
           <div className='dashboard-number-large'>
             {analytics.subscriberCount}
           </div>

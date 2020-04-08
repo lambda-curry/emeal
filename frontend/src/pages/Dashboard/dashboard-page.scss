@@ -1,14 +1,41 @@
 @import '../../styles/variables';
 
 .dashboard {
+  $breakpoint: 600px + 64px;
+
+  .page-item {
+    padding: 16px;
+  }
+
+  &-last30 {
+    margin-bottom: 32px;
+
+    @media (min-width: $breakpoint) {
+      display: flex;
+      .page-item {
+        flex: 1;
+
+        margin: 0 8px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
   &-label {
     color: $dark-gray;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
   }
 
   &-number {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 600;
 
     &-large {
       font-weight: 900;
@@ -18,8 +45,22 @@
   }
 
   &-item {
-    &.subscribers {
-      text-align: right;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    .icon {
+      border-radius: $border-radius;
+      border-radius: var(--border-radius);
+      background: lighten($primary-red, 45%);
+      color: $primary-red;
+      color: var(--primary-red);
+      padding: 16px;
+      margin-right: 16px;
     }
+  }
+
+  &-subscribers {
+    text-align: right;
   }
 }

@@ -8,7 +8,7 @@ import { ProfilePage } from '../pages/ProfilePage';
 import { DesignPage } from '../pages/DesignPage';
 import { ComponentType } from 'react';
 import { EmbedPage } from '../pages/EmbedPage';
-import { PaymentPage } from '../pages/PaymentPage';
+import { PaymentPage } from '../pages/Payment/PaymentPage';
 import { PrivateLayoutSimple } from '../layout/PrivateLayoutSimple';
 
 interface RouteConfig {

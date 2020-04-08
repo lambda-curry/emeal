@@ -2,6 +2,7 @@
 
 $header-height: 80px;
 $breakpoint-sm: 400px;
+$breakpoint-md: 600px + 64px;
 
 .private-layout,
 .private-layout-simple {
@@ -16,7 +17,6 @@ $breakpoint-sm: 400px;
     height: $header-height;
     width: 100%;
     z-index: 1;
-    overflow: hidden;
   }
 
   .page {
@@ -45,7 +45,7 @@ $breakpoint-sm: 400px;
       box-shadow: $box-shadow-1;
       box-shadow: var(--box-shadow-1);
 
-      @media (min-width: $breakpoint-sm) {
+      @media (min-width: $breakpoint-md) {
         padding: 32px;
         margin-bottom: 32px;
       }
@@ -57,6 +57,7 @@ $breakpoint-sm: 400px;
   $header-height: 160px;
 
   .logo-type {
+    height: $header-height;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,6 +65,6 @@ $breakpoint-sm: 400px;
 
   .page {
     padding-top: 0;
-    min-height: calc(100vh - #{$header-height});
+    min-height: 100vh;
   }
 }

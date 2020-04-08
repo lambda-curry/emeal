@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { ReactComponent as computer } from '../icons/computer.svg';
 import { ReactComponent as email } from '../icons/email.svg';
 import { ReactComponent as emeal_logo } from '../icons/emeal_logo.svg';
+import { ReactComponent as eye } from '../icons/eye.svg';
 import { ReactComponent as image_upload } from '../icons/image_upload.svg';
 import { ReactComponent as link } from '../icons/link.svg';
 import { ReactComponent as lock } from '../icons/lock.svg';
@@ -17,6 +18,7 @@ export type IconNames =
   | 'computer'
   | 'email'
   | 'emeal_logo'
+  | 'eye'
   | 'image_upload'
   | 'link'
   | 'lock'
@@ -31,6 +33,7 @@ export const icons: {
   computer,
   email,
   emeal_logo,
+  eye,
   image_upload,
   link,
   lock,

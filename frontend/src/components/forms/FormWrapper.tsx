@@ -17,7 +17,7 @@ export const FormWrapper: FunctionComponent<
 
   return (
     <div className={classNames(className, 'form')}>
-      <Formik {...formikConfig} onSubmit={(a, b) => handleSubmit(a, b)}>
+      <Formik {...formikConfig} onSubmit={handleSubmit}>
         {(formikProps: FormikProps<any>) => (
           <Form>{children(formikProps)}</Form>
         )}
