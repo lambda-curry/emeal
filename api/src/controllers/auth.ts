@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { User, UserDocument, createStripe } from '../models/User';
+import { User, UserDocument, createStripeDto } from '../models/User';
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jwt-simple';
@@ -8,12 +8,7 @@ import moment from 'moment';
 import { sendForgotPasswordEmail } from '../services/mail';
 import { Project } from '../models/Project';
 import { PRODUCTION, AUTH_SECRET, JWT_NAME } from '../util/secrets';
-import {
-  createStripeCustomer,
-  createStripeSubscription,
-  STRIPE_PLANS,
-  EmealStripePlanId,
-} from '../services/stripe';
+import { createStripeCustomer } from '../services/stripe';
 
 export const router = Router()
   .post('/login', asyncHandler(postLogin))
@@ -94,8 +89,6 @@ const signupSchema = yup.object().shape({
   password: yup.string().min(8).required(),
   projectName: yup.string().required(),
   website: yup.string().url().required(),
-  planId: yup.string().oneOf(STRIPE_PLANS).required(),
-  stripeSource: yup.string().required(),
 });
 
 async function signup(req: Request, res: Response) {
@@ -121,12 +114,8 @@ async function signup(req: Request, res: Response) {
     ownerId: createdUser.id,
   });
 
-  const customer = await createStripeCustomer(createdUser, body.stripeSource);
-  const subscription = await createStripeSubscription(
-    customer,
-    body.planId as EmealStripePlanId
-  );
-  createdUser.stripe = createStripe(customer, subscription);
+  const customer = await createStripeCustomer(createdUser);
+  createdUser.stripe = createStripeDto(customer, null);
 
   await createdUser.save();
   await project.save();

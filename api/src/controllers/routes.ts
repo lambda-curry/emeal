@@ -6,6 +6,7 @@ import { router as couponRouter } from './coupon';
 import { router as analyticsRouter } from './analytics';
 import { router as sessionRouter } from './session';
 import { router as paymentRouter } from './payment';
+import { router as stripeWebhookRouter } from './stripe';
 
 export const apiRouter = Router();
 
@@ -17,4 +18,5 @@ apiRouter
   .use('/session', sessionRouter)
   .use('/project', projectRouter)
   .use('/analytics', analyticsRouter)
-  .use('/payment', paymentRouter);
+  .use('/payment', paymentRouter)
+  .use('/stripe', stripeWebhookRouter);
