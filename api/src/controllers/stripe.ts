@@ -27,7 +27,7 @@ async function webhook(req: Request, res: Response) {
 }
 
 async function cancelCustomerSubscription(subscriptionId: string) {
-  const subscription = await fetchStripeSubscription(subscriptionId); // fetches subscription with user expanded
+  const subscription = await fetchStripeSubscription(subscriptionId);
   if (subscription.status === 'canceled') {
     const customer = subscription.customer as Stripe.Customer;
     const userId = customer.metadata.id;
@@ -41,7 +41,7 @@ async function cancelCustomerSubscription(subscriptionId: string) {
 }
 
 async function updateCustomerSubscription(subscriptionId: string) {
-  const subscription = await fetchStripeSubscription(subscriptionId); // fetches subscription with user expanded
+  const subscription = await fetchStripeSubscription(subscriptionId);
   const customer = subscription.customer as Stripe.Customer;
   const userId = customer.metadata.id;
   const user = await User.findById(userId);
