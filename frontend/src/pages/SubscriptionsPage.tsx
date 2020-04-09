@@ -1,8 +1,24 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { post } from '../utils/api';
+import { SessionResponse } from '../../../shared';
+import { useSession } from '../state/session/SessionProvider';
 
 export const SubscriptionsPage = () => {
+  const history = useHistory();
+  const { actions } = useSession();
+
   const cancelSubscription = async () => {
-    // TODO: Hook up cancel subscription
+    const [response, error] = await post<SessionResponse, {}>(
+      'payment/subscription/cancel',
+      {}
+    );
+
+    if (error)
+      throw new Error(`Guess you can't cancel, our server won't let you.`);
+
+    actions.saveSession(response);
+    history.push('/');
   };
 
   return (
