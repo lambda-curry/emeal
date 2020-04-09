@@ -8,7 +8,14 @@ export type ProjectDto = {
   name: string;
   website: string;
   createdAt: Date;
-  coupon: CouponDto;
+  coupon: CouponTemplateDto;
+};
+
+export type CouponTemplateDto = {
+  title?: string;
+  image?: string;
+  description?: string;
+  expirationDays?: number;
 };
 
 export type AnaltyicsResponse = { analytics: AnalyticsDto };
@@ -19,6 +26,14 @@ export type AnalyticsDto = {
   pageViews30DayCount: number;
 };
 
+export type CustomerDto = {
+  id: string;
+  source: {
+    id: string;
+    lastFour: string;
+    brand: string;
+  };
+};
 export type SubscriptionDto = {
   id: string;
   status: string;
@@ -28,7 +43,7 @@ export type SubscriptionDto = {
 };
 
 export type StripeDto = {
-  customerId: string;
+  customer: CustomerDto;
   subscription: SubscriptionDto;
 };
 

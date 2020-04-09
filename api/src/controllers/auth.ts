@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { User, UserDocument } from '../models/User';
+import { User, UserDocument, createStripe } from '../models/User';
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jwt-simple';
@@ -11,6 +11,8 @@ import { PRODUCTION, AUTH_SECRET, JWT_NAME } from '../util/secrets';
 import {
   createStripeCustomer,
   createStripeSubscription,
+  STRIPE_PLANS,
+  EmealStripePlanId,
 } from '../services/stripe';
 
 export const router = Router()
@@ -83,23 +85,21 @@ async function postLogin(req: Request, res: Response) {
  * Log out.
  */
 async function logout(req: Request, res: Response) {
-  return res.status(200).clearCookie(JWT_NAME);
+  return res.status(200).clearCookie(JWT_NAME).json({ message: 'Logged out' });
 }
 
-/**
- * POST /signup
- * Create a new local account.
- */
-async function signup(req: Request, res: Response) {
-  const schema = yup.object().shape({
-    name: yup.string().required(),
-    email: yup.string().email(),
-    password: yup.string().min(8).required(),
-    projectName: yup.string().required(),
-    website: yup.string().url().required(),
-  });
+const signupSchema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email(),
+  password: yup.string().min(8).required(),
+  projectName: yup.string().required(),
+  website: yup.string().url().required(),
+  planId: yup.string().oneOf(STRIPE_PLANS).required(),
+  stripeSource: yup.string().required(),
+});
 
-  const body = await schema.validate(req.body);
+async function signup(req: Request, res: Response) {
+  const body = await signupSchema.validate(req.body);
 
   const user = new User({
     email: body.email,
@@ -121,20 +121,13 @@ async function signup(req: Request, res: Response) {
     ownerId: createdUser.id,
   });
 
-  const customer = await createStripeCustomer(createdUser);
-  const subscription = await createStripeSubscription(customer, 1);
-  createdUser.stripe = {
-    customer: {
-      id: customer.id,
-    },
-    subscription: {
-      id: subscription.id,
-      status: subscription.status,
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      trialEnd: new Date(subscription.trial_end * 1000),
-    },
-  };
+  const customer = await createStripeCustomer(createdUser, body.stripeSource);
+  const subscription = await createStripeSubscription(
+    customer,
+    body.planId as EmealStripePlanId
+  );
+  createdUser.stripe = createStripe(customer, subscription);
+
   await createdUser.save();
   await project.save();
   return await buildLoginResponse(createdUser, res);

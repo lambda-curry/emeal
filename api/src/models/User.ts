@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
-import { UserDto } from '@shared';
+import { UserDto, StripeDto } from '@shared';
 import Stripe from 'stripe';
 
 export type UserDocument = mongoose.Document & {
@@ -99,6 +99,29 @@ const comparePassword: comparePasswordFunction = function (candidatePassword) {
 };
 
 userSchema.methods.comparePassword = comparePassword;
+
+export function createStripe(
+  customer: Stripe.Customer,
+  subscription: Stripe.Subscription
+): StripeDto {
+  return {
+    customer: {
+      id: customer.id,
+      source: {
+        id: (customer.default_source as Stripe.Card)?.id,
+        brand: (customer.default_source as Stripe.Card)?.brand,
+        lastFour: (customer.default_source as Stripe.Card)?.last4,
+      },
+    },
+    subscription: {
+      id: subscription.id,
+      status: subscription.status,
+      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      trialEnd: new Date(subscription.trial_end * 1000),
+    },
+  };
+}
 
 /**
  * Helper method for getting user's gravatar.

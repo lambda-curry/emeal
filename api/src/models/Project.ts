@@ -5,6 +5,7 @@ export type ProjectDocument = mongoose.Document & {
   name: string;
   website: string;
   ownerId: mongoose.Types.ObjectId;
+  disabledAt: Date;
   coupon?: {
     title: string;
     image: string;
@@ -23,20 +24,21 @@ const projectSchema = new mongoose.Schema(
       title: String,
       image: String,
       expirationDays: Number,
-      description: String
+      description: String,
     },
-    disabledAt: Date
+    disabledAt: Date,
   },
   { timestamps: true }
 );
 
-projectSchema.methods.toDto = function() {
+projectSchema.methods.toDto = function () {
   return {
     id: this.id,
     name: this.name,
     website: this.website,
     createdAt: this.createdAt,
-    coupon: this.coupon
+    coupon: this.coupon,
+    canceledAt: this.canceledAt,
   };
 };
 
