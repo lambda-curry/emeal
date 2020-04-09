@@ -8,6 +8,7 @@ import { MONGODB_URI, MONGO_CONNECTION_OPTIONS } from './util/secrets';
 import { corsMiddleware } from './middleware/cors';
 import { errorHandler } from './middleware/error';
 import { apiRouter } from './controllers/routes';
+import logger from './util/logger';
 
 // Connect to MongoDB
 const mongoUrl = MONGODB_URI;
@@ -19,8 +20,9 @@ mongoose
     /** ready to use. The `mongoose.connect()` promise resolves to undefined. */
   })
   .catch((err) => {
-    console.log(
-      'MongoDB connection error. Please make sure MongoDB is running. ' + err
+    logger.error(
+      'MongoDB connection error. Please make sure MongoDB is running. ',
+      err
     );
     // process.exit();
   });

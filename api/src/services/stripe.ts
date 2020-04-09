@@ -37,14 +37,12 @@ export async function updateStripeCustomer(
 }
 
 export async function createStripeCustomer(
-  user: UserDocument,
-  source?: string
+  user: UserDocument
 ): Promise<Stripe.Customer> {
   return await stripeClient.customers.create({
     name: user.name,
     email: user.email,
     metadata: { id: user.id },
-    source,
     expand: ['customer.default_source'],
   });
 }

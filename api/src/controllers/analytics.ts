@@ -23,24 +23,24 @@ async function getAnalyticsForProject(req: Request, res: Response) {
       .status(400)
       .json({ errors: [`Could not find project with id ${projectId}`] });
 
-  const subscriberCount = await Coupon.count({
+  const subscriberCount = await Coupon.countDocuments({
     projectId,
     createdAt: { $gt: moment().subtract(30, 'days').toDate() },
   });
-  const redeemed30DayCount = await Coupon.count({
+  const redeemed30DayCount = await Coupon.countDocuments({
     projectId,
     createdAt: { $gt: moment().subtract(30, 'days').toDate() },
     redeemedDate: { $ne: null },
   });
-  const subscriber30DayCount = await Coupon.count({
+  const subscriber30DayCount = await Coupon.countDocuments({
     projectId,
     createdAt: { $gt: moment().subtract(30, 'days').toDate() },
   });
-  const pageViews30DayCount = await PageView.count({
+  const pageViews30DayCount = await PageView.countDocuments({
     projectId,
     createdAt: { $gt: moment().subtract(30, 'days').toDate() },
   });
-  return res.json({
+  return res.status(200).json({
     analytics: {
       subscriberCount,
       redeemed30DayCount,

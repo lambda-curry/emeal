@@ -22,7 +22,7 @@ export type UserDocument = mongoose.Document & {
         lastFour: string;
       };
     };
-    subscription: {
+    subscription?: {
       id: string;
       status: string;
       cancelAtPeriodEnd: boolean;
@@ -33,7 +33,6 @@ export type UserDocument = mongoose.Document & {
   comparePassword: comparePasswordFunction;
   gravatar: (size: number) => string;
   toDto: () => UserDto;
-  updateCustomer: (customer: Stripe.Customer) => UserDocument;
 };
 
 type comparePasswordFunction = (candidatePassword: string) => boolean;
