@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt-nodejs';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
-import { UserDto, StripeDto } from '@shared';
+import { UserDto, StripeDto, SubscriptionDto, CustomerDto } from '@shared';
 import Stripe from 'stripe';
 
 export type UserDocument = mongoose.Document & {
@@ -13,7 +13,7 @@ export type UserDocument = mongoose.Document & {
   passwordResetExpires?: Date;
   createdAt?: Date;
   updatedAt?: Date;
-  stripe?: {
+  stripe: {
     customer: {
       id: string;
       defaultSource?: {
@@ -100,26 +100,36 @@ const comparePassword: comparePasswordFunction = function (candidatePassword) {
 
 userSchema.methods.comparePassword = comparePassword;
 
-export function createStripe(
+export function createStripeDto(
   customer: Stripe.Customer,
-  subscription: Stripe.Subscription
+  subscription?: Stripe.Subscription
 ): StripeDto {
   return {
-    customer: {
-      id: customer.id,
-      source: {
-        id: (customer.default_source as Stripe.Card)?.id,
-        brand: (customer.default_source as Stripe.Card)?.brand,
-        lastFour: (customer.default_source as Stripe.Card)?.last4,
-      },
+    customer: customerDto(customer),
+    subscription: subscription ? subscriptionDto(subscription) : null,
+  };
+}
+
+export function customerDto(customer: Stripe.Customer): CustomerDto {
+  return {
+    id: customer.id,
+    source: {
+      id: (customer.default_source as Stripe.Card)?.id,
+      brand: (customer.default_source as Stripe.Card)?.brand,
+      lastFour: (customer.default_source as Stripe.Card)?.last4,
     },
-    subscription: {
-      id: subscription.id,
-      status: subscription.status,
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      trialEnd: new Date(subscription.trial_end * 1000),
-    },
+  };
+}
+
+export function subscriptionDto(
+  subscription: Stripe.Subscription
+): SubscriptionDto {
+  return {
+    id: subscription.id,
+    status: subscription.status,
+    cancelAtPeriodEnd: subscription.cancel_at_period_end,
+    currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+    trialEnd: new Date(subscription.trial_end * 1000),
   };
 }
 

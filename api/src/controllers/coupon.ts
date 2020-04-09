@@ -37,6 +37,9 @@ async function redeemCouponByToken(req: Request, res: Response) {
     return res
       .status(400)
       .json({ errors: ['This coupon has already been redeemed'] });
+
+  if (moment(coupon.expirationDate).isBefore(moment()))
+    return res.status(400).json({ errors: ['This coupon has expired'] });
   coupon.redeemedDate = moment().toDate();
   await coupon.save();
   return res.json({ coupon: coupon.toDto() });
