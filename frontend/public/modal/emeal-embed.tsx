@@ -154,15 +154,16 @@ interface EmealModalSettings {
       );
 
       const configureSettings = async () => {
-        if (!presetSettings && !emealProjectId) return;
-        if (
-          !presetSettings?.isPreview &&
-          window.localStorage.getItem('__emeal')
-        )
-          return; // don't open modal if it's already been opened.
-        const showOnDelay = presetSettings?.isPreview ? 100 : 2000;
+        const noSettingsOrAlreadyOpened =
+          (!presetSettings && !emealProjectId) ||
+          (!presetSettings?.isPreview &&
+            window.localStorage.getItem('__emeal'));
 
+        if (noSettingsOrAlreadyOpened) return;
+
+        const showOnDelay = presetSettings?.isPreview ? 100 : 2000;
         setTimeout(() => setOpen(true), showOnDelay);
+
         if (presetSettings?.isPreview) return setSettings(presetSettings);
 
         const response = await fetch(
@@ -177,9 +178,9 @@ interface EmealModalSettings {
         );
         const data = await response.json();
 
-        console.log('project response', data);
-
-        if (!data || !data.project) return;
+        const badResponseOrDisabled =
+          !data || !data.project || data.project.disabledAt;
+        if (badResponseOrDisabled) return;
         setSettings(data.project.coupon);
       };
 
