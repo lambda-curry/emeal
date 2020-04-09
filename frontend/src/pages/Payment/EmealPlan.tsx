@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { Icon, IconNames } from '../../components/Icon';
 import './emeal-plan.scss';
+import { PlanNames } from '../../../../shared';
 
 export const EmealPlan: FunctionComponent<{
   icon: IconNames;
-  name: string;
+  name: PlanNames;
   amount: string;
   limits: string[];
   onSelect: (plan: string) => any;

@@ -10,7 +10,6 @@ const CARD_ELEMENT_OPTIONS = {
       color: 'black',
       fontFamily: '"gilroy", sans-serif',
       fontSize: '18px',
-      borderColor: '#ccc',
       '::placeholder': {
         color: 'black',
       },

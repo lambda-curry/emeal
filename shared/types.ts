@@ -34,6 +34,9 @@ export type CustomerDto = {
     brand: string;
   };
 };
+
+export type PlanNames = 'basic' | 'pro' | 'restaurateur';
+
 export type SubscriptionDto = {
   id: string;
   status: string;

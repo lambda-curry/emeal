@@ -13,4 +13,8 @@ export const selectedCouponExists = (state: SessionState) => {
   return coupon && coupon.title && coupon.description && coupon.image;
 };
 
-export const isPaying = (state: SessionState) => false;
+export const isPaying = (state: SessionState) =>
+  state.user.stripe?.subscription?.id;
+
+export const isCanceled = (state: SessionState) =>
+  state.user.stripe?.subscription?.cancelAtPeriodEnd;

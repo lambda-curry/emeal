@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useSession } from '../../state/session/SessionProvider';
-import { selectCurrentProject } from '../../state/session/SessionSelectors';
+import {
+  selectCurrentProject,
+  isCanceled,
+} from '../../state/session/SessionSelectors';
 import { get } from '../../utils/api';
 import { AnaltyicsResponse } from '../../../../shared';
 import { DashboardItem } from './DashboardItem';
@@ -15,6 +18,8 @@ export const DashboardPage = () => {
   const { analytics } = state;
 
   const currentProjectId = selectCurrentProject(state)?.id;
+  const disableCSVDownload =
+    analytics.subscriberCount === 0 || isCanceled(state);
 
   useEffect(() => {
     if (currentProjectId) {
@@ -45,6 +50,13 @@ export const DashboardPage = () => {
   return (
     <div className='page dashboard'>
       <div className='page-container'>
+        {isCanceled(state) ? (
+          <p className='dashboard-canceled'>
+            Your plan has been canceled. If you would like to resubscribe or
+            change plans, please contact us at{' '}
+            <a href='mailto:support@emeal.me'>support@emeal.me</a>
+          </p>
+        ) : null}
         <h3>Last 30 Days</h3>
         <div className='dashboard-last30'>
           <div className='page-item'>
@@ -73,7 +85,7 @@ export const DashboardPage = () => {
           <a
             className={classNames(
               'button button-primary',
-              analytics.subscriberCount === 0 ? 'disabled' : ''
+              disableCSVDownload ? 'disabled' : ''
             )}
             href={`${process.env.REACT_APP_API}project/${currentProjectId}/emails/csv`}
           >

@@ -1,10 +1,43 @@
 @import '../../styles/variables';
 
+$breakpoint: 664px;
+
 .payment {
   text-align: center;
 
+  &-graphic {
+    position: relative;
+    margin-top: -55px;
+    margin-bottom: 16px;
+    height: 200px;
+    width: auto;
+  }
+
   &-title {
     margin-bottom: 4px;
+  }
+
+  .page {
+    &-container {
+      width: 800px;
+    }
+
+    @media (min-width: $breakpoint) {
+      &-item {
+        display: flex;
+
+        .payment-graphic {
+          position: relative;
+          left: -54px;
+          top: -15px;
+          height: auto;
+        }
+
+        .payment-container {
+          flex: 1;
+        }
+      }
+    }
   }
 
   &-content {
