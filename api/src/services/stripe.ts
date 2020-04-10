@@ -18,7 +18,7 @@ export async function fetchStripeCustomer(
   customerId: string
 ): Promise<Stripe.Customer> {
   const customer = await stripeClient.customers.retrieve(customerId, {
-    expand: ['customer.default_source'],
+    expand: ['default_source'],
   });
   if (customer.deleted) {
     return null;
@@ -32,20 +32,18 @@ export async function updateStripeCustomer(
 ): Promise<Stripe.Customer> {
   return await stripeClient.customers.update(customerId, {
     source,
-    expand: ['customer.default_source'],
+    expand: ['default_source'],
   });
 }
 
 export async function createStripeCustomer(
-  user: UserDocument,
-  source?: string
+  user: UserDocument
 ): Promise<Stripe.Customer> {
   return await stripeClient.customers.create({
     name: user.name,
     email: user.email,
     metadata: { id: user.id },
-    source,
-    expand: ['customer.default_source'],
+    expand: ['default_source'],
   });
 }
 
@@ -74,7 +72,7 @@ export async function cancelStripeSubscription(
   cancel: boolean
 ): Promise<Stripe.Subscription> {
   const update: Stripe.SubscriptionUpdateParams = {
-    expand: ['customer.default_source'],
+    expand: ['customer', 'customer.default_source'],
   };
   if (cancel != null) update.cancel_at_period_end = cancel;
   return await stripeClient.subscriptions.update(subscriptionId, update);

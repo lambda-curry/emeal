@@ -80,7 +80,16 @@ async function postLogin(req: Request, res: Response) {
  * Log out.
  */
 async function logout(req: Request, res: Response) {
-  return res.status(200).clearCookie(JWT_NAME).json({ message: 'Logged out' });
+  return res
+    .status(200)
+    .cookie(JWT_NAME, '', {
+      expires: moment().add(7, 'days').toDate(),
+      domain: PRODUCTION ? '.emeal.me' : undefined,
+      sameSite: 'lax',
+      secure: PRODUCTION,
+      httpOnly: true,
+    })
+    .json({ message: 'Logged out' });
 }
 
 const signupSchema = yup.object().shape({

@@ -51,7 +51,8 @@ async function updatePaymentMethod(req: Request, res: Response) {
     user.stripe?.customer?.id,
     body.source
   );
-  await user.updateCustomer(customer).save();
+  user.stripe.customer = customerDto(customer);
+  await user.save();
   return res.json({ user: user.toDto() });
 }
 
