@@ -95,8 +95,8 @@ $breakpoint-lg: 1000px + 64px;
   &-period {
     font-weight: 500;
     font-size: 18px;
-    color: $dark-gray;
-    color: var(--dark-gray);
+    color: $gray;
+    color: var(--gray);
   }
 
   hr {

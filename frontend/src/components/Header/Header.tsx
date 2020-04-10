@@ -36,7 +36,7 @@ export const Header = () => {
 
           <HeaderMenuItem
             text='Embed'
-            icon='computer'
+            icon='embed'
             disabled={!hasCoupon}
             className='header-menu-item'
             to={`/project/${currentProjectId}/embed`}

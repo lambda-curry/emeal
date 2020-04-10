@@ -14,7 +14,7 @@ export const SelectPlan = () => {
         <div className='page-item'>
           <div className='emeal-plans'>
             <EmealPlan
-              icon='paintbrush'
+              icon='chickenleg'
               name='basic'
               amount='$14'
               limits={['50 Email Captures', '10k Impressions']}
@@ -31,7 +31,7 @@ export const SelectPlan = () => {
             />
 
             <EmealPlan
-              icon='computer'
+              icon='restaurateur'
               name='restaurateur'
               amount='$49'
               limits={['Unlimited Email Captures', '250k Impressions']}

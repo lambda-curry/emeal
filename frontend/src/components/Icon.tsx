@@ -16,11 +16,17 @@ import { ReactComponent as restaurant } from '../icons/restaurant.svg';
 import { ReactComponent as play } from '../icons/play.svg';
 import { ReactComponent as trash } from '../icons/trash.svg';
 import { ReactComponent as download } from '../icons/download.svg';
+import { ReactComponent as chickenleg } from '../icons/chickenleg.svg';
+import { ReactComponent as restaurateur } from '../icons/restaurateur.svg';
+import { ReactComponent as embed } from '../icons/embed.svg';
 
 import './icon.scss';
 
 export type IconNames =
   | 'angle_down_regular'
+  | 'chickenleg'
+  | 'restaurateur'
+  | 'embed'
   | 'computer'
   | 'email'
   | 'emeal_logo'
@@ -54,6 +60,9 @@ export const icons: {
   play,
   trash,
   download,
+  chickenleg,
+  restaurateur,
+  embed,
 };
 
 export const Icon = ({

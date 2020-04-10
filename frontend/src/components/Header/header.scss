@@ -2,7 +2,8 @@
 
 .header {
   $breakpoint-sm: 450px;
-  $breakpoint-md: 800px;
+  $breakpoint-md: 680px;
+  $breakpoint-hide-logo-text: 900px;
 
   background: $header-bg;
   background: var(--header-bg);
@@ -64,6 +65,10 @@
         padding: 0 16px;
       }
 
+      @media (min-width: $breakpoint-md) {
+        min-width: 115px;
+      }
+
       .icon {
         display: inline;
         transition: color 300ms ease-in;
@@ -117,7 +122,7 @@
     &-name {
       display: none;
 
-      @media (min-width: $breakpoint-md) {
+      @media (min-width: $breakpoint-hide-logo-text) {
         display: inline;
       }
     }

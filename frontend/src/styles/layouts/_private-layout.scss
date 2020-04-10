@@ -20,6 +20,12 @@ $breakpoint-md: 600px + 64px;
   .page {
     padding-top: ($header-height + 32px);
   }
+
+  .dashboard {
+    .page-container {
+      width: 800px;
+    }
+  }
 }
 
 .private-layout-simple {
