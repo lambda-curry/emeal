@@ -20,7 +20,7 @@ export const Header = () => {
       <div className='header-row'>
         <div className='header-menu'>
           <HeaderMenuItem
-            text='Dasbhoard'
+            text='Dashboard'
             icon='pie_chart'
             disabled={!currentProjectId}
             className='header-menu-item'

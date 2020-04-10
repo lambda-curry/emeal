@@ -61,7 +61,7 @@ export const LoginForm = () => {
             name='password'
           />
           <ServerErrors status={formikProps.status} />
-          <div className='form-actions-right'>
+          <div className='form-actions-center'>
             <button type='submit' disabled={formikProps.isSubmitting}>
               Log In
             </button>
