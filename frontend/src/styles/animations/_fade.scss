@@ -1,4 +1,4 @@
-$fade-time: 300ms;
+$fade-time: 320ms;
 
 .fade-enter {
   opacity: 0.01;
@@ -17,4 +17,5 @@ $fade-time: 300ms;
 .fade-exit.fade-exit-active {
   opacity: 0.01;
   transition: opacity $fade-time ease-in;
+  animation-fill-mode: forwards;
 }
