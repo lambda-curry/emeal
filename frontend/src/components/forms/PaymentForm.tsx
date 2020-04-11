@@ -40,9 +40,9 @@ export const PaymentForm = () => {
 
     return console.log({ plan, tokenId });
 
-    if (error) throw new Error('your payment broke our system');
-    actions.saveSession(response);
-    history.push('/');
+    // if (error) throw new Error('your payment broke our system');
+    // actions.saveSession(response);
+    // history.push('/');
   };
 
   return (

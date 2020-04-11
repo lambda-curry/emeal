@@ -26,6 +26,12 @@ $breakpoint-md: 600px + 64px;
       width: 800px;
     }
   }
+
+  .design {
+    .page-container {
+      width: 400px + 64px;
+    }
+  }
 }
 
 .private-layout-simple {

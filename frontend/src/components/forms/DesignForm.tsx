@@ -11,6 +11,7 @@ import { useSession } from '../../state/session/SessionProvider';
 import { selectCurrentProject } from '../../state/session/SessionSelectors';
 import { ImageLoader } from '../Image/ImageLoader';
 import { Icon } from '../Icon';
+import { ReactComponent as Graphic } from '../../graphics/Image_Upload.svg';
 import classNames from 'classnames';
 
 declare global {
@@ -159,8 +160,8 @@ export const DesignForm = () => {
                   className='button-icon'
                   type='button'
                   onClick={() => {
-                    setFieldValue('files', [], false);
-                    setFieldValue('image', null, false);
+                    setFieldValue('files', [], true);
+                    setFieldValue('image', null, true);
                   }}
                   aria-label='replace coupon graphic'
                 >
@@ -170,11 +171,20 @@ export const DesignForm = () => {
             ) : null}
             {values.files.length < 1 && !previewImage ? (
               <div className='design-file'>
-                <label htmlFor='dropzone'>Image</label>
                 <FileUpload
                   fileLimit={1}
                   handleDrop={(files) => setFieldValue('files', files, true)}
-                />
+                >
+                  {({ files, isDragActive }) => (
+                    <div className='design-file-upload'>
+                      <Graphic />
+                      <p>Drag your coupon graphic here or</p>
+                      <button type='button' className='button-primary'>
+                        Upload an image
+                      </button>
+                    </div>
+                  )}
+                </FileUpload>
                 <ErrorMessage
                   className='form-input-error'
                   name='files'
@@ -204,7 +214,7 @@ export const DesignForm = () => {
               <button
                 className='button-primary-light'
                 type='button'
-                disabled={!values.title}
+                disabled={!formikProps.isValid}
                 onClick={() => preview(formikProps)}
               >
                 <Icon name='play' />

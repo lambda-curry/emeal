@@ -119,6 +119,7 @@ textarea {
   border-radius: var(--border-radius);
   border: 1px solid $border-color;
   border: 1px solid var(--border-color);
+  resize: vertical;
 
   .form-field & {
     width: 100%;

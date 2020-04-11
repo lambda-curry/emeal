@@ -6,7 +6,6 @@ import { ReactComponent as computer } from '../icons/computer.svg';
 import { ReactComponent as email } from '../icons/email.svg';
 import { ReactComponent as emeal_logo } from '../icons/emeal_logo.svg';
 import { ReactComponent as eye } from '../icons/eye.svg';
-import { ReactComponent as image_upload } from '../icons/image_upload.svg';
 import { ReactComponent as link } from '../icons/link.svg';
 import { ReactComponent as lock } from '../icons/lock.svg';
 import { ReactComponent as paintbrush } from '../icons/paintbrush.svg';
@@ -31,7 +30,6 @@ export type IconNames =
   | 'email'
   | 'emeal_logo'
   | 'eye'
-  | 'image_upload'
   | 'link'
   | 'lock'
   | 'paintbrush'
@@ -50,7 +48,6 @@ export const icons: {
   email,
   emeal_logo,
   eye,
-  image_upload,
   link,
   lock,
   paintbrush,
