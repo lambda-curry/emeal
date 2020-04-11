@@ -212,7 +212,7 @@ export const DesignForm = () => {
             <ServerErrors status={status} />
             <div className='form-actions'>
               <button
-                className='button-primary-light'
+                className='button-primary-light button-prefix'
                 type='button'
                 disabled={!formikProps.isValid}
                 onClick={() => preview(formikProps)}
