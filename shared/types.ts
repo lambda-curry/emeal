@@ -45,7 +45,7 @@ export type PlanNames = 'basic' | 'pro' | 'restaurateur';
 export type SubscriptionDto = {
   id: string;
   status: string;
-  cancelAtPeriodEnd: 'true' | 'false';
+  cancelAtPeriodEnd: boolean;
   currentPeriodEnd: Date;
   trialEnd: Date;
 };

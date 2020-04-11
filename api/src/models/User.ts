@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema(
       subscription: {
         id: String,
         status: String,
-        cancelAtPeriodEnd: String,
+        cancelAtPeriodEnd: Boolean,
         currentPeriodEnd: Date,
         trialEnd: Date,
       },
