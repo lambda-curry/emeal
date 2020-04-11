@@ -38,6 +38,10 @@ export const SelectPlan = () => {
               onSelect={selectPlan}
             />
           </div>
+          <p className='select-plan-disclaimer'>
+            *All plans are free until businesses can open back up to help you
+            grow your audience
+          </p>
         </div>
       </div>
     </div>

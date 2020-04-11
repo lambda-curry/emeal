@@ -1,4 +1,7 @@
-@import '../styles/variables';
+@import '../../styles/variables';
+
+$breakpoint-sm: 450px;
+$breakpoint-md: 680px;
 
 .profile {
   text-align: center;
@@ -7,16 +10,40 @@
     position: relative;
   }
 
-  .page-item {
-    padding-top: 32px;
+  .navbar {
+    margin-bottom: 32px;
+
+    &-item {
+      min-width: 40px;
+
+      @media (min-width: $breakpoint-sm) {
+        min-width: 60px;
+        padding: 0 16px;
+      }
+
+      @media (min-width: $breakpoint-md) {
+        min-width: 115px;
+      }
+
+      &-text {
+        display: none;
+
+        @media (min-width: $breakpoint-md) {
+          display: inline;
+        }
+      }
+    }
   }
 
   &-sign-out {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 0;
+    color: $brand-color;
+    background-color: transparent;
+    padding: 0 32px 0 16px;
+    min-width: 0;
+  }
+
+  &-edit {
+    margin: 0 auto;
   }
 
   &-img {
@@ -34,8 +61,8 @@
       height: 100%;
 
       &:hover {
-        border: 4px dashed $border-color;
-        border: 4px dashed var(--border-color);
+        border: 4px dashed $primary-blue;
+        border: 4px dashed var(--primary-blue);
       }
     }
 

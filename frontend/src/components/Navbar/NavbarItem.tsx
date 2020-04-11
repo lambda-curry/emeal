@@ -3,26 +3,29 @@ import classNames from 'classnames';
 import { useLocation, Link } from 'react-router-dom';
 import { IconNames, Icon } from '../Icon';
 
-export const HeaderMenuItem: FunctionComponent<{
+export const NavbarItem: FunctionComponent<{
   icon?: IconNames;
   text?: string;
   disabled?: boolean;
   className?: string;
+  active?: boolean;
   to: string;
 }> = (props) => {
   const location = useLocation();
-  const { icon, text, children, className, ...rest } = props;
+  const { icon, text, children, className, active, ...rest } = props;
   return (
     <Link
       className={classNames(
         className,
-        location.pathname === props.to ? 'active' : '',
+        'navbar-item',
+        icon ? 'hasIcon' : '',
+        active || location.pathname === props.to ? 'active' : '',
         props.disabled ? 'disabled' : ''
       )}
       {...rest}
     >
       {icon && <Icon name={icon} />}
-      {text && <span className='header-menu-item-text'>{text}</span>}
+      {text && <span className='navbar-item-text'>{text}</span>}
       {children}
     </Link>
   );

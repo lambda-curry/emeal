@@ -85,11 +85,30 @@ $breakpoint-lg: 1000px + 64px;
   }
 
   &-amount {
+    position: relative;
     font-weight: 900;
     font-size: 64px;
-    color: $primary-blue;
-    color: var(--primary-blue);
-    margin-bottom: 16px;
+    // color: $primary-blue;
+    // color: var(--primary-blue);
+    color: $darker-gray;
+    margin-bottom: 4px;
+
+    svg {
+      $width: 170px;
+      width: $width;
+      height: auto;
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      margin-left: -($width / 2);
+    }
+  }
+
+  &-free {
+    color: #0ecd57;
+    font-weight: 900;
+    font-size: 64px;
+    margin-bottom: 8px;
   }
 
   &-period {
