@@ -17,4 +17,4 @@ export const isPaying = (state: SessionState) =>
   state.user.stripe?.subscription?.id;
 
 export const isCanceled = (state: SessionState) =>
-  state.user.stripe?.subscription?.cancelAtPeriodEnd;
+  state.user.stripe?.subscription?.cancelAtPeriodEnd !== 'false';

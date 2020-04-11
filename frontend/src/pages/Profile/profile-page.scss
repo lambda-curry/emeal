@@ -4,8 +4,6 @@ $breakpoint-sm: 450px;
 $breakpoint-md: 680px;
 
 .profile {
-  text-align: center;
-
   .page-container {
     position: relative;
   }
@@ -43,50 +41,55 @@ $breakpoint-md: 680px;
   }
 
   &-edit {
+    text-align: center;
     margin: 0 auto;
-  }
 
-  &-img {
-    display: block;
-    width: 200px;
-    height: 200px;
-    margin: 32px auto;
+    p {
+      margin-top: 32px;
 
-    img {
-      border-radius: $border-radius;
-      border-radius: var(--border-radius);
-      border: 4px solid $border-color;
-      border: 4px solid var(--border-color);
-      width: 100%;
-      height: 100%;
+      a {
+        color: black;
+        font-weight: 500;
+        text-decoration: none;
 
-      &:hover {
-        border: 4px dashed $primary-blue;
-        border: 4px dashed var(--primary-blue);
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
-    @media (min-width: 640px) {
-      margin-top: 0;
+    &-img {
+      display: block;
+      width: 200px;
+      height: 200px;
+      margin: 32px auto;
+
+      img {
+        border-radius: $border-radius;
+        border-radius: var(--border-radius);
+        border: 4px solid $border-color;
+        border: 4px solid var(--border-color);
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+          border: 4px dashed $primary-blue;
+          border: 4px dashed var(--primary-blue);
+        }
+      }
+
+      @media (min-width: 640px) {
+        margin-top: 0;
+      }
     }
+  }
+
+  &-billing {
+    width: 100%;
   }
 
   form {
     max-width: 400px;
     margin: 0 auto;
-  }
-
-  p {
-    margin-top: 32px;
-
-    a {
-      color: black;
-      font-weight: 500;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }

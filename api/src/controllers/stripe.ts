@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import Stripe from 'stripe';
-import { User, createStripeDto } from '../models/User';
+import { User, stripeDto } from '../models/User';
 import { fetchStripeSubscription } from '../services/stripe';
 import { Project } from '../models/Project';
 import moment from 'moment';
@@ -45,6 +45,6 @@ async function updateCustomerSubscription(subscriptionId: string) {
   const customer = subscription.customer as Stripe.Customer;
   const userId = customer.metadata.id;
   const user = await User.findById(userId);
-  user.stripe = createStripeDto(customer, subscription);
+  user.stripe = stripeDto(customer, subscription);
   await user.save();
 }

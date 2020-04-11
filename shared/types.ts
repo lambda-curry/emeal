@@ -1,3 +1,8 @@
+export type EmealStripePlanId =
+  | 'emeal_basic'
+  | 'emeal_pro'
+  | 'emeal_restaurateur';
+
 export type ErrorDto = {
   errors: string[];
 };
@@ -40,7 +45,7 @@ export type PlanNames = 'basic' | 'pro' | 'restaurateur';
 export type SubscriptionDto = {
   id: string;
   status: string;
-  cancelAtPeriodEnd: boolean;
+  cancelAtPeriodEnd: 'true' | 'false';
   currentPeriodEnd: Date;
   trialEnd: Date;
 };

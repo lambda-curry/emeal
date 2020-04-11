@@ -41,7 +41,7 @@ export const ProfileForm = () => {
 
   return (
     <FormWrapper
-      className='signup-form'
+      className='profile-edit-form'
       initialValues={{
         name: user.name,
         email: user.email,
@@ -52,7 +52,7 @@ export const ProfileForm = () => {
       {(formikProps: FormikProps<ProfileFormValues>) => (
         <>
           <a
-            className='profile-img'
+            className='profile-edit-img'
             href='https://en.gravatar.com/'
             target='_blank'
             rel='noopener noreferrer'

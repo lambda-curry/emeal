@@ -133,3 +133,29 @@ textarea {
     padding-right: 50px;
   }
 }
+
+.StripeElement {
+  font-size: 16px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  border-radius: var(--border-radius);
+  background-color: white;
+  color: $darker-gray;
+  color: var(--darker-gray);
+
+  &--focus {
+    // if we want a focus state
+  }
+
+  &--invalid {
+    border-color: $warning-red;
+    border-color: var(--warning-red);
+  }
+
+  &--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+}

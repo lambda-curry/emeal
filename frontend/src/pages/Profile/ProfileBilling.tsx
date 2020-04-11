@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from 'react';
+import { ProfileBillingForm } from '../../components/forms/ProfileBillingForm';
 
 export const ProfileBilling: FunctionComponent = () => {
-  console.log('>>>> hello');
-  return <div className='profile-billing'>profile billing page</div>;
+  return (
+    <div className='profile-billing'>
+      <ProfileBillingForm />
+    </div>
+  );
 };

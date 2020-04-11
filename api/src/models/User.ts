@@ -99,7 +99,7 @@ const comparePassword: comparePasswordFunction = function (candidatePassword) {
 
 userSchema.methods.comparePassword = comparePassword;
 
-export function createStripeDto(
+export function stripeDto(
   customer: Stripe.Customer,
   subscription?: Stripe.Subscription
 ): StripeDto {
