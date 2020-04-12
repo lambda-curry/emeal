@@ -16,9 +16,15 @@ export const PrivateRoute = (props: RouteProps) => {
 
     if (
       !['/payment', '/select-plan'].includes(location.pathname) &&
-      isPaying(state)
+      !isPaying(state)
     ) {
       history.push('/select-plan');
+      return;
+    } else if (
+      ['/payment', '/select-plan'].includes(location.pathname) &&
+      isPaying(state)
+    ) {
+      history.push('/');
       return;
     }
   }, [state, location.pathname, history]);

@@ -10,7 +10,7 @@
     min-width: 140px;
 
     .icon {
-      color: $dark-gray;
+      color: $gray;
       z-index: 1;
       pointer-events: none;
       position: absolute;
@@ -47,25 +47,25 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    margin: 16px 0 0;
+    margin: 0;
 
     button {
       margin-bottom: 16px;
     }
 
-    &-right {
+    &-center {
       button {
         width: 100%;
       }
     }
 
     @media (min-width: $breakpoint-sm) {
-      margin: 16px 0;
+      margin: 0;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       button {
-        margin: 0 16px;
+        margin: 0 8px;
         flex: 1;
 
         &:first-child {
@@ -74,6 +74,16 @@
 
         &:last-child {
           margin-right: 0;
+        }
+      }
+
+      &-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          width: auto;
         }
       }
 
@@ -109,6 +119,7 @@ textarea {
   border-radius: var(--border-radius);
   border: 1px solid $border-color;
   border: 1px solid var(--border-color);
+  resize: vertical;
 
   .form-field & {
     width: 100%;
@@ -120,5 +131,31 @@ textarea {
 
   .form-field.hasSuffix & {
     padding-right: 50px;
+  }
+}
+
+.StripeElement {
+  font-size: 16px;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  border-radius: var(--border-radius);
+  background-color: white;
+  color: $darker-gray;
+  color: var(--darker-gray);
+
+  &--focus {
+    // if we want a focus state
+  }
+
+  &--invalid {
+    border-color: $warning-red;
+    border-color: var(--warning-red);
+  }
+
+  &--webkit-autofill {
+    background-color: #fefde5 !important;
   }
 }

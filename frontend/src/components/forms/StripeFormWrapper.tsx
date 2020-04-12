@@ -70,7 +70,7 @@ const StripeFormWrapperContent: FunctionComponent<
 };
 
 // Setup Stripe.js and the Elements provider
-const stripePromise = Stripe.loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = Stripe.loadStripe(process.env.REACT_APP_STRIPE_KEY || '');
 export const StripeFormWrapper: FunctionComponent<
   FormikConfig<any> & {
     className?: string;

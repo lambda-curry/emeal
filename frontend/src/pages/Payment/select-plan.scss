@@ -1,8 +1,17 @@
+@import '../../styles/variables';
+
 $breakpoint: 1000px + 64px;
 
 .select-plan {
   .page-container {
     width: 1000px;
+  }
+
+  &-disclaimer {
+    color: $darker-gray;
+    color: var(--darker-gray);
+    margin: 16px 16px 0;
+    font-size: 18px;
   }
 }
 

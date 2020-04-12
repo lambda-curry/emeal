@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema(
       subscription: {
         id: String,
         status: String,
-        cancelAtPeriodEnd: String,
+        cancelAtPeriodEnd: Boolean,
         currentPeriodEnd: Date,
         trialEnd: Date,
       },
@@ -99,7 +99,7 @@ const comparePassword: comparePasswordFunction = function (candidatePassword) {
 
 userSchema.methods.comparePassword = comparePassword;
 
-export function createStripeDto(
+export function stripeDto(
   customer: Stripe.Customer,
   subscription?: Stripe.Subscription
 ): StripeDto {
@@ -136,13 +136,13 @@ export function subscriptionDto(
  * Helper method for getting user's gravatar.
  */
 
-const gravatarUrl = (email: string, size: number): string => {
-  if (!email) {
-    return `https://gravatar.com/avatar/?s=${size}&d=retro`;
-  }
-  const md5 = crypto.createHash('md5').update(email).digest('hex');
-  return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
-};
+const gravatarUrl = (email: string, size: number): string =>
+  email
+    ? `https://gravatar.com/avatar/${crypto
+        .createHash('md5')
+        .update(email)
+        .digest('hex')}?s=${size}&d=retro`
+    : 'https://app.emeal.me/graphics/default_profile.svg';
 
 userSchema.methods.updateCustomer = function (customer: Stripe.Customer) {
   const user = this as UserDocument;

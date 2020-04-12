@@ -2,22 +2,23 @@ import { Router, Request, Response } from 'express';
 import { authenticateUser } from '../middleware/jwt';
 import asyncHandler from 'express-async-handler';
 import * as yup from 'yup';
-import { UserDocument, subscriptionDto, customerDto } from '../models/User';
+import {
+  UserDocument,
+  subscriptionDto,
+  customerDto,
+  stripeDto,
+} from '../models/User';
 import {
   updateStripeCustomer,
   cancelStripeSubscription,
   STRIPE_PLANS,
   createStripeSubscription,
   fetchStripeCustomer,
-  EmealStripePlanId,
 } from '../services/stripe';
+import { EmealStripePlanId } from '@shared';
 
 export const router = Router()
-  .put(
-    '/updatePaymentInfo',
-    authenticateUser,
-    asyncHandler(updatePaymentMethod)
-  )
+  .patch('', authenticateUser, asyncHandler(updatePaymentMethod))
   .post('/subscription', authenticateUser, asyncHandler(createSubscription))
   .post(
     '/subscription/cancel',
@@ -26,7 +27,7 @@ export const router = Router()
   );
 
 const updatePaymentMethodSchema = yup.object().shape({
-  source: yup.string().required(),
+  tokenId: yup.string().required(),
 });
 
 const createSubscriptionSchema = yup.object().shape({
@@ -41,7 +42,13 @@ async function createSubscription(req: Request, res: Response) {
   if (!customer) {
     res.status(400).json({ errors: ['You do not have a stripe customer.'] });
   }
-  createStripeSubscription(customer, body.planId as EmealStripePlanId);
+  const subscription = await createStripeSubscription(
+    customer,
+    body.planId as EmealStripePlanId
+  );
+  user.stripe.subscription = subscriptionDto(subscription);
+  await user.save();
+  return res.json({ user: user.toDto() });
 }
 
 async function updatePaymentMethod(req: Request, res: Response) {
@@ -49,7 +56,7 @@ async function updatePaymentMethod(req: Request, res: Response) {
   const body = await updatePaymentMethodSchema.validate(req.body);
   const customer = await updateStripeCustomer(
     user.stripe?.customer?.id,
-    body.source
+    body.tokenId
   );
   user.stripe.customer = customerDto(customer);
   await user.save();

@@ -4,7 +4,7 @@ import { PrivateLayout } from '../layout/PrivateLayout';
 import { LoginPage } from '../pages/LoginPage';
 import { SignupPage } from '../pages/SignupPage';
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage';
-import { ProfilePage } from '../pages/ProfilePage';
+import { ProfilePage } from '../pages/Profile/ProfilePage';
 import { DesignPage } from '../pages/DesignPage';
 import { ComponentType } from 'react';
 import { EmbedPage } from '../pages/EmbedPage';
@@ -75,7 +75,6 @@ export const routes: EmealRoutes = {
     {
       path: '/profile',
       component: ProfilePage,
-      exact: true,
     },
     {
       path: '/subscriptions',

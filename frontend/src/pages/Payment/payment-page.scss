@@ -46,30 +46,4 @@ $breakpoint: 664px;
     font-weight: 500;
     margin-bottom: 32px;
   }
-
-  .StripeElement {
-    font-size: 16px;
-    box-sizing: border-box;
-    padding: 16px;
-    border: 1px solid $border-color;
-    border: 1px solid var(--border-color);
-    border-radius: $border-radius;
-    border-radius: var(--border-radius);
-    background-color: white;
-    color: $darker-gray;
-    color: var(--darker-gray);
-  }
-
-  .StripeElement--focus {
-    //
-  }
-
-  .StripeElement--invalid {
-    border-color: $warning-red;
-    border-color: var(--warning-red);
-  }
-
-  .StripeElement--webkit-autofill {
-    background-color: #fefde5 !important;
-  }
 }

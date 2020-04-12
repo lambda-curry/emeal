@@ -10,6 +10,7 @@ import { AnaltyicsResponse } from '../../../../shared';
 import { DashboardItem } from './DashboardItem';
 import classNames from 'classnames';
 import './dashboard-page.scss';
+import { Icon } from '../../components/Icon';
 
 export const DashboardPage = () => {
   const location = useLocation();
@@ -84,11 +85,12 @@ export const DashboardPage = () => {
 
           <a
             className={classNames(
-              'button button-primary',
+              'button button-primary button-prefix',
               disableCSVDownload ? 'disabled' : ''
             )}
             href={`${process.env.REACT_APP_API}project/${currentProjectId}/emails/csv`}
           >
+            <Icon name='download' />
             Download CSV
           </a>
         </div>

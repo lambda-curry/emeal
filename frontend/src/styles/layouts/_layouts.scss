@@ -37,5 +37,13 @@
       padding: 32px;
       margin-bottom: 32px;
     }
+
+    .navbar {
+      margin: -16px -16px 0 -16px;
+
+      @media (min-width: $breakpoint-md) {
+        margin: -32px -32px 0 -32px;
+      }
+    }
   }
 }

@@ -2,11 +2,13 @@ import React from 'react';
 import { EmealPlan } from './EmealPlan';
 import './select-plan.scss';
 import { useHistory } from 'react-router-dom';
+import { EmealStripePlanId } from '../../../../shared';
 
 export const SelectPlan = () => {
   const history = useHistory();
 
-  const selectPlan = (plan: string) => history.push('/payment', { plan });
+  const selectPlan = (planId: EmealStripePlanId) =>
+    history.push('/payment', { planId });
 
   return (
     <div className='page select-plan'>
@@ -14,11 +16,11 @@ export const SelectPlan = () => {
         <div className='page-item'>
           <div className='emeal-plans'>
             <EmealPlan
-              icon='paintbrush'
+              icon='chickenleg'
               name='basic'
               amount='$14'
               limits={['50 Email Captures', '10k Impressions']}
-              onSelect={selectPlan}
+              onSelect={() => selectPlan('emeal_basic')}
             />
 
             <EmealPlan
@@ -26,18 +28,22 @@ export const SelectPlan = () => {
               name='pro'
               amount='$29'
               limits={['500 Email Captures', '20k Impressions']}
-              onSelect={selectPlan}
+              onSelect={() => selectPlan('emeal_pro')}
               extras={{ mostPopular: true }}
             />
 
             <EmealPlan
-              icon='computer'
+              icon='restaurateur'
               name='restaurateur'
               amount='$49'
               limits={['Unlimited Email Captures', '250k Impressions']}
-              onSelect={selectPlan}
+              onSelect={() => selectPlan('emeal_restaurateur')}
             />
           </div>
+          <p className='select-plan-disclaimer'>
+            *All plans are free until businesses can open back up to help you
+            grow your audience
+          </p>
         </div>
       </div>
     </div>

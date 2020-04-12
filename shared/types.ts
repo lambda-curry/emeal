@@ -1,3 +1,8 @@
+export type EmealStripePlanId =
+  | 'emeal_basic'
+  | 'emeal_pro'
+  | 'emeal_restaurateur';
+
 export type ErrorDto = {
   errors: string[];
 };

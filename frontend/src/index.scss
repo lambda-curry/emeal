@@ -6,3 +6,23 @@
 @import './styles/buttons';
 @import './styles/forms';
 @import './styles/branding';
+
+:root {
+  --brand-color: #{$brand-color};
+  --primary-red: #{$primary-red};
+  --primary-red-lightened: #{$primary-red-lightened};
+  --primary-blue: #{$primary-blue};
+  --primary-blue-lightened: #{$primary-blue-lightened};
+  --light-blue: #{$light-blue};
+  --warning-red: #{$warning-red};
+  --success-green: #{$success-green};
+  --border-color: #{$border-color};
+  --light-gray: #{$light-gray};
+  --header-bg: #{$header-bg};
+  --page-bg: #{$page-bg};
+  --page-item-bg: #{$page-item-bg};
+  --gray: #{$gray};
+  --darker-gray: #{$darker-gray};
+  --border-radius: #{$border-radius};
+  --box-shadow-1: #{$box-shadow-1};
+}

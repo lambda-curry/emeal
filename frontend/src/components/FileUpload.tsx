@@ -6,12 +6,17 @@ export const FileUpload = ({
   fileLimit,
   dropText,
   droppingText,
-  handleDrop
+  handleDrop,
+  children,
 }: {
   fileLimit?: number | false | undefined;
   dropText?: string;
   droppingText?: string;
   handleDrop: (files: File[]) => void;
+  children?: (props: {
+    isDragActive: boolean;
+    files: File[];
+  }) => React.ReactNode;
 }) => {
   // TODO: figure out how to actually handle file limits
   const plural = fileLimit !== 1 ? 's' : '';
@@ -44,7 +49,7 @@ export const FileUpload = ({
   return (
     <div className='dropzone' {...getRootProps()}>
       <input {...getInputProps()} name='dropzone' />
-      {dropzoneText()}
+      {children ? children({ isDragActive, files }) : dropzoneText()}
     </div>
   );
 };

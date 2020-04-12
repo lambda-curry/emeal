@@ -2,12 +2,13 @@
 import { Stripe } from 'stripe';
 import { UserDocument, customerDto } from '../models/User';
 import { STRIPE_API_KEY, STRIPE_PLAN_ID } from '../util/secrets';
+import { EmealStripePlanId } from '@shared';
 
-export type EmealStripePlanId =
-  | 'emeal_basic'
-  | 'emeal_pro'
-  | 'emeal_restaurateur';
-export const STRIPE_PLANS = ['emeal_basic', 'emeal_pro', 'emeal_restaurateur'];
+export const STRIPE_PLANS: EmealStripePlanId[] = [
+  'emeal_basic',
+  'emeal_pro',
+  'emeal_restaurateur',
+];
 
 const stripeClient = new Stripe(STRIPE_API_KEY, {
   protocol: 'https',

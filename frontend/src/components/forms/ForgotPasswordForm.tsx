@@ -50,7 +50,7 @@ export const ForgotPasswordForm = () => {
             name='email'
           />
           <ServerErrors status={formikProps.status} />
-          <div className='form-actions-right'>
+          <div className='form-actions-center'>
             <button type='submit' disabled={formikProps.isSubmitting}>
               Reset Password
             </button>

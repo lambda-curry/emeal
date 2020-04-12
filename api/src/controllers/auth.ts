@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { User, UserDocument, createStripeDto } from '../models/User';
+import { User, UserDocument, stripeDto } from '../models/User';
 import { Request, Response, Router } from 'express';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jwt-simple';
@@ -124,7 +124,7 @@ async function signup(req: Request, res: Response) {
   });
 
   const customer = await createStripeCustomer(createdUser);
-  createdUser.stripe = createStripeDto(customer, null);
+  createdUser.stripe = stripeDto(customer, null);
 
   await createdUser.save();
   await project.save();

@@ -28,25 +28,6 @@ button,
     pointer-events: none;
     cursor: default;
   }
-
-  &:not(.button-icon) {
-    .icon {
-      position: absolute !important;
-      left: 8px;
-
-      &-play {
-        top: 10px !important;
-
-        svg {
-          height: 32px;
-        }
-      }
-
-      svg {
-        width: auto;
-      }
-    }
-  }
 }
 
 .button {
@@ -59,6 +40,35 @@ button,
       color: var(--primary-blue);
       background-color: $primary-blue-lightened;
       background-color: var(--primary-blue-lightened);
+    }
+  }
+
+  &-prefix {
+    padding-left: 50px;
+    position: relative;
+
+    .icon {
+      position: absolute;
+
+      svg {
+        width: auto;
+      }
+
+      &-play {
+        left: 8px;
+        top: 10px;
+        svg {
+          height: 32px;
+        }
+      }
+
+      &-download {
+        left: 16px;
+        top: 16px;
+        svg {
+          height: 22px;
+        }
+      }
     }
   }
 
