@@ -14,7 +14,7 @@ export const PrivateLayoutSimple = () => {
           href='javascript:void(0);'
           onClick={actions.destroySession}
         >
-          Back to Sign In
+          Back to Log In
         </a>
         <LogoType />
       </div>
