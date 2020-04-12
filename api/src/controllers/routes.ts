@@ -12,6 +12,9 @@ export const apiRouter = Router();
 
 apiRouter
   .get('/ping', (req, res) => res.json({ message: 'pong' }))
+  .get('/error', (req, res) => {
+    throw new Error('Boom! This is broken');
+  })
   .use(authRouter)
   .use('/coupon', couponRouter)
   .use('/user', userRouter)
