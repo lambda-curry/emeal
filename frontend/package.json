@@ -25,6 +25,7 @@
     "clipboard": "^2.0.6",
     "env-cmd": "^10.1.0",
     "formik": "^2.1.4",
+    "logrocket": "^1.0.7",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

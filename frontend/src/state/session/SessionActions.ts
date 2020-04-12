@@ -5,6 +5,7 @@ import {
   AnaltyicsResponse,
 } from '../../../../shared';
 import { SessionState, SessionDispatch } from './SessionProvider';
+import { identifyLogrocket } from '../../utils/logrocket';
 
 export type SessionActionNames =
   | 'saveSession'
@@ -24,14 +25,14 @@ export const sessionActions = (
   state: SessionState,
   dispatch: SessionDispatch<any>
 ) => ({
-  saveSession: (payload: SessionResponse) =>
-    dispatch({ name: 'set-session', payload }),
-
+  saveSession: (payload: SessionResponse) => {
+    identifyLogrocket(payload.session.user);
+    dispatch({ name: 'set-session', payload });
+  },
   saveAnalytics: (payload: AnaltyicsResponse) =>
     dispatch({ name: 'set-analytics', payload }),
 
   saveUser: (payload: UserResponse) => dispatch({ name: 'set-user', payload }),
-
   saveProject: (payload: ProjectResponse) =>
     dispatch({ name: 'set-project', payload }),
 
