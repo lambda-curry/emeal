@@ -57,5 +57,5 @@ async function userForResetToken(req: Request, res: Response) {
     return res
       .status(404)
       .json({ errors: ['Could not find a user for provided token'] });
-  return res.status(200).json({ id: user.id, email: user.email });
+  return res.status(200).json({ user: user.toDto() });
 }

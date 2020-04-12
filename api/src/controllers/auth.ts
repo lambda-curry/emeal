@@ -14,7 +14,7 @@ export const router = Router()
   .post('/login', asyncHandler(postLogin))
   .post('/logout', asyncHandler(logout))
   .post('/forgotPassword', asyncHandler(forgotPassword))
-  .post('/reset/:token', asyncHandler(resetPassword))
+  .post('/resetPassword', asyncHandler(resetPassword))
   .post('/signup', asyncHandler(signup));
 
 const forgotPasswordSchema = yup.object().shape({
