@@ -27,9 +27,9 @@ $breakpoint: 664px;
         display: flex;
 
         .payment-graphic {
+          align-self: flex-start;
           position: relative;
           left: -54px;
-          top: -15px;
           height: auto;
         }
 

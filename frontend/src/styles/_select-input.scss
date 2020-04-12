@@ -21,6 +21,8 @@ $select-inner-height: $select-height - 4px;
 
     &__menu {
       &-list {
+        margin: 0;
+        padding: 0;
       }
     }
 
@@ -30,6 +32,14 @@ $select-inner-height: $select-height - 4px;
       text-align: left;
       line-height: 48px;
       font-size: 18px;
+      padding: 0 0 0 16px;
+
+      &--is-selected {
+        &,
+        &:active {
+          background-color: $primary-blue;
+        }
+      }
     }
   }
 }
