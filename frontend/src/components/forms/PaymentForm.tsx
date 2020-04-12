@@ -8,7 +8,11 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { CardFieldWrapper } from './CardFieldWrapper';
 import { FieldWrapper } from './FieldWrapper';
 import { post } from '../../utils/api';
-import { SessionResponse, EmealStripePlanId } from '../../../../shared';
+import {
+  SessionResponse,
+  EmealStripePlanId,
+  UserResponse,
+} from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
 
 interface PaymentFormValues {
@@ -45,7 +49,7 @@ export const PaymentForm = () => {
     formikHelpers: FormikHelpers<PaymentFormValues>
   ) => {
     const [response, error] = await post<
-      SessionResponse,
+      UserResponse,
       {
         planId: EmealStripePlanId;
         tokenId: string;
@@ -56,14 +60,14 @@ export const PaymentForm = () => {
     });
 
     if (error) throw new Error('your payment broke our system');
-    actions.saveSession(response);
+    actions.saveUser(response);
     history.push('/');
   };
 
   return (
     <StripeFormWrapper
       className='payment-form'
-      initialValues={{ card: false, planId: initialSelectedPlan }}
+      initialValues={{ card: false, plan: initialSelectedPlan }}
       validationSchema={PaymentSchema}
       onSubmit={pay}
     >
@@ -72,7 +76,7 @@ export const PaymentForm = () => {
           <FieldWrapper
             {...formikProps}
             as='select'
-            name='planId'
+            name='plan'
             selectProps={{
               defaultValue: initialSelectedPlan,
               options: planOptions,
