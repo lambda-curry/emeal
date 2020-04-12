@@ -16,5 +16,5 @@
       "@shared": ["../shared"]
     }
   },
-  "include": ["src/**/*", "../shared"]
+  "include": ["src/**/*", "../shared", "../frontend/src/utils"]
 }

@@ -93,7 +93,13 @@ const signupSchema = yup.object().shape({
   email: yup.string().email(),
   password: yup.string().min(8).required(),
   projectName: yup.string().required(),
-  website: yup.string().url().required(),
+  website: yup
+    .string()
+    .matches(
+      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm,
+      'Please enter a valid website url.'
+    )
+    .required(),
 });
 
 async function signup(req: Request, res: Response) {

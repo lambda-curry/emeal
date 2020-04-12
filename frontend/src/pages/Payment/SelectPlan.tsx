@@ -13,13 +13,17 @@ export const SelectPlan = () => {
   return (
     <div className='page select-plan'>
       <div className='page-container'>
+        <p className='select-plan-enterprise'>
+          Need an enterprise plan with support for multiple locations?{' '}
+          <a href='mailto:hello@emeal.me'>Get in touch for pricing.</a>
+        </p>
         <div className='page-item'>
           <div className='emeal-plans'>
             <EmealPlan
               icon='chickenleg'
               name='basic'
               amount='$14'
-              limits={['50 Email Captures', '10k Impressions']}
+              limits={['50 Email Captures', '3k Impressions']}
               onSelect={() => selectPlan('emeal_basic')}
             />
 
@@ -27,7 +31,7 @@ export const SelectPlan = () => {
               icon='restaurant'
               name='pro'
               amount='$29'
-              limits={['500 Email Captures', '20k Impressions']}
+              limits={['250 Email Captures', '10k Impressions']}
               onSelect={() => selectPlan('emeal_pro')}
               extras={{ mostPopular: true }}
             />
@@ -36,13 +40,13 @@ export const SelectPlan = () => {
               icon='restaurateur'
               name='restaurateur'
               amount='$49'
-              limits={['Unlimited Email Captures', '250k Impressions']}
+              limits={['500 Email Captures', '25k Impressions']}
               onSelect={() => selectPlan('emeal_restaurateur')}
             />
           </div>
           <p className='select-plan-disclaimer'>
-            *All plans are free until businesses can open back up to help you
-            grow your audience
+            *To help you grow your audience, all plans are free until businesses
+            can open back up.
           </p>
         </div>
       </div>
