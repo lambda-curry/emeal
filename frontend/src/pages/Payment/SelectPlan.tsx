@@ -13,10 +13,6 @@ export const SelectPlan = () => {
   return (
     <div className='page select-plan'>
       <div className='page-container'>
-        <p className='select-plan-enterprise'>
-          Need an enterprise plan with support for multiple locations?{' '}
-          <a href='mailto:hello@emeal.me'>Get in touch for pricing.</a>
-        </p>
         <div className='page-item'>
           <div className='emeal-plans'>
             <EmealPlan
@@ -49,6 +45,10 @@ export const SelectPlan = () => {
             can open back up.
           </p>
         </div>
+        <p className='select-plan-enterprise'>
+          Need an enterprise plan with support for multiple locations?{' '}
+          <a href='mailto:hello@emeal.me'>Get in touch for pricing.</a>
+        </p>
       </div>
     </div>
   );
