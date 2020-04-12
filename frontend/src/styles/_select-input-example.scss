@@ -1,0 +1,319 @@
+@import '../../../../../styles/variables';
+
+.input-select {
+  &.input-wrapper:not(.input-checkbox):not(.input-radio) {
+    &.hasLabel:not(.input-label-position-above) .input {
+      padding: 0;
+    }
+
+    .input {
+      appearance: none;
+      padding: 0;
+      cursor: pointer;
+      line-height: 24px;
+      border: none;
+      color: $color-gray;
+      height: auto;
+
+      &-select__control {
+        padding: 0 0 0 ($padding * 1.5 - 8px);
+        cursor: pointer;
+        background: none;
+        border: 2px solid $color-gray-light;
+        border-radius: $input-border-radius;
+        box-shadow: none;
+
+        &--is-focused {
+          border-color: $color-blue;
+        }
+
+        input {
+          position: relative;
+          border: none;
+          font-family: inherit;
+          font-weight: inherit;
+          font-size: inherit;
+        }
+      }
+
+      &-select--is-disabled {
+        .input-select__control {
+          opacity: 0.5;
+          color: $color-black !important;
+          background-color: $color-gray-lighter;
+          pointer-events: none;
+        }
+
+        .input-select__single-value {
+          color: inherit;
+        }
+
+        & + .input-label,
+        .input-icon {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+      }
+
+      &-select__input {
+        margin: -2px;
+
+        input {
+          height: 44px;
+        }
+      }
+
+      &-select__indicators {
+        display: flex;
+        align-items: center;
+      }
+
+      &-select__indicator-separator {
+        background-color: #e8e8e8;
+      }
+
+      &-select__dropdown-indicator {
+        position: relative;
+        top: 0;
+        right: 0;
+        padding: 0 $padding;
+      }
+
+      &-select__value-container {
+        padding: 0;
+        min-height: 60px;
+
+        &--is-multi {
+          padding: ($padding / 2 - 2px);
+          margin-left: -($padding * 1.5 - 8px);
+
+          .input-select__placeholder {
+            margin-left: ($padding * 1.5 - 8px);
+          }
+          .input-select__input {
+            margin-left: ($padding * 1.5 - 10px);
+          }
+        }
+      }
+
+      &-select__single-value {
+        color: inherit;
+      }
+
+      &-select__multi-value {
+        font-size: $font-size-base;
+        border-radius: 2px;
+        background-color: #eeeff1;
+
+        &__label {
+          font-size: inherit !important;
+          padding: 10px 0 10px 14px !important;
+        }
+
+        &__remove {
+          font-size: $font-size-lg;
+          color: $color-black;
+          padding: ($padding * 0.75) !important;
+          border-radius: 0 2px 2px 0;
+
+          &:hover {
+            background-color: $color-gray-lighter;
+          }
+
+          .icon {
+            font-size: inherit;
+          }
+        }
+      }
+
+      & + label {
+        margin-top: -14px;
+        font-size: $font-size-sm;
+      }
+
+      &-icon-select-arrow {
+        position: relative;
+        top: 0;
+        right: 0;
+      }
+    }
+
+    &.hasLabel:not(.input-label-position-above) {
+      .input {
+        &-select__value-container {
+          .input-select__input {
+            margin-top: 10px;
+            margin-left: 4px;
+          }
+          .input-select__single-value {
+            margin-top: 6px;
+            margin-left: 6px;
+          }
+        }
+      }
+    }
+
+    &.hasSuccess {
+      .input {
+        &-select__single-value {
+          color: $color-black;
+        }
+      }
+    }
+
+    &.hasError {
+      .input {
+        &-select__control {
+          border-color: $color-red-dark;
+
+          &--menu-is-open {
+            border-color: $color-blue;
+          }
+        }
+      }
+    }
+  }
+
+  &__menu {
+    &-mobile-container {
+      position: fixed;
+      z-index: 5000;
+      top: 0;
+      left: 0;
+    }
+
+    &-list-wrapper {
+      width: 100%;
+    }
+
+    & &-list {
+      padding: 0;
+    }
+
+    &.input-select__menu--mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0;
+      padding: 0;
+      font-size: $font-size-base;
+      border: none;
+      box-shadow: none;
+      background: rgba(0, 0, 0, 0.4);
+
+      .input-select__menu-list {
+        z-index: 2;
+        position: absolute;
+        display: block;
+        margin: 0;
+        padding: 0;
+        top: 50%;
+        left: ($padding * 1.5);
+        right: ($padding * 1.5);
+        width: auto;
+        height: auto;
+        max-height: calc(100vh - #{($padding * 8)});
+        transform: translate(0, -50%);
+        border-radius: $input-border-radius;
+        background-color: $color-white;
+        box-shadow: 0 40px 40px -20px rgba(0, 0, 0, 0.7);
+        overflow: scroll;
+      }
+    }
+
+    &.input-select__menu--desktop {
+      position: absolute;
+      top: 100%;
+      bottom: auto;
+      height: auto;
+      padding: 0;
+      margin-top: -3px;
+      border: solid 2px $color-blue;
+      border-top: none;
+      border-radius: 0 0 $input-border-radius $input-border-radius;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      background: $color-white;
+
+      .input-select__menu-list {
+        position: relative;
+        max-height: 256px;
+        box-shadow: none;
+        border-radius: 0;
+        border-top: $border-default;
+
+        &-wrapper {
+          border-radius: 0 0 $input-border-radius $input-border-radius;
+        }
+      }
+    }
+
+    &-notice {
+      color: $color-black;
+      cursor: default;
+      min-height: 48px;
+      line-height: 48px;
+    }
+  }
+
+  &__menu &__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: ($padding * 0.75) ($padding * 1.25);
+    height: auto;
+    min-height: 40px;
+    border-top: $border-default;
+
+    // This is a hack to force text to align vertically in IE. (Reference: https://github.com/philipwalton/flexbugs/issues/231#issuecomment-362790042)
+    &::after {
+      content: '';
+      min-height: inherit;
+      font-size: 0;
+    }
+
+    &-icon {
+      position: absolute;
+      top: 50%;
+      right: $padding;
+      transform: translate(0, -50%);
+    }
+
+    &:first-child {
+      border-top: none;
+    }
+
+    &--is-selected {
+      padding-right: $padding * 3;
+
+      &,
+      &:active {
+        color: $color-blue;
+        background-color: $color-white;
+      }
+    }
+
+    &--is-focused {
+      background-color: darken($color-gray-lightest, 1%);
+    }
+
+    &:hover,
+    &:active {
+      background-color: darken($color-gray-lightest, 5%);
+    }
+  }
+
+  &.input-borderless,
+  .input-group-borderless {
+    &.input-wrapper:not(.input-checkbox):not(.input-radio) {
+      .input-select__control {
+        border-color: transparent;
+      }
+      .input-select__menu {
+        border: none;
+      }
+    }
+  }
+}
