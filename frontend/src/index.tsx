@@ -9,6 +9,9 @@ import { useSession } from './state/session/SessionProvider';
 import { useAsyncEffect } from './utils/helpers';
 import { get } from './utils/api';
 import { SessionResponse } from '../../shared';
+import { initLogrocket } from './utils/logrocket';
+
+initLogrocket();
 
 const OnLoad: FunctionComponent = ({ children }) => {
   const { actions } = useSession();
