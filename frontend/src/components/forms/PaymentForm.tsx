@@ -12,7 +12,7 @@ import { SessionResponse, EmealStripePlanId } from '../../../../shared';
 import { useSession } from '../../state/session/SessionProvider';
 
 interface PaymentFormValues {
-  planId: EmealStripePlanId;
+  plan: { value: EmealStripePlanId; label: string };
   card: boolean;
 }
 const PaymentSchema = Yup.object().shape({
@@ -24,11 +24,22 @@ export const PaymentForm = () => {
   const location = useLocation<{ planId: EmealStripePlanId }>();
   const { actions } = useSession();
 
-  const initialSelectedPlan = location.state?.planId || 'basic';
+  const planOptions = [
+    { value: 'emeal_basic', label: 'Basic - $14 a month' },
+    { value: 'emeal_pro', label: 'Pro - $29 a month' },
+    {
+      value: 'emeal_restaurateur',
+      label: 'Restaurateur - $49 a month',
+    },
+  ];
+
+  const initialSelectedPlan =
+    planOptions.find((plan) => plan.value === location.state?.planId) ||
+    planOptions[0];
 
   const pay = async (
     {
-      values: { planId },
+      values: { plan },
       token: { id: tokenId },
     }: { values: PaymentFormValues; token: Stripe.Token },
     formikHelpers: FormikHelpers<PaymentFormValues>
@@ -40,7 +51,7 @@ export const PaymentForm = () => {
         tokenId: string;
       }
     >('payment/subscription', {
-      planId,
+      planId: plan.value,
       tokenId,
     });
 
@@ -62,15 +73,12 @@ export const PaymentForm = () => {
             {...formikProps}
             as='select'
             name='planId'
-            inputProps={{ value: initialSelectedPlan }}
-          >
-            <option value='emeal_basic' label='Basic - $14 a month' />
-            <option value='emeal_pro' label='Pro - $29 a month' />
-            <option
-              value='emeal_restaurateur'
-              label='Restaurateur - $49 a month'
-            />
-          </FieldWrapper>
+            selectProps={{
+              defaultValue: initialSelectedPlan,
+              options: planOptions,
+            }}
+          />
+
           <CardFieldWrapper {...formikProps} name='card' />
           <ServerErrors status={formikProps.status} />
           <div className='form-actions-right'>
