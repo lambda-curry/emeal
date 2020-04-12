@@ -13,6 +13,7 @@ import { PrivateLayoutSimple } from '../layout/PrivateLayoutSimple';
 import { SelectPlan } from '../pages/Payment/SelectPlan';
 import { RedeemPage } from '../pages/RedeemPage';
 import { SubscriptionsPage } from '../pages/SubscriptionsPage';
+import { ChangePasswordPage } from '../pages/ChangePasswordPage';
 
 interface RouteConfig {
   path?: string;
@@ -46,6 +47,11 @@ export const routes: EmealRoutes = {
     {
       path: '/reset-password',
       component: ForgotPasswordPage,
+      exact: true,
+    },
+    {
+      path: '/change-password/:token',
+      component: ChangePasswordPage,
       exact: true,
     },
     {

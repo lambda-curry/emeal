@@ -16,8 +16,8 @@ export const sendForgotPasswordEmail = async (
     from: SYSTEM_EMAIL_FROM,
     to: user.email,
     dynamicTemplateData: {
-      resetPasswordUrl: `https://app.emeal.me/forgotPassword/${token}`
-    }
+      resetPasswordUrl: `https://app.emeal.me/change-password/${token}`,
+    },
   };
   await sendgrid.send(message);
 };
@@ -32,8 +32,8 @@ export const sendCouponEmail = async (coupon: CouponDocument) => {
       imageUrl: coupon.image,
       title: coupon.title,
       redeemUrl: `https://app.emeal.me/redeem/${coupon.token}`,
-      description: coupon.description
-    }
+      description: coupon.description,
+    },
   };
   await sendgrid.send(message);
 };
@@ -44,7 +44,7 @@ export const sendTestMail = async () => {
     from: 'marcus@resocked.me',
     subject: 'Sending with Twilio SendGrid is Fun',
     text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
   };
   await sendgrid.send(msg);
 };

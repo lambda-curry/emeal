@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormikHelpers, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
@@ -19,44 +19,54 @@ const ForgotPasswordSchema = Yup.object().shape({
 });
 
 export const ForgotPasswordForm = () => {
+  const [state, setState] = useState<'' | 'check_email'>('');
+
   const resetPassword = async (
     values: ForgotPasswordValues,
     { setSubmitting, setStatus }: FormikHelpers<ForgotPasswordValues>
   ) => {
-    const [response, error] = await post<
-      ForgotPasswordResponse,
-      ForgotPasswordValues
-    >('forgotPassword', values);
+    const [, error] = await post<ForgotPasswordResponse, ForgotPasswordValues>(
+      'forgotPassword',
+      values
+    );
     setSubmitting(false);
     if (error) return setStatus({ serverErrors: error.errors });
 
-    // TODO: what should happen? Probably show something that says check your email
-    if (response) return;
+    setState('check_email');
   };
 
   return (
-    <FormWrapper
-      className='forgot-password-form'
-      initialValues={{ email: '' }}
-      validationSchema={ForgotPasswordSchema}
-      onSubmit={resetPassword}
-    >
-      {(formikProps: FormikProps<ForgotPasswordValues>) => (
-        <>
-          <FieldWrapper
-            {...formikProps}
-            icon='email'
-            type='email'
-            name='email'
-          />
-          <ServerErrors status={formikProps.status} />
-          <div className='form-actions-center'>
-            <button type='submit' disabled={formikProps.isSubmitting}>
-              Reset Password
-            </button>
-          </div>
-        </>
-      )}
-    </FormWrapper>
+    <>
+      {state === '' ? (
+        <FormWrapper
+          className='forgot-password-form'
+          initialValues={{ email: '' }}
+          validationSchema={ForgotPasswordSchema}
+          onSubmit={resetPassword}
+        >
+          {(formikProps: FormikProps<ForgotPasswordValues>) => (
+            <>
+              <FieldWrapper
+                {...formikProps}
+                icon='email'
+                type='email'
+                name='email'
+              />
+              <ServerErrors status={formikProps.status} />
+              <div className='form-actions-center'>
+                <button type='submit' disabled={formikProps.isSubmitting}>
+                  {formikProps.isSubmitting
+                    ? 'Sending Email...'
+                    : 'Reset Password'}
+                </button>
+              </div>
+            </>
+          )}
+        </FormWrapper>
+      ) : null}
+      {state === 'check_email' ? (
+        <p>Please check your email for a link to reset your password.</p>
+      ) : null}
+    </>
   );
 };

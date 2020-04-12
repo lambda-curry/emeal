@@ -29,7 +29,7 @@ const SignupSchema = Yup.object().shape({
   ),
   website: Yup.string()
     .matches(
-      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm,
+      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm,
       'Please enter a valid website url.'
     )
     .required(`Please enter your restaurant's website url.`),
