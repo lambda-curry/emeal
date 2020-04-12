@@ -26,10 +26,6 @@ const loginSchema = yup.object().shape({
   password: yup.string().min(1).required(),
 });
 
-const getUserForTokenSchema = yup.object().shape({
-  token: yup.string().required(),
-});
-
 const resetPasswordSchema = yup.object().shape({
   token: yup.string().required(),
   password: yup.string().min(8).required(),
@@ -137,16 +133,6 @@ async function findUserForToken(token: string) {
     .gt(Date.now());
 }
 
-async function userForResetToken(req: Request, res: Response) {
-  const body = await getUserForTokenSchema.validate(req.body);
-  const user = await findUserForToken(body.token);
-
-  if (!user)
-    return res
-      .status(404)
-      .json({ errors: ['Could not find a user for provided token'] });
-  return res.status(200).json({ id: user.id, email: user.email });
-}
 /**
  * POST /reset/:token
  * Process the reset password request.
