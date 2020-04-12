@@ -29,12 +29,13 @@ $breakpoint: 664px;
         .payment-graphic {
           align-self: flex-start;
           position: relative;
-          left: -54px;
+          left: 16px;
           height: auto;
         }
 
         .payment-container {
           flex: 1;
+          padding-left: 64px;
         }
       }
     }
