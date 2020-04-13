@@ -38,12 +38,13 @@ export const RedeemPage = () => {
   const redeemCoupon = async () => {
     if (!couponToken) return setRedeemStatus('error');
 
-    const [, redeemError] = await post<CouponResponse, { couponToken: string }>(
-      `coupon/${couponToken}/redeem`,
-      { couponToken }
-    );
-
+    const [couponRepsonse, redeemError] = await post<
+      CouponResponse,
+      { couponToken: string }
+    >(`coupon/${couponToken}/redeem`, { couponToken });
     if (redeemError) return setRedeemStatus('error');
+
+    setCoupon(couponRepsonse.coupon);
     setRedeemStatus('redeemed');
   };
 
