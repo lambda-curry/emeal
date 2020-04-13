@@ -37,11 +37,30 @@ $breakpoint-md: 600px + 64px;
 .private-layout-simple {
   $header-height: 160px;
 
-  .logo-type {
+  &-header {
+    position: relative;
     height: $header-height;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &-logout {
+    position: absolute;
+    top: 16px;
+    right: 32px;
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: $breakpoint-md) {
+      top: 32px;
+      right: 32px;
+    }
   }
 
   .page {

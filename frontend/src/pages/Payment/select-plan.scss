@@ -13,6 +13,24 @@ $breakpoint: 1000px + 64px;
     margin: 16px 16px 0;
     font-size: 18px;
   }
+
+  &-enterprise {
+    line-height: 1.5;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+
+    a {
+      color: black;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 .emeal-plans {

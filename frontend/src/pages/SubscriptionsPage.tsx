@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { post } from '../utils/api';
-import { SessionResponse } from '../../../shared';
+import { UserResponse } from '../../../shared';
 import { useSession } from '../state/session/SessionProvider';
 
 export const SubscriptionsPage = () => {
   const history = useHistory();
   const { actions } = useSession();
+  const [state, setState] = useState<'' | 'canceling'>('');
 
   const cancelSubscription = async () => {
-    const [response, error] = await post<SessionResponse, {}>(
+    setState('canceling');
+    const [response, error] = await post<UserResponse, {}>(
       'payment/subscription/cancel',
       {}
     );
 
     if (error)
       throw new Error(`Guess you can't cancel, our server won't let you.`);
-
-    actions.saveSession(response);
+    setState('');
+    actions.saveUser(response);
     history.push('/');
   };
 
@@ -31,8 +33,12 @@ export const SubscriptionsPage = () => {
             no longer be active.
           </p>
 
-          <button style={{ marginTop: '32px' }} onClick={cancelSubscription}>
-            Cancel subscription
+          <button
+            style={{ marginTop: '32px' }}
+            onClick={cancelSubscription}
+            disabled={state === 'canceling'}
+          >
+            {state === 'canceling' ? 'Canceling...' : 'Cancel subscription'}
           </button>
         </div>
       </div>

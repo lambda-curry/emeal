@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import Select, { ValueType } from 'react-select';
+import Select from 'react-select';
 import { Field, ErrorMessage, FormikProps } from 'formik';
 import { titleCase } from '../../utils/helpers';
 import { Icon, IconNames } from '../Icon';

@@ -6,6 +6,7 @@ import { post } from '../../utils/api';
 import { useSession } from '../../state/session/SessionProvider';
 import { ServerErrors } from './ServerErrors';
 import { FormWrapper } from './FormWrapper';
+import { matchUrl } from '../../utils/regex';
 import { SessionResponse } from '../../../../shared';
 
 interface SignupFormValues {
@@ -28,10 +29,7 @@ const SignupSchema = Yup.object().shape({
     'Please enter the name of your restaurant.'
   ),
   website: Yup.string()
-    .matches(
-      /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm,
-      'Please enter a valid website url.'
-    )
+    .matches(matchUrl, 'Please enter a valid website url.')
     .required(`Please enter your restaurant's website url.`),
 });
 
