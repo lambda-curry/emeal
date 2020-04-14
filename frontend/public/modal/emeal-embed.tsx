@@ -230,6 +230,13 @@ interface EmealModalSettings {
           contentLabel='emeal coupon modal'
           onRequestClose={handleRequestClose}
         >
+          <button className='emeal-modal-close' onClick={() => setOpen(false)}>
+            <img
+              src={getFullPath('/graphics/close.svg')}
+              alt='close coupon modal'
+            />
+          </button>
+
           <ModalContent
             settings={settings as EmealModalSettings}
             setOpen={setOpen}
