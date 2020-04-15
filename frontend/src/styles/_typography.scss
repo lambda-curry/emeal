@@ -1,6 +1,8 @@
+@import './fonts';
+
 body {
   font-size: 16px;
-  font-family: gilroy, sans-serif;
+  font-family: emeal-gilroy, sans-serif;
 }
 
 h1 {
@@ -27,4 +29,40 @@ h3 {
 
 b {
   font-weight: bold;
+}
+
+.w100 {
+  font-weight: 100;
+}
+
+.w200 {
+  font-weight: 200;
+}
+
+.w300 {
+  font-weight: 300;
+}
+
+.w400 {
+  font-weight: 400;
+}
+
+.w500 {
+  font-weight: 500;
+}
+
+.w600 {
+  font-weight: 600;
+}
+
+.w700 {
+  font-weight: 700;
+}
+
+.w800 {
+  font-weight: 800;
+}
+
+.w900 {
+  font-weight: 900;
 }
