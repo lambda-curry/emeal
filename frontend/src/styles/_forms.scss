@@ -14,7 +14,7 @@
       z-index: 1;
       pointer-events: none;
       position: absolute;
-      top: 12px;
+      top: 13px;
       left: 12px;
 
       svg {
@@ -109,6 +109,7 @@ label {
 
 input,
 textarea {
+  -webkit-appearance: none;
   box-sizing: border-box;
   line-height: 24px;
   font-size: 18px;
