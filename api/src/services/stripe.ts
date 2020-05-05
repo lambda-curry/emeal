@@ -63,7 +63,7 @@ export async function createStripeSubscription(
   return await stripeClient.subscriptions.create({
     customer: customer.id,
     items: [{ plan: planId, quantity: 1 }],
-    trial_period_days: 90,
+    trial_from_plan: true,
     expand: ['customer', 'customer.default_source'],
   });
 }
