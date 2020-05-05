@@ -41,8 +41,7 @@ export const SelectPlan = () => {
             />
           </div>
           <p className='select-plan-disclaimer'>
-            *To help you grow your audience, all plans are free until businesses
-            can open back up.
+            *You will not be charged until your 30 day free trial has ended.
           </p>
         </div>
         <p className='select-plan-enterprise'>

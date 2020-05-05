@@ -67,16 +67,6 @@ $breakpoint-lg: 1000px + 64px;
     margin-left: -($width / 2);
   }
 
-  &-icon {
-    color: $brand-color;
-    color: var(--brand-color);
-
-    svg {
-      height: 48px;
-      width: auto;
-    }
-  }
-
   &-name {
     text-transform: uppercase;
     margin: 16px;
@@ -102,13 +92,6 @@ $breakpoint-lg: 1000px + 64px;
       left: 50%;
       margin-left: -($width / 2);
     }
-  }
-
-  &-free {
-    color: #0ecd57;
-    font-weight: 900;
-    font-size: 64px;
-    margin-bottom: 8px;
   }
 
   &-period {

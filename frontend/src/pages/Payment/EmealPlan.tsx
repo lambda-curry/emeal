@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { Icon, IconNames } from '../../components/Icon';
 import './emeal-plan.scss';
 import { PlanNames } from '../../../../shared';
-import { ReactComponent as StrikeThrough } from '../../graphics/Strike_Through.svg';
 
 export const EmealPlan: FunctionComponent<{
   icon: IconNames;
@@ -20,11 +19,7 @@ export const EmealPlan: FunctionComponent<{
       <div className='emeal-plan-section pricing'>
         <Icon className='emeal-plan-icon' name={icon} />
         <h2 className='emeal-plan-name'>{name}</h2>
-        <div className='emeal-plan-amount'>
-          <StrikeThrough />
-          {amount}
-        </div>
-        <div className='emeal-plan-free'>FREE</div>
+        <div className='emeal-plan-amount'>{amount}</div>
         <div className='emeal-plan-period'>Per month*</div>
         <hr />
       </div>
