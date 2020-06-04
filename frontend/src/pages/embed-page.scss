@@ -1,6 +1,60 @@
 @import '../styles/variables';
 
 .embed {
+  &-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 8px 16px;
+    background: none;
+    color: black;
+    border: 2px solid $gray;
+    font-size: 14px;
+
+    margin-right: 16px;
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.active {
+      border-color: $primary-blue;
+
+      .icon {
+        color: $primary-blue;
+      }
+    }
+
+    .icon {
+      color: $gray;
+      position: relative;
+
+      &-popup {
+        top: 5px;
+      }
+
+      &-static_embed {
+        top: 4px;
+      }
+    }
+
+    &-row {
+      display: flex;
+      margin-bottom: 16px;
+    }
+
+    &-content {
+      margin-left: 8px;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    &-title {
+      font-weight: bold;
+    }
+  }
+
   &-code {
     position: relative;
 

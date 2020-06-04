@@ -18,6 +18,8 @@ import { ReactComponent as download } from '../icons/download.svg';
 import { ReactComponent as chickenleg } from '../icons/chickenleg.svg';
 import { ReactComponent as restaurateur } from '../icons/restaurateur.svg';
 import { ReactComponent as embed } from '../icons/embed.svg';
+import { ReactComponent as static_embed } from '../icons/static_embed.svg';
+import { ReactComponent as popup } from '../icons/popup.svg';
 
 import './icon.scss';
 
@@ -38,7 +40,9 @@ export type IconNames =
   | 'restaurant'
   | 'play'
   | 'trash'
-  | 'download';
+  | 'download'
+  | 'static_embed'
+  | 'popup';
 
 export const icons: {
   [key in IconNames]: FunctionComponent<React.SVGProps<SVGSVGElement>>;
@@ -60,6 +64,8 @@ export const icons: {
   chickenleg,
   restaurateur,
   embed,
+  static_embed,
+  popup,
 };
 
 export const Icon = ({
