@@ -1,5 +1,12 @@
-/// <reference path="./emeal-embed.d.ts" />
-interface EmealModalSettings {
+/// <reference path="../emeal-embed.d.ts" />
+
+import {
+  addTargetElementToBody,
+  getFullPath,
+  loadDependencies,
+} from '../helpers';
+
+interface EmealEmbedSettings {
   isPreview?: boolean;
   title: string;
   description: string;
@@ -7,8 +14,12 @@ interface EmealModalSettings {
 }
 
 (function () {
-  addModalTargetElement();
+  addTargetElementToBody('emeal-embed');
   DOMReady().then(() => loadModal());
+
+  const modalEmbedScript = document.querySelector(
+    `script[src$="/modal/dist/emeal-embed.min.js"]`
+  );
 
   function loadModal() {
     const React = window.React;
@@ -26,12 +37,11 @@ interface EmealModalSettings {
       `script[src$="/modal/dist/vendor.js"]`
     );
 
-    const modalEmbedScript = document.querySelector(
-      `script[src$="/modal/dist/emeal-embed.min.js"]`
-    );
-
-    const emealProjectId = modalEmbedScript.getAttribute('data-coupon-id');
+    const emealProjectId = modalEmbedScript?.getAttribute('data-coupon-id');
     const embedTarget = document.querySelector('#emeal-embed');
+
+    if (!modalEmbedScript || !modalStyles || !vendorScript || !embedTarget)
+      return;
 
     // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
     const removeAllAddedScriptsAndStyles = () => {
@@ -48,7 +58,7 @@ interface EmealModalSettings {
       settings,
       setOpen,
     }: {
-      settings: EmealModalSettings;
+      settings: EmealEmbedSettings;
       setOpen: Function;
     }) => {
       const [email, setEmail] = React.useState('');
@@ -117,7 +127,7 @@ interface EmealModalSettings {
                 id='email'
                 value={email}
                 onChange={(e) => {
-                  if (error) setError(null);
+                  if (error) setError('');
                   setEmail(e.target.value);
                 }}
                 placeholder='Your email'
@@ -149,7 +159,7 @@ interface EmealModalSettings {
 
     const ModalContainer = () => {
       const [open, setOpen] = React.useState<boolean>();
-      const [settings, setSettings] = React.useState<EmealModalSettings>(
+      const [settings, setSettings] = React.useState<EmealEmbedSettings>(
         presetSettings
       );
 
@@ -238,7 +248,7 @@ interface EmealModalSettings {
           </button>
 
           <ModalContent
-            settings={settings as EmealModalSettings}
+            settings={settings as EmealEmbedSettings}
             setOpen={setOpen}
           />
         </Modal>
@@ -246,52 +256,19 @@ interface EmealModalSettings {
     };
 
     Modal.setAppElement('#emeal-embed');
-    const domContainer = document.getElementById('emeal-embed');
-    ReactDOM.render(<ModalContainer />, domContainer);
+    ReactDOM.render(<ModalContainer />, embedTarget);
   }
 
-  function getFullPath(path: string) {
-    return window.emealModalSettings?.isPreview
-      ? path
-      : 'https://app.emeal.me' + path;
-  }
-
-  function validateEmail(email) {
+  function validateEmail(email: string) {
     var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     return re.test(String(email).toLowerCase());
   }
 
-  function addModalTargetElement() {
-    const modalTarget = document.createElement('div');
-    modalTarget.setAttribute('id', 'emeal-embed');
-    document.body.appendChild(modalTarget);
-  }
-
-  function loadStyles() {
-    const modalStyles = document.createElement('link');
-    modalStyles.setAttribute('rel', 'stylesheet');
-    modalStyles.setAttribute('type', 'text/css');
-    modalStyles.setAttribute(
-      'href',
-      getFullPath('/modal/dist/emeal-modal.css')
-    );
-    document.getElementsByTagName('head')[0].appendChild(modalStyles);
-    return new Promise((resolve) => (modalStyles.onload = resolve));
-  }
-
-  function loadDependencies() {
-    const vendorjs = window.document.createElement('script');
-    vendorjs.type = 'text/javascript';
-    vendorjs.src = getFullPath('/modal/dist/vendor.js');
-    document.body.appendChild(vendorjs);
-    const vendorjsPromise = new Promise(
-      (resolve) => (vendorjs.onload = resolve)
-    );
-    return loadStyles().then(() => vendorjsPromise);
-  }
-
   function DOMReady() {
-    return loadDependencies().then(
+    return loadDependencies(
+      '/modal/dist/emeal-modal.css',
+      '/modal/dist/vendor.js'
+    ).then(
       () =>
         new Promise((resolve, reject) => {
           if (

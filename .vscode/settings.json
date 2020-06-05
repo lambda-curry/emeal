@@ -2,6 +2,8 @@
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
   "cSpell.words": [
-    "emeal"
+    "emeal",
+    "uglifyjs",
+    "vendorjs"
   ]
 }

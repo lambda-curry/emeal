@@ -48,7 +48,7 @@ export const EmbedPage = () => {
     },
     static: {
       embedComment: `<!-- emeal.me coupon static embed script -->`,
-      embedCode: `<script async data-coupon-id="${currentProject.id}" src="https://app.emeal.me/modal/dist/static-embed.min.js"></script>`,
+      embedCode: `<script async data-coupon-id="${currentProject.id}" src="https://app.emeal.me/static/dist/emeal-embed.min.js"></script>`,
     },
   };
 
