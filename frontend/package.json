@@ -61,7 +61,14 @@
     "build:modal:styles": "node-sass ./embeds/modal/emeal-modal.scss -o ./public/modal/dist",
     "dev:modal": "concurrently \"yarn dev:modal:javascript\" \"yarn dev:modal:styles\"",
     "dev:modal:javascript": "rollup -w -c ./embeds/modal/rollup-modal.config.js",
-    "dev:modal:styles": "node-sass --watch ./embeds/modal/emeal-modal.scss -o ./public/modal/dist"
+    "dev:modal:styles": "node-sass --watch ./embeds/modal/emeal-modal.scss -o ./public/modal/dist",
+    "build:static": "yarn build:static:javascript && yarn build:static:styles",
+    "build:static:dev": "yarn build:static:javascript:dev && yarn build:static:styles:dev",
+    "build:static:javascript": "rollup -c ./embeds/static/rollup-static.config.js",
+    "build:static:styles": "node-sass ./embeds/static/emeal-static.scss -o ./public/static/dist",
+    "dev:static": "concurrently \"yarn dev:static:javascript\" \"yarn dev:static:styles\"",
+    "dev:static:javascript": "rollup -w -c ./embeds/static/rollup-static.config.js",
+    "dev:static:styles": "node-sass --watch ./embeds/static/emeal-static.scss -o ./public/static/dist"
   },
   "eslintConfig": {
     "extends": "react-app"

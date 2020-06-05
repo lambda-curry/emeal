@@ -8,6 +8,7 @@ export interface EmealModalSettings {
 declare global {
   export interface Window {
     emealModalSettings: EmealModalSettings;
+    emealStaticSettings: EmealModalSettings;
     emealCouponId: string | undefined;
   }
 }

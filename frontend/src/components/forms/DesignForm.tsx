@@ -22,6 +22,13 @@ declare global {
       description: string;
       image: string;
     };
+
+    emealStaticSettings: {
+      isPreview?: boolean;
+      title: string;
+      description: string;
+      image: string;
+    };
   }
 }
 
@@ -111,7 +118,20 @@ export const DesignForm = () => {
       description: info,
       image: previewImage,
     };
-    await loadModalScripts();
+
+    window.emealStaticSettings = {
+      isPreview:
+        window.location.host === 'local.emeal.me:3000' ||
+        window.location.host === 'app.emeal.me'
+          ? true
+          : false,
+      title,
+      description: info,
+      image: previewImage,
+    };
+
+    await loadModalScript();
+    await loadEmbedScript();
   };
 
   return (
@@ -234,10 +254,18 @@ export const DesignForm = () => {
   );
 };
 
-function loadModalScripts() {
+function loadModalScript() {
   const modaljs = window.document.createElement('script');
   modaljs.type = 'text/javascript';
   modaljs.src = `${process.env.PUBLIC_URL}/modal/dist/emeal-embed.min.js`;
   document.body.appendChild(modaljs);
   return new Promise((resolve) => (modaljs.onload = resolve));
+}
+
+function loadEmbedScript() {
+  const embed = window.document.createElement('script');
+  embed.type = 'text/javascript';
+  embed.src = `${process.env.PUBLIC_URL}/static/dist/emeal-embed.min.js`;
+  document.body.querySelector('.form-actions')?.parentNode?.appendChild(embed);
+  return new Promise((resolve) => (embed.onload = resolve));
 }

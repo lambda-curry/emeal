@@ -4,9 +4,14 @@ export function getFullPath(path: string) {
     : 'https://app.emeal.me' + path;
 }
 
-export function addTargetElementBeforeScript(embedScript: Node, id: string) {
+export function addTargetElementBeforeScript(
+  embedScript: Node | null,
+  id: string
+) {
+  if (!embedScript) return;
   const target = document.createElement('div');
   target.setAttribute('id', id);
+
   embedScript.parentNode?.insertBefore(target, embedScript);
 }
 

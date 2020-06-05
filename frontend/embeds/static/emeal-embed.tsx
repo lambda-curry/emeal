@@ -1,6 +1,6 @@
 /// <reference path="../emeal-embed.d.ts" />
 
-import { addTargetElementBeforeScript } from '../helpers';
+import { loadDependencies, addTargetElementBeforeScript } from '../helpers';
 
 interface EmealEmbedSettings {
   isPreview?: boolean;
@@ -11,48 +11,38 @@ interface EmealEmbedSettings {
 
 (function () {
   const staticEmbedScript = document.querySelector(
-    `script[src$="/modal/dist/emeal-embed.min.js"]`
+    `script[src$="/static/dist/emeal-embed.min.js"]`
   );
 
-  addTargetElementBeforeScript(staticEmbedScript, 'emeal-static-embed');
+  addTargetElementBeforeScript(staticEmbedScript, 'emeal-embed');
   DOMReady().then(() => loadStatic());
 
   function loadStatic() {
     const React = window.React;
     const ReactDOM = window.ReactDOM;
-    const Modal = window.ReactModal;
 
-    const modalCloseTimeout = 520;
-    const presetSettings = window.emealModalSettings;
+    const presetSettings = window.emealStaticSettings;
 
-    const modalStyles = document.querySelector(
-      `link[href$="/modal/dist/emeal-modal.css"]`
+    const staticStyles = document.querySelector(
+      `link[href$="/static/dist/emeal-static.css"]`
     );
 
     const vendorScript = document.querySelector(
-      `script[src$="/modal/dist/vendor.js"]`
+      `script[src$="/static/dist/vendor.js"]`
     );
 
-    const emealProjectId = staticEmbedScript.getAttribute('data-coupon-id');
-    const embedTarget = document.querySelector('#emeal-static-embed');
+    const emealProjectId = staticEmbedScript?.getAttribute('data-coupon-id');
+    const embedTarget = document.querySelector('#emeal-embed');
 
-    // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
-    const removeAllAddedScriptsAndStyles = () => {
-      // TODO: make sure we clean up everything once the modal is closed
-      setTimeout(() => {
-        embedTarget.remove();
-        vendorScript.remove();
-        modalStyles.remove();
-        staticEmbedScript.remove();
-      }, modalCloseTimeout);
-    };
+    if (!staticEmbedScript || !staticStyles || !vendorScript || !embedTarget)
+      return;
 
-    const ModalContent = ({
+    const StaticContent = ({
       settings,
-      setOpen,
+      setLoading,
     }: {
       settings: EmealEmbedSettings;
-      setOpen: Function;
+      setLoading: Function;
     }) => {
       const [email, setEmail] = React.useState('');
       const [imgLoaded, setImgLoaded] = React.useState(false);
@@ -62,7 +52,7 @@ interface EmealEmbedSettings {
         const emailValid = validateEmail(email);
         if (!emailValid) return setError('Please enter a valid email.');
 
-        if (settings.isPreview) return setOpen(false);
+        if (settings.isPreview) return setLoading(false);
 
         const response = await fetch('https://app.emeal.me/api/coupon/', {
           method: 'POST',
@@ -79,7 +69,6 @@ interface EmealEmbedSettings {
           return setError('An error occurred, let us know.');
         const data = await response.json();
         if (data.errors) return setError('An error occurred, let us know.');
-        setOpen(false);
       };
 
       return (
@@ -120,7 +109,7 @@ interface EmealEmbedSettings {
                 id='email'
                 value={email}
                 onChange={(e) => {
-                  if (error) setError(null);
+                  if (error) setError('');
                   setEmail(e.target.value);
                 }}
                 placeholder='Your email'
@@ -150,8 +139,8 @@ interface EmealEmbedSettings {
       );
     };
 
-    const ModalContainer = () => {
-      const [open, setOpen] = React.useState<boolean>();
+    const StaticContainer = () => {
+      const [loading, setLoading] = React.useState<boolean>(true);
       const [settings, setSettings] = React.useState<EmealEmbedSettings>(
         presetSettings
       );
@@ -165,7 +154,7 @@ interface EmealEmbedSettings {
         if (noSettingsOrAlreadyOpened) return;
 
         const showOnDelay = presetSettings?.isPreview ? 100 : 2000;
-        setTimeout(() => setOpen(true), showOnDelay);
+        setTimeout(() => setLoading(false), showOnDelay);
 
         if (presetSettings?.isPreview) return setSettings(presetSettings);
 
@@ -192,10 +181,11 @@ interface EmealEmbedSettings {
         return tinyRandom() + tinyRandom() + tinyRandom();
       };
 
-      const markModalAsViewed = async () => {
+      const markStaticObjectAsViewed = async () => {
         const emealSessionId = createSessionToken();
         console.log('__emeal session id', emealSessionId);
         window.localStorage.setItem('__emeal', emealSessionId);
+        // TODO: Do we want to have this be a different endpoint or with a different body?
         await fetch(
           `https://app.emeal.me/api/project/${emealProjectId}/markPageView/${emealSessionId}`,
           {
@@ -213,82 +203,32 @@ interface EmealEmbedSettings {
       }, []);
 
       React.useEffect(() => {
-        if (!window.emealModalSettings?.isPreview && !!settings && !!open)
-          markModalAsViewed();
+        if (!window.emealStaticSettings?.isPreview && !!settings && !loading)
+          markStaticObjectAsViewed();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [settings, open]);
-
-      const handleRequestClose = () => {
-        removeAllAddedScriptsAndStyles();
-        setOpen(false);
-      };
+      }, [settings, loading]);
 
       return (
-        <Modal
-          portalClassName='cleanslate'
-          className='emeal-modal'
-          overlayClassName='emeal-modal-overlay'
-          isOpen={!!settings && !!open}
-          closeTimeoutMS={modalCloseTimeout}
-          contentLabel='emeal coupon modal'
-          onRequestClose={handleRequestClose}
-        >
-          <button className='emeal-modal-close' onClick={() => setOpen(false)}>
-            <img
-              src={getFullPath('/graphics/close.svg')}
-              alt='close coupon modal'
-            />
-          </button>
-
-          <ModalContent
-            settings={settings as EmealEmbedSettings}
-            setOpen={setOpen}
-          />
-        </Modal>
+        <StaticContent
+          settings={settings as EmealEmbedSettings}
+          setLoading={setLoading}
+        />
       );
     };
 
-    Modal.setAppElement('#emeal-embed');
-    const domContainer = document.getElementById('emeal-embed');
-    ReactDOM.render(<ModalContainer />, domContainer);
+    ReactDOM.render(<StaticContainer />, embedTarget);
   }
 
-  function getFullPath(path: string) {
-    return window.emealModalSettings?.isPreview
-      ? path
-      : 'https://app.emeal.me' + path;
-  }
-
-  function validateEmail(email) {
+  function validateEmail(email: string) {
     var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     return re.test(String(email).toLowerCase());
   }
 
-  function loadStyles() {
-    const modalStyles = document.createElement('link');
-    modalStyles.setAttribute('rel', 'stylesheet');
-    modalStyles.setAttribute('type', 'text/css');
-    modalStyles.setAttribute(
-      'href',
-      getFullPath('/modal/dist/emeal-modal.css')
-    );
-    document.getElementsByTagName('head')[0].appendChild(modalStyles);
-    return new Promise((resolve) => (modalStyles.onload = resolve));
-  }
-
-  function loadDependencies() {
-    const vendorjs = window.document.createElement('script');
-    vendorjs.type = 'text/javascript';
-    vendorjs.src = getFullPath('/modal/dist/vendor.js');
-    document.body.appendChild(vendorjs);
-    const vendorjsPromise = new Promise(
-      (resolve) => (vendorjs.onload = resolve)
-    );
-    return loadStyles().then(() => vendorjsPromise);
-  }
-
   function DOMReady() {
-    return loadDependencies().then(
+    return loadDependencies(
+      '/static/dist/emeal-static.css',
+      '/static/dist/vendor.js'
+    ).then(
       () =>
         new Promise((resolve, reject) => {
           if (
