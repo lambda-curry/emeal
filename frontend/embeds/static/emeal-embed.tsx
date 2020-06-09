@@ -45,10 +45,10 @@ interface EmealEmbedSettings {
 
     const StaticContent = ({
       settings,
-      setLoading,
+      loading,
     }: {
       settings: EmealEmbedSettings;
-      setLoading: Function;
+      loading: boolean;
     }) => {
       const [email, setEmail] = React.useState('');
       const [imgLoaded, setImgLoaded] = React.useState(false);
@@ -57,8 +57,6 @@ interface EmealEmbedSettings {
       const sendCoupon = async () => {
         const emailValid = validateEmail(email);
         if (!emailValid) return setError('Please enter a valid email.');
-
-        if (settings.isPreview) return setLoading(false);
 
         const response = await fetch('https://app.emeal.me/api/coupon/', {
           method: 'POST',
@@ -79,6 +77,8 @@ interface EmealEmbedSettings {
 
         if (data.errors) return setError('An error occurred, let us know.');
       };
+
+      if (loading || !settings) return <>Loading...</>;
 
       return (
         <div className='emeal-static-content'>
@@ -169,9 +169,10 @@ interface EmealEmbedSettings {
 
         if (noSettingsOrAlreadyOpened) return;
 
-        setLoading(false);
-
-        if (presetSettings?.isPreview) return setSettings(presetSettings);
+        if (presetSettings?.isPreview) {
+          setLoading(false);
+          return setSettings(presetSettings);
+        }
 
         const response = await fetch(
           'https://app.emeal.me/api/project/' + emealProjectId,
@@ -188,6 +189,7 @@ interface EmealEmbedSettings {
         const badResponseOrDisabled =
           !data || !data.project || data.project.disabledAt;
         if (badResponseOrDisabled) return;
+        setLoading(false);
         setSettings(data.project.coupon);
       };
 
@@ -229,7 +231,7 @@ interface EmealEmbedSettings {
         <div ref={containerRef} className={`cleanslate ${size}`}>
           <StaticContent
             settings={settings as EmealEmbedSettings}
-            setLoading={setLoading}
+            loading={loading}
           />
         </div>
       );
