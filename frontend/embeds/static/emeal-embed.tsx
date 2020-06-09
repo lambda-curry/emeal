@@ -78,7 +78,7 @@ interface EmealEmbedSettings {
         if (data.errors) return setError('An error occurred, let us know.');
       };
 
-      if (loading || !settings) return <>Loading...</>;
+      if (loading || !settings) return <></>;
 
       return (
         <div className='emeal-static-content'>
@@ -186,9 +186,8 @@ interface EmealEmbedSettings {
         );
         const data = await response.json();
 
-        const badResponseOrDisabled =
-          !data || !data.project || data.project.disabledAt;
-        if (badResponseOrDisabled) return;
+        const badResponse = !data || !data.project;
+        if (badResponse) return;
         setLoading(false);
         setSettings(data.project.coupon);
       };
