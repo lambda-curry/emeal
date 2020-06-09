@@ -82,9 +82,12 @@ interface EmealEmbedSettings {
             email,
           }),
         });
-        if (response.status !== 200)
-          return setError('An error occurred, let us know.');
         const data = await response.json();
+        if (response.status !== 200) {
+          if (data.errors) return setError(data.errors[0]);
+          return setError('An error occurred, let us know.');
+        }
+
         if (data.errors) return setError('An error occurred, let us know.');
         setOpen(false);
       };
