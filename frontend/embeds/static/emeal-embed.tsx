@@ -186,6 +186,8 @@ interface EmealEmbedSettings {
         );
         const data = await response.json();
 
+        console.log('>>>', data);
+
         const badResponse = !data || !data.project;
         if (badResponse) return;
         setLoading(false);

@@ -13,6 +13,8 @@
     "build:be": "yarn workspace emeal-api run build",
     "build:modal": "yarn workspace emeal-frontend run build:modal",
     "dev:modal": "yarn workspace emeal-frontend run dev:modal",
+    "build:static": "yarn workspace emeal-frontend run build:static",
+    "dev:static": "yarn workspace emeal-frontend run dev:static",
     "deploy:fe": "yarn workspace emeal-frontend run deploy",
     "deploy:be": "yarn workspace emeal-api run deploy",
     "deploy": "yarn workspace emeal-api run deploy && yarn workspace emeal-frontend run deploy",
