@@ -32,7 +32,6 @@ export const ChangePasswordForm = () => {
   const { token } = useParams();
   const history = useHistory();
 
-  console.log('>>>>', token);
   if (!token) {
     history.replace('/');
     return null;

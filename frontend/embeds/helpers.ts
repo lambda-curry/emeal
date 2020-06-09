@@ -1,7 +1,5 @@
 export function getFullPath(path: string) {
-  return window.emealModalSettings?.isPreview
-    ? path
-    : 'https://app.emeal.me' + path;
+  return window.emealSettings?.isPreview ? path : 'https://app.emeal.me' + path;
 }
 
 export function addTargetElementBeforeScript(
@@ -38,4 +36,26 @@ function loadStyles(path: string) {
   modalStyles.setAttribute('href', getFullPath(path));
   document.getElementsByTagName('head')[0].appendChild(modalStyles);
   return new Promise((resolve) => (modalStyles.onload = resolve));
+}
+
+export function onWindowResize(callback: Function) {
+  callback();
+  window.addEventListener(
+    'resize',
+    debounce(() => callback(), 200)
+  );
+}
+
+export function getContainerSize(container: HTMLDivElement) {
+  const width = container.offsetWidth;
+  return width < 525 ? 'small' : 'large';
+}
+
+function debounce(callback: Function, wait: number) {
+  let timeout: any;
+  return (...args: any[]) => {
+    const context = this as Function;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => callback.apply(context, args), wait);
+  };
 }

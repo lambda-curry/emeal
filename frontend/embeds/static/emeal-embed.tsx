@@ -1,6 +1,12 @@
 /// <reference path="../emeal-embed.d.ts" />
 
-import { loadDependencies, addTargetElementBeforeScript } from '../helpers';
+import {
+  loadDependencies,
+  addTargetElementBeforeScript,
+  onWindowResize,
+  getContainerSize,
+} from '../helpers';
+import { EmealSettings } from '../emeal-embed';
 
 interface EmealEmbedSettings {
   isPreview?: boolean;
@@ -21,7 +27,7 @@ interface EmealEmbedSettings {
     const React = window.React;
     const ReactDOM = window.ReactDOM;
 
-    const presetSettings = window.emealStaticSettings;
+    const presetSettings = window.emealSettings;
 
     const staticStyles = document.querySelector(
       `link[href$="/static/dist/emeal-static.css"]`
@@ -72,11 +78,11 @@ interface EmealEmbedSettings {
       };
 
       return (
-        <div className='emeal-modal-content'>
+        <div className='emeal-static-content'>
           <div
-            className={`emeal-modal-content-img ${imgLoaded ? 'loaded' : ''}`}
+            className={`emeal-static-content-img ${imgLoaded ? 'loaded' : ''}`}
           >
-            <div className='emeal-modal-content-loading'>
+            <div className='emeal-static-content-loading'>
               <svg className='emeal-spinner' viewBox='0 0 50 50'>
                 <circle
                   className='path'
@@ -97,11 +103,13 @@ interface EmealEmbedSettings {
               alt='coupon graphic'
             />
           </div>
-          <h1 className='emeal-modal-title'>{settings.title}</h1>
+          <h1 className='emeal-static-title'>{settings.title}</h1>
           <p>{settings.description}</p>
-          <div className='emeal-modal-content-row'>
+          <div className='emeal-static-content-row'>
             <div
-              className={`emeal-modal-content-input ${error ? 'hasError' : ''}`}
+              className={`emeal-static-content-input ${
+                error ? 'hasError' : ''
+              }`}
             >
               <input
                 type='email'
@@ -115,7 +123,7 @@ interface EmealEmbedSettings {
                 placeholder='Your email'
               />
               {error ? (
-                <div className='emeal-modal-content-error'>{error}</div>
+                <div className='emeal-static-content-error'>{error}</div>
               ) : (
                 ''
               )}
@@ -125,7 +133,7 @@ interface EmealEmbedSettings {
               SUBSCRIBE
             </button>
           </div>
-          <div className='emeal-modal-link'>
+          <div className='emeal-static-link'>
             Powered&nbsp;by&nbsp;
             <a
               href='https://emeal.me'
@@ -141,9 +149,14 @@ interface EmealEmbedSettings {
 
     const StaticContainer = () => {
       const [loading, setLoading] = React.useState<boolean>(true);
-      const [settings, setSettings] = React.useState<EmealEmbedSettings>(
+      const [settings, setSettings] = React.useState<EmealSettings>(
         presetSettings
       );
+      const [size, setSize] = React.useState<'small' | 'large'>();
+
+      const containerRef = React.useRef() as React.MutableRefObject<
+        HTMLDivElement
+      >;
 
       const configureSettings = async () => {
         const noSettingsOrAlreadyOpened =
@@ -153,8 +166,7 @@ interface EmealEmbedSettings {
 
         if (noSettingsOrAlreadyOpened) return;
 
-        const showOnDelay = presetSettings?.isPreview ? 100 : 2000;
-        setTimeout(() => setLoading(false), showOnDelay);
+        setLoading(false);
 
         if (presetSettings?.isPreview) return setSettings(presetSettings);
 
@@ -200,19 +212,23 @@ interface EmealEmbedSettings {
 
       React.useEffect(() => {
         configureSettings();
-      }, []);
+        if (!containerRef.current) return;
+        onWindowResize(() => setSize(getContainerSize(containerRef.current)));
+      }, [containerRef]);
 
       React.useEffect(() => {
-        if (!window.emealStaticSettings?.isPreview && !!settings && !loading)
+        if (!window.emealSettings?.isPreview && !!settings && !loading)
           markStaticObjectAsViewed();
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [settings, loading]);
 
       return (
-        <StaticContent
-          settings={settings as EmealEmbedSettings}
-          setLoading={setLoading}
-        />
+        <div ref={containerRef} className={`cleanslate ${size}`}>
+          <StaticContent
+            settings={settings as EmealEmbedSettings}
+            setLoading={setLoading}
+          />
+        </div>
       );
     };
 

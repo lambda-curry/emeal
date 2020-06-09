@@ -27,7 +27,7 @@ interface EmealEmbedSettings {
     const Modal = window.ReactModal;
 
     const modalCloseTimeout = 520;
-    const presetSettings = window.emealModalSettings;
+    const presetSettings = window.emealSettings;
 
     const modalStyles = document.querySelector(
       `link[href$="/modal/dist/emeal-modal.css"]`
@@ -220,7 +220,7 @@ interface EmealEmbedSettings {
       }, []);
 
       React.useEffect(() => {
-        if (!window.emealModalSettings?.isPreview && !!settings && !!open)
+        if (!window.emealSettings?.isPreview && !!settings && !!open)
           markModalAsViewed();
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [settings, open]);

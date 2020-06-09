@@ -616,48 +616,44 @@
   src: url("//app.emeal.me/fonts/gilroy-heavy.woff2") format("woff2"), url("//app.emeal.me/fonts/gilroy-heavy.woff") format("woff"), url("//app.emeal.me/fonts/gilroy-heavy.svg#gilroyheavy") format("svg");
   font-weight: 900; }
 
+.cleanslate {
+  font-family: 'modal-gilroy', sans-serif !important; }
+
 /* Adding !important to everything is annoying, but cleanslate allows us to make sure we can deliver styles consistently */
-.cleanslate .emeal-modal-overlay {
-  opacity: 0 !important;
-  transition: opacity 500ms ease-in-out !important; }
-  .cleanslate .emeal-modal-overlay.ReactModal__Overlay--after-open {
-    opacity: 1 !important; }
-  .cleanslate .emeal-modal-overlay.ReactModal__Overlay--before-close {
-    opacity: 0 !important; }
-
-.cleanslate .emeal-modal {
-  transform: scale(0.8) !important;
-  transition: transform 500ms ease-in-out !important; }
-  .cleanslate .emeal-modal-content {
-    opacity: 0 !important;
-    transition: opacity 500ms ease-in-out !important;
-    transition-delay: 150ms !important; }
-
-.cleanslate .ReactModal__Overlay--after-open .emeal-modal {
-  transform: scale(1) !important; }
-  .cleanslate .ReactModal__Overlay--after-open .emeal-modal-content {
-    opacity: 1 !important; }
-
-.cleanslate .ReactModal__Overlay--before-close .emeal-modal {
-  transform: scale(0.8) !important; }
-  .cleanslate .ReactModal__Overlay--before-close .emeal-modal-content {
-    opacity: 0 !important; }
-
-.cleanslate .loaded .emeal-modal-content-loading {
+.cleanslate .loaded .emeal-static-content-loading {
   display: none !important; }
 
-.cleanslate .emeal-modal-content .loaded img {
+.cleanslate .emeal-static-content .loaded img {
   opacity: 1 !important; }
 
-.ReactModal__Body--open {
-  overflow: hidden !important; }
+.cleanslate.large .emeal-static-title {
+  font-size: 2em !important; }
 
-.cleanslate .emeal-modal {
+.cleanslate.large .emeal-static-content-row {
+  display: flex !important; }
+
+.cleanslate.large .emeal-static-content-img {
+  min-height: 200px !important; }
+
+.cleanslate.large .emeal-static-content p {
+  font-size: 1.5em !important; }
+
+.cleanslate.large .emeal-static-content-input {
+  margin-right: 8px !important;
+  flex: 1 !important; }
+  .cleanslate.large .emeal-static-content-input.error {
+    margin-bottom: 0px !important; }
+
+.cleanslate.large .emeal-static-content button {
+  margin-top: 0 !important;
+  width: 138px !important; }
+
+.cleanslate .emeal-static-title {
+  font-size: 1.5em !important; }
+
+.cleanslate .emeal-static-content {
   box-sizing: border-box !important;
-  position: absolute !important;
-  top: 5vw !important;
-  left: 5vw !important;
-  right: 5vw !important;
+  text-align: center !important;
   height: auto !important;
   border: 1px solid #ccc !important;
   background: #fff !important;
@@ -665,343 +661,81 @@
   border-radius: 20px !important;
   outline: none !important;
   padding: 36px !important;
-  margin-bottom: 16px !important;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
+  margin: 16px auto !important;
   max-width: 500px !important; }
-  @media (min-width: 525px) {
-    .cleanslate .emeal-modal {
-      top: 12vh !important; } }
-  @media (min-width: 660px) {
-    .cleanslate .emeal-modal {
-      width: 500px !important;
-      left: 50% !important;
-      right: unset !important;
-      margin-left: -250px !important; } }
-  .cleanslate .emeal-modal-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background-color: rgba(0, 0, 0, 0.4) !important;
-    z-index: 99999999 !important;
-    overflow-y: auto !important; }
-    .cleanslate .emeal-modal-overlay * {
-      font-family: 'modal-gilroy', sans-serif !important; }
-  .cleanslate .emeal-modal-close {
-    box-sizing: border-box !important;
-    height: 36px !important;
-    width: 36px !important;
-    line-height: 40px !important;
-    -webkit-appearance: none !important;
-    position: absolute !important;
-    top: 12px !important;
-    right: 8px !important;
-    background: #e5e5e5 !important;
-    border: 0 !important;
-    border-radius: 100% !important;
-    box-shadow: none !important;
-    padding: 4px !important; }
-    .cleanslate .emeal-modal-close img {
-      cursor: pointer !important;
-      height: 20px !important;
-      width: auto !important; }
-    .cleanslate .emeal-modal-close:active {
-      background: #ccc !important; }
-  .cleanslate .emeal-modal-title {
-    font-size: 1.5em !important; }
-    @media (min-width: 525px) {
-      .cleanslate .emeal-modal-title {
-        font-size: 2em !important; } }
-  .cleanslate .emeal-modal-content {
-    text-align: center !important; }
-    .cleanslate .emeal-modal-content-row {
-      margin: 32px 0 !important;
-      justify-content: center !important;
-      align-items: center !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content-row {
-          display: flex !important; } }
-    .cleanslate .emeal-modal-content-loading {
-      height: 100% !important;
-      width: 100% !important; }
-    .cleanslate .emeal-modal-content-img {
-      position: relative !important;
-      min-height: 150px !important; }
-      @media (min-width: 450px) {
-        .cleanslate .emeal-modal-content-img {
-          min-height: 200px !important; } }
-    .cleanslate .emeal-modal-content img {
-      max-width: 100% !important;
-      max-height: 200px !important;
-      opacity: 0 !important;
-      transition: opacity 100ms ease-in !important; }
-    .cleanslate .emeal-modal-content p {
-      margin: 0 !important;
-      line-height: 1.3em !important;
-      font-size: 1.2em !important;
-      hyphens: auto !important;
-      word-break: break-word !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content p {
-          font-size: 1.5em !important; } }
-    .cleanslate .emeal-modal-content-input {
-      position: relative !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content-input {
-          margin-right: 8px !important;
-          flex: 1 !important; } }
-      .cleanslate .emeal-modal-content-input.hasError {
-        margin-bottom: 24px !important; }
-        @media (min-width: 525px) {
-          .cleanslate .emeal-modal-content-input.hasError {
-            margin-bottom: 0px !important; } }
-    .cleanslate .emeal-modal-content input {
-      box-sizing: border-box !important;
-      line-height: 24px !important;
-      font-size: 18px !important;
-      padding: 8px 16px !important;
-      background: white !important;
-      border-radius: 10px !important;
-      border: 1px solid #ccc !important;
-      min-height: 52px !important;
-      text-align: left !important;
-      width: 100% !important; }
-    .cleanslate .emeal-modal-content-error {
-      bottom: -26px !important;
-      position: absolute !important;
-      padding-left: 4px !important;
-      font-size: 16px !important;
-      color: darkred !important;
-      text-align: left !important; }
-    .cleanslate .emeal-modal-content button {
-      -webkit-appearance: none !important;
-      background: #0068ff !important;
-      border: none !important;
-      color: white !important;
-      padding: 16px !important;
-      text-align: center !important;
-      text-decoration: none !important;
-      display: inline-block !important;
-      font-size: 18px !important;
-      line-height: 20px !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.01em !important;
-      border-radius: 10px !important;
-      cursor: pointer !important;
-      margin-top: 24px !important;
-      width: 100% !important;
-      box-sizing: border-box !important; }
-      .cleanslate .emeal-modal-content button[disabled] {
-        opacity: 0.4 !important;
-        pointer-events: none !important;
-        cursor: default !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content button {
-          margin-top: 0 !important;
-          width: 138px !important; } }
-  .cleanslate .emeal-modal-link {
-    padding-top: 16px !important;
-    font-size: 18px !important;
-    font-weight: 500 !important;
-    color: darkgray !important; }
-    .cleanslate .emeal-modal-link a {
-      text-decoration: none !important;
-      color: #0068ff !important; }
-      .cleanslate .emeal-modal-link a:hover {
-        text-decoration: underline !important; }
-
-/* Adding !important to everything is annoying, but cleanslate allows us to make sure we can deliver styles consistently */
-.cleanslate .emeal-modal-overlay {
-  opacity: 0 !important;
-  transition: opacity 500ms ease-in-out !important; }
-  .cleanslate .emeal-modal-overlay.ReactModal__Overlay--after-open {
-    opacity: 1 !important; }
-  .cleanslate .emeal-modal-overlay.ReactModal__Overlay--before-close {
-    opacity: 0 !important; }
-
-.cleanslate .emeal-modal {
-  transform: scale(0.8) !important;
-  transition: transform 500ms ease-in-out !important; }
-  .cleanslate .emeal-modal-content {
+  .cleanslate .emeal-static-content-row {
+    margin: 32px 0 !important;
+    justify-content: center !important;
+    align-items: center !important; }
+  .cleanslate .emeal-static-content-loading {
+    height: 100% !important;
+    width: 100% !important; }
+  .cleanslate .emeal-static-content-img {
+    position: relative !important;
+    min-height: 150px !important; }
+  .cleanslate .emeal-static-content img {
+    max-width: 100% !important;
+    max-height: 200px !important;
     opacity: 0 !important;
-    transition: opacity 500ms ease-in-out !important;
-    transition-delay: 150ms !important; }
-
-.cleanslate .ReactModal__Overlay--after-open .emeal-modal {
-  transform: scale(1) !important; }
-  .cleanslate .ReactModal__Overlay--after-open .emeal-modal-content {
-    opacity: 1 !important; }
-
-.cleanslate .ReactModal__Overlay--before-close .emeal-modal {
-  transform: scale(0.8) !important; }
-  .cleanslate .ReactModal__Overlay--before-close .emeal-modal-content {
-    opacity: 0 !important; }
-
-.cleanslate .loaded .emeal-modal-content-loading {
-  display: none !important; }
-
-.cleanslate .emeal-modal-content .loaded img {
-  opacity: 1 !important; }
-
-.ReactModal__Body--open {
-  overflow: hidden !important; }
-
-.cleanslate .emeal-modal {
-  box-sizing: border-box !important;
-  position: absolute !important;
-  top: 5vw !important;
-  left: 5vw !important;
-  right: 5vw !important;
-  height: auto !important;
-  border: 1px solid #ccc !important;
-  background: #fff !important;
-  overflow: auto !important;
-  border-radius: 20px !important;
-  outline: none !important;
-  padding: 36px !important;
-  margin-bottom: 16px !important;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
-  max-width: 500px !important; }
-  @media (min-width: 525px) {
-    .cleanslate .emeal-modal {
-      top: 12vh !important; } }
-  @media (min-width: 660px) {
-    .cleanslate .emeal-modal {
-      width: 500px !important;
-      left: 50% !important;
-      right: unset !important;
-      margin-left: -250px !important; } }
-  .cleanslate .emeal-modal-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background-color: rgba(0, 0, 0, 0.4) !important;
-    z-index: 99999999 !important;
-    overflow-y: auto !important; }
-    .cleanslate .emeal-modal-overlay * {
-      font-family: 'modal-gilroy', sans-serif !important; }
-  .cleanslate .emeal-modal-close {
+    transition: opacity 100ms ease-in !important; }
+  .cleanslate .emeal-static-content p {
+    margin: 0 !important;
+    line-height: 1.3em !important;
+    font-size: 1.2em !important;
+    hyphens: auto !important;
+    word-break: break-word !important; }
+  .cleanslate .emeal-static-content-input {
+    position: relative !important; }
+    .cleanslate .emeal-static-content-input.hasError {
+      margin-bottom: 24px !important; }
+  .cleanslate .emeal-static-content input {
     box-sizing: border-box !important;
-    height: 36px !important;
-    width: 36px !important;
-    line-height: 40px !important;
-    -webkit-appearance: none !important;
-    position: absolute !important;
-    top: 12px !important;
-    right: 8px !important;
-    background: #e5e5e5 !important;
-    border: 0 !important;
-    border-radius: 100% !important;
-    box-shadow: none !important;
-    padding: 4px !important; }
-    .cleanslate .emeal-modal-close img {
-      cursor: pointer !important;
-      height: 20px !important;
-      width: auto !important; }
-    .cleanslate .emeal-modal-close:active {
-      background: #ccc !important; }
-  .cleanslate .emeal-modal-title {
-    font-size: 1.5em !important; }
-    @media (min-width: 525px) {
-      .cleanslate .emeal-modal-title {
-        font-size: 2em !important; } }
-  .cleanslate .emeal-modal-content {
-    text-align: center !important; }
-    .cleanslate .emeal-modal-content-row {
-      margin: 32px 0 !important;
-      justify-content: center !important;
-      align-items: center !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content-row {
-          display: flex !important; } }
-    .cleanslate .emeal-modal-content-loading {
-      height: 100% !important;
-      width: 100% !important; }
-    .cleanslate .emeal-modal-content-img {
-      position: relative !important;
-      min-height: 150px !important; }
-      @media (min-width: 450px) {
-        .cleanslate .emeal-modal-content-img {
-          min-height: 200px !important; } }
-    .cleanslate .emeal-modal-content img {
-      max-width: 100% !important;
-      max-height: 200px !important;
-      opacity: 0 !important;
-      transition: opacity 100ms ease-in !important; }
-    .cleanslate .emeal-modal-content p {
-      margin: 0 !important;
-      line-height: 1.3em !important;
-      font-size: 1.2em !important;
-      hyphens: auto !important;
-      word-break: break-word !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content p {
-          font-size: 1.5em !important; } }
-    .cleanslate .emeal-modal-content-input {
-      position: relative !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content-input {
-          margin-right: 8px !important;
-          flex: 1 !important; } }
-      .cleanslate .emeal-modal-content-input.hasError {
-        margin-bottom: 24px !important; }
-        @media (min-width: 525px) {
-          .cleanslate .emeal-modal-content-input.hasError {
-            margin-bottom: 0px !important; } }
-    .cleanslate .emeal-modal-content input {
-      box-sizing: border-box !important;
-      line-height: 24px !important;
-      font-size: 18px !important;
-      padding: 8px 16px !important;
-      background: white !important;
-      border-radius: 10px !important;
-      border: 1px solid #ccc !important;
-      min-height: 52px !important;
-      text-align: left !important;
-      width: 100% !important; }
-    .cleanslate .emeal-modal-content-error {
-      bottom: -26px !important;
-      position: absolute !important;
-      padding-left: 4px !important;
-      font-size: 16px !important;
-      color: darkred !important;
-      text-align: left !important; }
-    .cleanslate .emeal-modal-content button {
-      -webkit-appearance: none !important;
-      background: #0068ff !important;
-      border: none !important;
-      color: white !important;
-      padding: 16px !important;
-      text-align: center !important;
-      text-decoration: none !important;
-      display: inline-block !important;
-      font-size: 18px !important;
-      line-height: 20px !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.01em !important;
-      border-radius: 10px !important;
-      cursor: pointer !important;
-      margin-top: 24px !important;
-      width: 100% !important;
-      box-sizing: border-box !important; }
-      .cleanslate .emeal-modal-content button[disabled] {
-        opacity: 0.4 !important;
-        pointer-events: none !important;
-        cursor: default !important; }
-      @media (min-width: 525px) {
-        .cleanslate .emeal-modal-content button {
-          margin-top: 0 !important;
-          width: 138px !important; } }
-  .cleanslate .emeal-modal-link {
-    padding-top: 16px !important;
+    line-height: 24px !important;
     font-size: 18px !important;
-    font-weight: 500 !important;
-    color: darkgray !important; }
-    .cleanslate .emeal-modal-link a {
-      text-decoration: none !important;
-      color: #0068ff !important; }
-      .cleanslate .emeal-modal-link a:hover {
-        text-decoration: underline !important; }
+    padding: 8px 16px !important;
+    background: white !important;
+    border-radius: 10px !important;
+    border: 1px solid #ccc !important;
+    min-height: 52px !important;
+    text-align: left !important;
+    width: 100% !important; }
+  .cleanslate .emeal-static-content-error {
+    bottom: -26px !important;
+    position: absolute !important;
+    padding-left: 4px !important;
+    font-size: 16px !important;
+    color: darkred !important;
+    text-align: left !important; }
+  .cleanslate .emeal-static-content button {
+    -webkit-appearance: none !important;
+    background: #0068ff !important;
+    border: none !important;
+    color: white !important;
+    padding: 16px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 18px !important;
+    line-height: 20px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    margin-top: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important; }
+    .cleanslate .emeal-static-content button[disabled] {
+      opacity: 0.4 !important;
+      pointer-events: none !important;
+      cursor: default !important; }
+
+.cleanslate .emeal-static-link {
+  padding-top: 16px !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: darkgray !important; }
+  .cleanslate .emeal-static-link a {
+    text-decoration: none !important;
+    color: #0068ff !important; }
+    .cleanslate .emeal-static-link a:hover {
+      text-decoration: underline !important; }

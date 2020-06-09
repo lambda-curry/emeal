@@ -4,148 +4,74 @@
 
 // Animation
 .cleanslate {
-  .emeal-modal-overlay {
-    opacity: 0 !important;
-    transition: opacity 500ms ease-in-out !important;
-
-    &.ReactModal__Overlay--after-open {
-      opacity: 1 !important;
-    }
-
-    &.ReactModal__Overlay--before-close {
-      opacity: 0 !important;
-    }
-  }
-
-  .emeal-modal {
-    transform: scale(0.8) !important;
-    transition: transform 500ms ease-in-out !important;
-
-    &-content {
-      opacity: 0 !important;
-      transition: opacity 500ms ease-in-out !important;
-      transition-delay: 150ms !important;
-    }
-  }
-
-  .ReactModal__Overlay--after-open .emeal-modal {
-    transform: scale(1) !important;
-
-    &-content {
-      opacity: 1 !important;
-    }
-  }
-
-  .ReactModal__Overlay--before-close .emeal-modal {
-    transform: scale(0.8) !important;
-
-    &-content {
-      opacity: 0 !important;
-    }
-  }
-
-  .loaded .emeal-modal-content-loading {
+  .loaded .emeal-static-content-loading {
     display: none !important;
   }
 
-  .emeal-modal-content .loaded img {
+  .emeal-static-content .loaded img {
     opacity: 1 !important;
   }
 }
 
-.ReactModal__Body--open {
-  overflow: hidden !important;
-}
-
 .cleanslate {
-  .emeal-modal {
-    box-sizing: border-box !important;
-    position: absolute !important;
-    top: 5vw !important;
-    left: 5vw !important;
-    right: 5vw !important;
-    height: auto !important;
-    border: 1px solid #ccc !important;
-    background: #fff !important;
-    overflow: auto !important;
-    border-radius: 20px !important;
-    outline: none !important;
-    padding: 36px !important;
-    margin-bottom: 16px !important;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23) !important;
-    max-width: 500px !important;
-
-    @media (min-width: 525px) {
-      top: 12vh !important;
-    }
-
-    @media (min-width: 660px) {
-      width: 500px !important;
-      left: 50% !important;
-      right: unset !important;
-      margin-left: -250px !important;
-    }
-
-    &-overlay {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      background-color: rgba(0, 0, 0, 0.4) !important;
-      z-index: 99999999 !important;
-      overflow-y: auto !important;
-
-      * {
-        font-family: 'modal-gilroy', sans-serif !important;
-      }
-    }
-
-    &-close {
-      box-sizing: border-box !important;
-      height: 36px !important;
-      width: 36px !important;
-      line-height: 40px !important;
-      -webkit-appearance: none !important;
-      position: absolute !important;
-      top: 12px !important;
-      right: 8px !important;
-      background: #e5e5e5 !important;
-      border: 0 !important;
-      border-radius: 100% !important;
-      box-shadow: none !important;
-      padding: 4px !important;
-
-      img {
-        cursor: pointer !important;
-        height: 20px !important;
-        width: auto !important;
-      }
-
-      &:active {
-        background: #ccc !important;
-      }
-    }
-
-    &-title {
-      font-size: 1.5em !important;
-
-      @media (min-width: 525px) {
+  &.large {
+    .emeal-static {
+      &-title {
         font-size: 2em !important;
       }
+
+      &-content {
+        &-row {
+          display: flex !important;
+        }
+
+        &-img {
+          min-height: 200px !important;
+        }
+
+        p {
+          font-size: 1.5em !important;
+        }
+
+        &-input {
+          margin-right: 8px !important;
+          flex: 1 !important;
+
+          &.error {
+            margin-bottom: 0px !important;
+          }
+        }
+
+        button {
+          margin-top: 0 !important;
+          width: 138px !important;
+        }
+      }
+    }
+  }
+
+  .emeal-static {
+    &-title {
+      font-size: 1.5em !important;
     }
 
     &-content {
+      box-sizing: border-box !important;
       text-align: center !important;
+      height: auto !important;
+      border: 1px solid #ccc !important;
+      background: #fff !important;
+      overflow: auto !important;
+      border-radius: 20px !important;
+      outline: none !important;
+      padding: 36px !important;
+      margin: 16px auto !important;
+      max-width: 500px !important;
 
       &-row {
         margin: 32px 0 !important;
         justify-content: center !important;
         align-items: center !important;
-
-        @media (min-width: 525px) {
-          display: flex !important;
-        }
       }
 
       &-loading {
@@ -156,10 +82,6 @@
       &-img {
         position: relative !important;
         min-height: 150px !important;
-
-        @media (min-width: 450px) {
-          min-height: 200px !important;
-        }
       }
 
       img {
@@ -175,26 +97,13 @@
         font-size: 1.2em !important;
         hyphens: auto !important;
         word-break: break-word !important;
-
-        @media (min-width: 525px) {
-          font-size: 1.5em !important;
-        }
       }
 
       &-input {
         position: relative !important;
 
-        @media (min-width: 525px) {
-          margin-right: 8px !important;
-          flex: 1 !important;
-        }
-
         &.hasError {
           margin-bottom: 24px !important;
-
-          @media (min-width: 525px) {
-            margin-bottom: 0px !important;
-          }
         }
       }
 
@@ -243,11 +152,6 @@
           opacity: 0.4 !important;
           pointer-events: none !important;
           cursor: default !important;
-        }
-
-        @media (min-width: 525px) {
-          margin-top: 0 !important;
-          width: 138px !important;
         }
       }
     }

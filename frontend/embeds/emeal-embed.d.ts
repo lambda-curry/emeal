@@ -1,4 +1,4 @@
-export interface EmealModalSettings {
+export interface EmealSettings {
   isPreview?: boolean;
   title: string;
   description: string;
@@ -7,8 +7,7 @@ export interface EmealModalSettings {
 
 declare global {
   export interface Window {
-    emealModalSettings: EmealModalSettings;
-    emealStaticSettings: EmealModalSettings;
+    emealSettings: EmealSettings;
     emealCouponId: string | undefined;
   }
 }

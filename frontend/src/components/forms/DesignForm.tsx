@@ -16,14 +16,7 @@ import classNames from 'classnames';
 
 declare global {
   interface Window {
-    emealModalSettings: {
-      isPreview?: boolean;
-      title: string;
-      description: string;
-      image: string;
-    };
-
-    emealStaticSettings: {
+    emealSettings: {
       isPreview?: boolean;
       title: string;
       description: string;
@@ -97,41 +90,6 @@ export const DesignForm = () => {
       setStatus({ state: 'success' });
       resetForm({ values });
     }
-  };
-
-  const preview = async (formikProps: FormikProps<DesignFormValues>) => {
-    const { title, info, files, image } = formikProps.values;
-
-    const previewImage = image
-      ? image
-      : files[0]
-      ? URL.createObjectURL(files[0])
-      : '';
-
-    window.emealModalSettings = {
-      isPreview:
-        window.location.host === 'local.emeal.me:3000' ||
-        window.location.host === 'app.emeal.me'
-          ? true
-          : false,
-      title,
-      description: info,
-      image: previewImage,
-    };
-
-    window.emealStaticSettings = {
-      isPreview:
-        window.location.host === 'local.emeal.me:3000' ||
-        window.location.host === 'app.emeal.me'
-          ? true
-          : false,
-      title,
-      description: info,
-      image: previewImage,
-    };
-
-    await loadModalScript();
-    await loadEmbedScript();
   };
 
   return (
@@ -232,19 +190,33 @@ export const DesignForm = () => {
             <ServerErrors status={status} />
             <div className='form-actions'>
               <button
+                style={{ flex: '2' }}
                 className='button-primary-light button-prefix'
                 type='button'
                 disabled={!formikProps.isValid}
-                onClick={() => preview(formikProps)}
+                onClick={() => loadModalScript(formikProps)}
               >
                 <Icon name='play' />
-                Preview
+                Preview Modal
               </button>
               <button
+                style={{ flex: '1' }}
                 type='submit'
                 disabled={status?.state === 'saving' || isSubmitting || !dirty}
               >
                 {status?.state === 'saving' ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+
+            <div className='form-actions' style={{ marginTop: '16px' }}>
+              <button
+                className='button-primary-light button-prefix'
+                type='button'
+                disabled={!formikProps.isValid}
+                onClick={() => loadEmbedScript(formikProps)}
+              >
+                <Icon name='play' />
+                Preview Static
               </button>
             </div>
           </>
@@ -254,18 +226,54 @@ export const DesignForm = () => {
   );
 };
 
-function loadModalScript() {
+function loadModalScript(formikProps: FormikProps<DesignFormValues>) {
+  const { title, info, files, image } = formikProps.values;
+
+  const previewImage = image
+    ? image
+    : files[0]
+    ? URL.createObjectURL(files[0])
+    : '';
+
+  window.emealSettings = {
+    isPreview:
+      window.location.host === 'local.emeal.me:3000' ||
+      window.location.host === 'app.emeal.me'
+        ? true
+        : false,
+    title,
+    description: info,
+    image: previewImage,
+  };
+
   const modaljs = window.document.createElement('script');
   modaljs.type = 'text/javascript';
   modaljs.src = `${process.env.PUBLIC_URL}/modal/dist/emeal-embed.min.js`;
   document.body.appendChild(modaljs);
-  return new Promise((resolve) => (modaljs.onload = resolve));
 }
 
-function loadEmbedScript() {
+function loadEmbedScript(formikProps: FormikProps<DesignFormValues>) {
+  const { title, info, files, image } = formikProps.values;
+
+  const previewImage = image
+    ? image
+    : files[0]
+    ? URL.createObjectURL(files[0])
+    : '';
+
+  window.emealSettings = {
+    isPreview:
+      window.location.host === 'local.emeal.me:3000' ||
+      window.location.host === 'app.emeal.me'
+        ? true
+        : false,
+    title,
+    description: info,
+    image: previewImage,
+  };
+
   const embed = window.document.createElement('script');
   embed.type = 'text/javascript';
   embed.src = `${process.env.PUBLIC_URL}/static/dist/emeal-embed.min.js`;
   document.body.querySelector('.form-actions')?.parentNode?.appendChild(embed);
-  return new Promise((resolve) => (embed.onload = resolve));
 }

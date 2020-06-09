@@ -8,5 +8,8 @@ export default {
     banner:
       "/*! Not sure why this copyright below is getting added. The code in it's entirety is copyrighted so please do not use it in it's entirety, but feel free to copy and use patterns that you like! */",
   },
-  plugins: [typescript(), terser()],
+  plugins: [
+    typescript(),
+    //  terser()
+  ],
 };
