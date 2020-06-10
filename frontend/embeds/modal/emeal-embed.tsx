@@ -45,7 +45,6 @@ interface EmealEmbedSettings {
 
     // Note: We need to clean up so that we can dynamically load this script as many times as we want for previewing it
     const removeAllAddedScriptsAndStyles = () => {
-      // TODO: make sure we clean up everything once the modal is closed
       setTimeout(() => {
         embedTarget.remove();
         vendorScript.remove();

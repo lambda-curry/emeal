@@ -43,13 +43,7 @@ interface EmealEmbedSettings {
     if (!staticEmbedScript || !staticStyles || !vendorScript || !embedTarget)
       return;
 
-    const StaticContent = ({
-      settings,
-      loading,
-    }: {
-      settings: EmealEmbedSettings;
-      loading: boolean;
-    }) => {
+    const StaticContent = ({ settings }: { settings: EmealEmbedSettings }) => {
       const [email, setEmail] = React.useState('');
       const [imgLoaded, setImgLoaded] = React.useState(false);
       const [error, setError] = React.useState<string>();
@@ -78,7 +72,7 @@ interface EmealEmbedSettings {
         if (data.errors) return setError('An error occurred, let us know.');
       };
 
-      if (loading || !settings) return <></>;
+      if (!settings) return <></>;
 
       return (
         <div className='emeal-static-content'>
@@ -162,12 +156,10 @@ interface EmealEmbedSettings {
       >;
 
       const configureSettings = async () => {
-        const noSettingsOrAlreadyOpened =
-          (!presetSettings && !emealProjectId) ||
-          (!presetSettings?.isPreview &&
-            window.localStorage.getItem('__emeal'));
+        const noSettings =
+          (!presetSettings && !emealProjectId) || !presetSettings?.isPreview;
 
-        if (noSettingsOrAlreadyOpened) return;
+        if (noSettings) return;
 
         if (presetSettings?.isPreview) {
           setLoading(false);
@@ -230,10 +222,7 @@ interface EmealEmbedSettings {
 
       return (
         <div ref={containerRef} className={`cleanslate ${size}`}>
-          <StaticContent
-            settings={settings as EmealEmbedSettings}
-            loading={loading}
-          />
+          <StaticContent settings={settings as EmealEmbedSettings} />
         </div>
       );
     };
