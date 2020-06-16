@@ -156,9 +156,7 @@ interface EmealEmbedSettings {
       >;
 
       const configureSettings = async () => {
-        const noSettings =
-          (!presetSettings && !emealProjectId) || !presetSettings?.isPreview;
-
+        const noSettings = !presetSettings && !emealProjectId;
         if (noSettings) return;
 
         if (presetSettings?.isPreview) {
