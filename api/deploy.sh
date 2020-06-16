@@ -5,4 +5,4 @@ yarn build && \
 cp ../yarn.lock ./dist/yarn.lock && \
 docker build . -t emeal/api:$DOCKERTAG && \
 docker push emeal/api:$DOCKERTAG && \
-kubectl -n emeal-prod set image deployment/api api=emeal/api:$DOCKERTAG
+rancher kubectl -n emeal-prod set image deployment/api api=emeal/api:$DOCKERTAG
