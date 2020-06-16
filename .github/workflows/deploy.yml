@@ -44,4 +44,4 @@ jobs:
           RANCHER_CONTEXT_ID: ${{ secrets.RANCHER_CONTEXT_ID }}
       # Runs a single command using the runners shell
       - name: Deploy
-        run: yarn deploy
+        run: yarn && yarn deploy
