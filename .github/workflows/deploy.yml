@@ -6,7 +6,7 @@ name: deploy
 # events but only for the master branch
 on:
   push:
-    branches: [ prod ]
+    branches: [prod]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -14,27 +14,27 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.2
-      with:
-        node-version: 12
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v1.4.2
+        with:
+          node-version: 12
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    - name: Install Rancher CLI
-      run: |
-        curl -LO https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.gz && \
-        tar -xvzf rancher-linux-amd64-v2.3.2.tar.gz
-        mv rancher-v2.3.2/rancher /usr/bin/rancher
-        rm -rf rancher-v2.3.2 && rm -rf rancher-linux-amd64-v2.3.2.tar.gz
-        rancher login "$RANCHER_SERVER_URL" -t "$RANCHER_API_TOKEN" --context "$RANCHER_CONTEXT_ID"
-      env:
-        RANCHER_SERVER_URL: ${{ secrets.RANCHER_SERVER_URL }}
-        RANCHER_API_TOKEN: ${{ secrets.RANCHER_API_TOKEN }}
-        RANCHER_CONTEXT_ID: ${{ secrets.RANCHER_CONTEXT_ID }}
-    # Runs a single command using the runners shell
-    - name: Deploy
-      run: yarn deploy
+      - name: Install Rancher CLI
+        run: |
+          curl -LO https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.gz && \
+          tar -xvzf rancher-linux-amd64-v2.3.2.tar.gz
+          mv rancher-v2.3.2/rancher /usr/local/bin/rancher
+          rm -rf rancher-v2.3.2 && rm -rf rancher-linux-amd64-v2.3.2.tar.gz
+          rancher login "$RANCHER_SERVER_URL" -t "$RANCHER_API_TOKEN" --context "$RANCHER_CONTEXT_ID"
+        env:
+          RANCHER_SERVER_URL: ${{ secrets.RANCHER_SERVER_URL }}
+          RANCHER_API_TOKEN: ${{ secrets.RANCHER_API_TOKEN }}
+          RANCHER_CONTEXT_ID: ${{ secrets.RANCHER_CONTEXT_ID }}
+      # Runs a single command using the runners shell
+      - name: Deploy
+        run: yarn deploy
