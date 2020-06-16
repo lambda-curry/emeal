@@ -5,4 +5,4 @@ yarn build:static
 yarn build
 docker build . -t emeal/frontend:$DOCKERTAG
 docker push emeal/frontend:$DOCKERTAG
-kubectl -n emeal-prod set image deployment/frontend frontend=emeal/frontend:$DOCKERTAG
+rancher kubectl -n emeal-prod set image deployment/frontend frontend=emeal/frontend:$DOCKERTAG
