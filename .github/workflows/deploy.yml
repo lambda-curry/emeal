@@ -47,8 +47,8 @@ jobs:
           tar -xvzf rancher-linux-amd64-v2.3.2.tar.gz
           sudo mv rancher-v2.3.2/rancher /usr/bin/rancher
           rm -rf rancher-v2.3.2 && rm -rf rancher-linux-amd64-v2.3.2.tar.gz
-          echo $RANCHER_CONTEXT_ID
           rancher login "$RANCHER_SERVER_URL" -t "$RANCHER_API_TOKEN" --context "$RANCHER_CONTEXT_ID"
+          rancher kubectl get pods -n emeal-prod
         env:
           RANCHER_SERVER_URL: ${{ secrets.RANCHER_SERVER_URL }}
           RANCHER_API_TOKEN: ${{ secrets.RANCHER_API_TOKEN }}
