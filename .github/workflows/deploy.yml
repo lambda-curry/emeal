@@ -24,11 +24,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Docker login
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+
       - name: Install Rancher CLI
         run: |
           curl -LO https://github.com/rancher/cli/releases/download/v2.3.2/rancher-linux-amd64-v2.3.2.tar.gz && \
           tar -xvzf rancher-linux-amd64-v2.3.2.tar.gz
-          mv rancher-v2.3.2/rancher /usr/local/bin/rancher
+          sudo mv rancher-v2.3.2/rancher /usr/bin/rancher
           rm -rf rancher-v2.3.2 && rm -rf rancher-linux-amd64-v2.3.2.tar.gz
           rancher login "$RANCHER_SERVER_URL" -t "$RANCHER_API_TOKEN" --context "$RANCHER_CONTEXT_ID"
         env:
