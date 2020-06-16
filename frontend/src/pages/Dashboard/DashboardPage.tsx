@@ -55,7 +55,7 @@ export const DashboardPage = () => {
           <p className='dashboard-canceled'>
             Your plan has been canceled. If you would like to resubscribe or
             change plans, please contact us at{' '}
-            <a href='mailto:support@emeal.me'>support@emeal.me</a>
+            <a href='mailto:hello@emeal.me'>hello@emeal.me</a>
           </p>
         ) : null}
         <h3>Last 30 Days</h3>

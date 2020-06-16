@@ -30,7 +30,7 @@ export const EmbedPage = () => {
             page.
             <br />
             Need additional help? Email&nbsp;us&nbsp;at&nbsp;
-            <a href='mailto:support@emeal.me'>support@emeal.me</a>.
+            <a href='mailto:hello@emeal.me'>hello@emeal.me</a>.
           </div>
         </div>
       </div>
