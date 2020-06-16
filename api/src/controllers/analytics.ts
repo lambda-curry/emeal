@@ -25,7 +25,6 @@ async function getAnalyticsForProject(req: Request, res: Response) {
 
   const subscriberCount = await Coupon.countDocuments({
     projectId,
-    createdAt: { $gt: moment().subtract(30, 'days').toDate() },
   });
   const redeemed30DayCount = await Coupon.countDocuments({
     projectId,
